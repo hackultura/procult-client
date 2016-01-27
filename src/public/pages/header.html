@@ -1,0 +1,67 @@
+<md-toolbar>
+	<div class="md-toolbar-tools" hide-xs>
+		<h2 aria-label="Procult" hide-sm>Procult</h2>
+
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas">
+			<md-icon>dashboard</md-icon>
+			Minhas Propostas
+		</md-button>
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas">
+			<md-icon>view_list</md-icon>
+			Propostas enviadas
+		</md-button>
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.usuarios.lista">
+			<md-icon>accessibility</md-icon>
+			Usuários
+		</md-button>
+		<md-menu md-position-mode="target-right target">
+			<md-button aria-label="Meu usuario" ng-click="$mdOpenMenu($event)">
+				<md-icon>face</md-icon>
+				Nome do Usuário
+			</md-button>
+			<md-menu-content>
+				<md-subheader>Nome do usuário</md-subheader>
+				<md-menu-item>
+					<md-button layout-fill md-ink-ripple data-ui-sref="admin.usuarios">
+						<md-icon md-menu-align-target>perm_identity</md-icon>
+						Meu Perfil
+					</md-button>
+				</md-menu-item>
+
+				<md-menu-item>
+					<md-button layout-fill md-ink-ripple>
+						<md-icon md-menu-align-target>exit_to_app</md-icon>
+						Sair do Sistema
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+
+	<div class="md-toolbar-tools" hide-gt-sm hide-sm>
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas">
+			<md-icon>dashboard</md-icon>
+		</md-button>
+		<md-menu md-position-mode="target-right target">
+			<md-button aria-label="Meu usuario" ng-click="$mdOpenMenu($event)">
+				<md-icon>face</md-icon>
+			</md-button>
+			<md-menu-content>
+				<md-subheader>Nome do usuário</md-subheader>
+				<md-menu-item>
+					<md-button layout-fill md-ink-ripple>
+						<md-icon md-menu-align-target>perm_identity</md-icon>
+						Meu Perfil
+					</md-button>
+				</md-menu-item>
+
+				<md-menu-item>
+					<md-button layout-fill md-ink-ripple>
+						<md-icon md-menu-align-target>exit_to_app</md-icon>
+						Sair
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+</md-toolbar>

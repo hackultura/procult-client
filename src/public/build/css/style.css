@@ -1,0 +1,49 @@
+/* Material Icons Sizes */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-64 { font-size: 64px; }
+.material-icons.md-128 { font-size: 128px; }
+
+/* Covers */
+.cover {
+  color: #FFF;
+  -moz-box-shadow:    1px 1px 2px 1px #ccc;
+  -webkit-box-shadow: 1px 1px 2px 1px #ccc;
+  box-shadow:         1px 1px 2px 1px #ccc;
+}
+
+.cover h1 {
+  text-shadow: 1px 1px 1px #000;
+}
+
+.cover .button_cover {
+  margin-top: 24%;
+}
+
+.client_cover {
+  background: url("../img/client_cover_bg.jpg");
+}
+
+/* Register Page */
+.profile_boxes {
+  cursor: pointer;
+}
+
+/* Login Page */
+.login h1 {
+  color: #FFF;
+  text-shadow: 1px 1px 1px #000;
+}
+.login_bg {
+  background: url("../img/login_bg2.jpg") 1700px;
+}
+
+.login_form .md-block {
+  font-size: 20px;
+}
+
+.login_button button {
+  font-size: 20px;
+}

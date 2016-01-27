@@ -1,0 +1,62 @@
+<div data-ng-controller="UserController as vm">
+  <div layout="row" layout-padding  class="cover client_cover">
+    <div layout-align="center" layout-padding flex>
+      <h1 hide-xs>Usuários</h1>
+      <h3 hide-gt-sm hide-sm>Usuários</h3>
+    </div>
+    <div layout-align="end center" hide-xs>
+      <md-button class="md-raised md-fab md-primary button_cover"
+      aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
+        <md-icon md-font-library="material-icons">add</md-icon>
+      </md-button>
+    </div>
+
+    <div layout-align="end center" hide-gt-sm hide-sm>
+      <md-button class="md-raised md-fab md-mini md-primary button_cover"
+      aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
+        <md-icon md-font-library="material-icons">add</md-icon>
+      </md-button>
+    </div>
+  </div>
+  <div class='md-padding' id="client-list" layout="column" layout-align="center">
+    <md-card flex>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Claudio Prata Santos</span>
+          <span class="md-subhead"><strong>E-mail: </strong> claudio.santos@mail.com</span>
+          <span class="md-subhead"><strong>CPF: </strong> 012.102.102-11</span>
+        </md-card-title-text>
+        <md-card-title-media hide-xs>
+          <i class="material-icons md-48">face</i>
+        </md-card-title-media>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+		  <md-button class="md-button md-raised md-primary" aria-label="Editar Usuário"
+			  style="margin-right: 5px;">
+          <md-icon md-font-library="material-icons">create</md-icon>
+		  Editar Usuário
+        </md-button>
+      </md-card-actions>
+    </md-card>
+
+    <md-card flex>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Francisco Daniel Cavalcante</span>
+          <span class="md-subhead"><strong>E-mail: </strong> fran.daniel@mail.com</span>
+          <span class="md-subhead"><strong>CNPJ: </strong> 12.102.102/0001-12</span>
+        </md-card-title-text>
+        <md-card-title-media hide-xs>
+          <i class="material-icons md-48">business</i>
+        </md-card-title-media>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+		  <md-button class="md-button md-raised md-primary" aria-label="Editar Usuário"
+			  style="margin-right: 5px;">
+          <md-icon md-font-library="material-icons">create</md-icon>
+		  Editar Usuário
+        </md-button>
+      </md-card-actions>
+    </md-card>
+
+  </div>
