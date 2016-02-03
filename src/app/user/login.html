@@ -1,15 +1,18 @@
-<div ng-controller="LoginController as vm">
+<div ng-controller="LoginController as vm" data-ng-init="vm.init()">
     <div layout="row" layout-align="center">
       <h1 class="md-display-3">Procult | Login</h1>
     </div>
-    <form name="peopleForm" method="post" class="login_form" layout="row" layout-padding layout-align="center">
+	<div layout="column" flex="80" layout-align="center" style="margin: 0 auto;">
+		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.msg }}</p>
+	</div>
+    <form name="loginForm" method="post" data-ng-submit="vm.login()" class="login_form" layout="row" layout-padding layout-align="center">
       <md-card flex="50" class="md-whiteframe-z2">
         <md-content>
           <md-input-container class="md-block" flex-gt-sm>
             <label>Email</label>
             <input name="email" ng-model="vm.user.email" type="text"
             required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
-            <div ng-messages="peopleForm.email.$error" role="alert">
+            <div ng-messages="loginForm.email.$error" role="alert">
               <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
                 Seu e-mail deve ser entre 10 e 100 caracteres e ter o formato de um e-mail correto.
               </div>
@@ -17,8 +20,8 @@
           </md-input-container>
           <md-input-container class="md-block" flex-gt-sm>
             <label>Senha</label>
-            <input type="password" ng-model="vm.user.password" name="password" />
-            <div ng-messages="peopleForm.password.$error" role="alert">
+            <input type="password" ng-model="vm.user.password" name="password" required />
+            <div ng-messages="loginForm.password.$error" role="alert">
               <div ng-message="required" class="my-message">
                 A senha é obrigatória
               </div>
@@ -27,7 +30,7 @@
         </md-content>
         <div class="login_button" layout="row" layout-align="center">
           <md-button class="md-raised md-primary" aria-label="Acessar"
-          ng-disabled="loginForm.$invalid" data-ui-sref="simple.login">
+          type="submit" ng-disabled="loginForm.$invalid">
             <md-icon>open_in_browser</md-icon>
             <span>Acessar</span>
           </md-button>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="procultApp">
+<html data-ng-app="procultApp" data-ng-cloak>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,13 +11,15 @@
     <!-- endbuild -->
 
     <!-- build:css css/style.css -->
+	<link rel="stylesheet" href="build/css/bootstrap.css">
+	<link rel="stylesheet" href="build/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="build/css/style.css">
     <!-- endbuild -->
 
     <!-- build:vendor_css css/vendors.css -->
 	<link rel="stylesheet" href="vendors/angular-material/angular-material.min.css">
-  <link rel="stylesheet" href="vendors/angular-material-icons/angular-material-icons.css"></script>
-  <link rel="stylesheet" href="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.css">
+	<link rel="stylesheet" href="vendors/angular-material-icons/angular-material-icons.css"></script>
+	<link rel="stylesheet" href="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.css">
     <!-- endbuild -->
 	<link rel="stylesheet" href="fonts/material-icons.css">
 
@@ -49,6 +51,8 @@
 	<script src="vendors/angular-animate/angular-animate.min.js"></script>
 	<!-- Angular Messages -->
 	<script src="vendors/angular-messages/angular-messages.min.js"></script>
+	<!-- Angular Cookies -->
+	<script src="vendors/angular-cookies/angular-cookies.min.js"></script>
 	<!-- Angular UI Route -->
 	<script src="vendors/angular-ui-router/release/angular-ui-router.js"></script>
 	<!-- Intro.JS-->
@@ -61,6 +65,8 @@
   <script src="vendors/angular-material-icons/angular-material-icons.js"></script>
   <!-- Angular Material Fileinput -->
   <script src="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.js"></script>
+  <!-- NG File Upload -->
+  <script src="vendors/ng-file-upload/ng-file-upload.js"></script>
 
   <!-- endbuild -->
 
@@ -72,12 +78,15 @@
 
     <script src="../app/core/header.controller.js" charset="utf-8"></script>
     <script src="../app/core/sidenav.controller.js" charset="utf-8"></script>
+    <script src="../app/core/alert.service.js" charset="utf-8"></script>
 
     <script src="../app/dashboard/dashboard.controller.js"></script>
 
     <script src="../app/proposal/proposal.controller.js"></script>
+    <script src="../app/proposal/proposal.service.js"></script>
 
     <script src="../app/user/user.controller.js"></script>
+    <script src="../app/user/user.service.js"></script>
 
     <!-- endbuild -->
 

@@ -1,4 +1,4 @@
-<md-toolbar>
+<md-toolbar data-ng-init="vm.init()">
 	<div class="md-toolbar-tools" hide-xs>
 		<h2 aria-label="Procult" hide-sm>Procult</h2>
 
@@ -6,30 +6,31 @@
 			<md-icon>dashboard</md-icon>
 			Minhas Propostas
 		</md-button>
-		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas">
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas.analise" data-ng-show="vm.user.is_admin">
 			<md-icon>view_list</md-icon>
 			Propostas enviadas
 		</md-button>
-		<md-button aria-label="Painel Principal" data-ui-sref="admin.usuarios.lista">
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.usuarios" data-ng-show="vm.user.is_admin">
 			<md-icon>accessibility</md-icon>
 			Usuários
 		</md-button>
 		<md-menu md-position-mode="target-right target">
 			<md-button aria-label="Meu usuario" ng-click="$mdOpenMenu($event)">
-				<md-icon>face</md-icon>
-				Nome do Usuário
+				<md-icon data-ng-show="vm.user.cpf">face</md-icon>
+				<md-icon data-ng-show="vm.user.cnpj">business</md-icon>
+				{{vm.user.name}}
 			</md-button>
 			<md-menu-content>
-				<md-subheader>Nome do usuário</md-subheader>
+				<md-subheader>{{vm.user.name}}</md-subheader>
 				<md-menu-item>
-					<md-button layout-fill md-ink-ripple data-ui-sref="admin.usuarios">
+					<md-button layout-fill md-ink-ripple data-ui-sref="admin.perfil({id: vm.user.id})">
 						<md-icon md-menu-align-target>perm_identity</md-icon>
 						Meu Perfil
 					</md-button>
 				</md-menu-item>
 
 				<md-menu-item>
-					<md-button layout-fill md-ink-ripple>
+					<md-button layout-fill md-ink-ripple data-ng-click="vm.logout()">
 						<md-icon md-menu-align-target>exit_to_app</md-icon>
 						Sair do Sistema
 					</md-button>

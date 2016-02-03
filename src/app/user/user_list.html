@@ -1,62 +1,54 @@
-<div data-ng-controller="UserController as vm">
-  <div layout="row" layout-padding  class="cover client_cover">
-    <div layout-align="center" layout-padding flex>
-      <h1 hide-xs>Usuários</h1>
-      <h3 hide-gt-sm hide-sm>Usuários</h3>
-    </div>
-    <div layout-align="end center" hide-xs>
-      <md-button class="md-raised md-fab md-primary button_cover"
-      aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
-        <md-icon md-font-library="material-icons">add</md-icon>
-      </md-button>
-    </div>
+<div data-ng-controller="UserController as vm" data-ng-init="vm.init()">
+	<div layout="row" layout-padding  class="cover client_cover">
+		<div layout-align="center" layout-padding flex>
+			<h1 hide-xs>Usuários</h1>
+			<h3 hide-gt-sm hide-sm>Usuários</h3>
+		</div>
+		<div layout-align="end center" hide-xs>
+			<md-button class="md-raised md-fab md-primary button_cover"
+				aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
+				<md-icon md-font-library="material-icons">add</md-icon>
+			</md-button>
+		</div>
 
-    <div layout-align="end center" hide-gt-sm hide-sm>
-      <md-button class="md-raised md-fab md-mini md-primary button_cover"
-      aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
-        <md-icon md-font-library="material-icons">add</md-icon>
-      </md-button>
-    </div>
-  </div>
-  <div class='md-padding' id="client-list" layout="column" layout-align="center">
-    <md-card flex>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Claudio Prata Santos</span>
-          <span class="md-subhead"><strong>E-mail: </strong> claudio.santos@mail.com</span>
-          <span class="md-subhead"><strong>CPF: </strong> 012.102.102-11</span>
-        </md-card-title-text>
-        <md-card-title-media hide-xs>
-          <i class="material-icons md-48">face</i>
-        </md-card-title-media>
-      </md-card-title>
-      <md-card-actions layout="row" layout-align="end center">
-		  <md-button class="md-button md-raised md-primary" aria-label="Editar Usuário"
-			  style="margin-right: 5px;">
-          <md-icon md-font-library="material-icons">create</md-icon>
-		  Editar Usuário
-        </md-button>
-      </md-card-actions>
-    </md-card>
+		<div layout-align="end center" hide-gt-sm hide-sm>
+			<md-button class="md-raised md-fab md-mini md-primary button_cover"
+				aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
+				<md-icon md-font-library="material-icons">add</md-icon>
+			</md-button>
+		</div>
+	</div>
+	<div class='md-padding' id="client-list" layout="column" layout-align="center">
+		<div layout="row" flex="80">
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>Pesquisar Usuários</label>
+				<md-icon>search</md-icon>
+				<input ng-model="vm.search" type="text" autofocus>
+			</md-input-container>
+		</div>
+		<md-card flex data-ng-repeat="user in vm.users | filter: vm.search">
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline">{{user.name}}</span>
+					<span class="md-subhead"><strong>CEAC: </strong> {{user.ceac}}</span>
+					<span class="md-subhead"><strong>E-mail: </strong> {{user.email}}</span>
+					<span class="md-subhead" data-ng-show="{{user.cpf}}"><strong>CPF: </strong> {{user.cpf}}</span>
+					<span class="md-subhead" data-ng-show="{{user.cnpj}}"><strong>CNPJ: </strong> {{user.cnpj}}</span>
+				</md-card-title-text>
+				<md-card-title-media hide-xs data-ng-show="user.cpf">
+					<i class="material-icons md-48">face</i>
+				</md-card-title-media>
 
-    <md-card flex>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Francisco Daniel Cavalcante</span>
-          <span class="md-subhead"><strong>E-mail: </strong> fran.daniel@mail.com</span>
-          <span class="md-subhead"><strong>CNPJ: </strong> 12.102.102/0001-12</span>
-        </md-card-title-text>
-        <md-card-title-media hide-xs>
-          <i class="material-icons md-48">business</i>
-        </md-card-title-media>
-      </md-card-title>
-      <md-card-actions layout="row" layout-align="end center">
-		  <md-button class="md-button md-raised md-primary" aria-label="Editar Usuário"
-			  style="margin-right: 5px;">
-          <md-icon md-font-library="material-icons">create</md-icon>
-		  Editar Usuário
-        </md-button>
-      </md-card-actions>
-    </md-card>
-
-  </div>
+				<md-card-title-media hide-xs data-ng-show="user.cnpj">
+					<i class="material-icons md-48">business</i>
+				</md-card-title-media>
+			</md-card-title>
+			<md-card-actions layout="row" layout-align="end center">
+				<md-button class="md-button md-raised md-primary" aria-label="Editar Usuário"
+					style="margin-right: 5px;" data-ui-sref="admin.usuarios.editar({id: user.id})">
+					<md-icon md-font-library="material-icons">create</md-icon>
+					Editar Usuário
+				</md-button>
+			</md-card-actions>
+		</md-card>
+	</div>

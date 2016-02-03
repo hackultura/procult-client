@@ -1,47 +1,26 @@
-<div ng-controller="UserRegisterController as vm">
+<div ng-controller="UserUpdateController as vm" data-ng-init="vm.init()">
 	<div layout="column" ng-cloak class="md-inline-form">
 		<div layout="row" layout-padding  class="cover client_cover">
 			<div layout-align="left center" layout-padding flex>
-				<h1 hide-xs>Registro</h1>
-				<h3 hide-gt-sm hide-sm>Registro</h3>
+				<h1 hide-xs>Editar Usuário</h1>
+				<h3 hide-gt-sm hide-sm>Editar Usuário</h3>
 			</div>
 			<div layout-align="end" hide-xs>
-				<md-button class="md-raised md-fab md-warn button_cover" aria-label="Novo Cliente"
+				<md-button class="md-raised md-fab md-warn button_cover" aria-label="Voltar"
 					data-ng-click="back()">
 					<md-icon md-font-library="material-icons">arrow_back</md-icon>
 				</md-button>
 			</div>
 
 			<div layout-align="end" hide-gt-sm hide-sm>
-				<md-button class="md-raised md-fab md-mini md-warn button_cover" aria-label="Novo Cliente" data-ui-sref="admin.propostas">
+				<md-button class="md-raised md-fab md-mini md-warn button_cover" aria-label="Voltar" data-ng-click="back()">
 					<md-icon md-font-library="material-icons md-24">arrow_back</md-icon>
 				</md-button>
 			</div>
 		</div>
-		<div layout="column" layout-padding flex="80">
-			<h2 data-ng-show="!vm.profile">Qual é o seu perfil? </h2>
-			<h2 data-ng-show="vm.profile == 'F'">Pessoa Física</h2>
-			<h2 data-ng-show="vm.profile == 'J'">Pessoa Jurídica</h2>
-		</div>
-		<div class='md-padding profile_boxes' layout="row" layout-wrap
-			layout-align="center center" data-ng-hide="vm.profile">
-			<md-card flex="18" data-ng-click="vm.setProfile('F')">
-				<md-card-title>
-					<md-icon class="md-64">face</md-icon>
-					<h1>Pessoa Física</h1>
-				</md-card-title>
-			</md-card>
-
-			<md-card flex="18" data-ng-click="vm.setProfile('J')">
-				<md-card-title>
-					<md-icon class="md-64">business</md-icon>
-					<h1>Pessoa Jurídica</h1>
-				</md-card-title>
-			</md-card>
-		</div>
 
 		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
-		<form name="peopleForm" method="post" layout="row" layout-padding layout-align="center" data-ng-show="vm.profile == 'F'" data-ng-submit="vm.createUser()">
+		<form name="peopleForm" method="post" layout="row" layout-padding layout-align="center" data-ng-show="vm.user.cpf" data-ng-submit="vm.updateUser()" novalidate>
 			<md-card flex="80">
 				<md-content>
 					<md-input-container class="md-block" flex-gt-sm>
@@ -79,44 +58,23 @@
 						</md-input-container>
 						<md-input-container>
 							<label>Número do CEAC</label>
-							<input ng-model="vm.user.ceac" name="ceac" type="text" data-md-minlength="4" data-md-maxlength="4" maxlength="4" required autofocus>
+							<input ng-model="vm.user.ceac" name="ceac" type="text" data-md-minlength="4" data-md-maxlength="4" maxlength="4" required>
 							<div ng-messages="peopleForm.ceac.$error" role="alert">
 								<div ng-message="required" class="my-message">CEAC é obrigatório</div>
 							</div>
 						</md-input-container>
 					</div>
-					<div layout-gt-sm="row">
-						<md-input-container class="md-block" flex-gt-sm>
-							<label>Digite a senha</label>
-							<input ng-model="vm.user.password1" type="password" name="password1" required>
-							<div ng-messages="peopleForm.password1.$error" role="alert">
-								<div ng-message="required" class="my-message">
-									A senha é obrigatória
-								</div>
-							</div>
-						</md-input-container>
-						<md-input-container class="md-block" flex-gt-sm>
-							<label>Re-digite a senha</label>
-							<input ng-model="vm.user.password2" type="password" name="password2" required>
-							<div ng-messages="peopleForm.password2.$error" role="alert">
-								<div ng-message="required" class="my-message">
-									A senha é obrigatória
-								</div>
-							</div>
-						</md-input-container>
-					</div>
 				</md-content>
 				<div layout="row" layout-align="center">
-					<md-button type="submit" class="md-raised md-primary" aria-label="Criar Conta" ng-disabled="peopleForm.$invalid">
+					<md-button type="submit" class="md-raised md-primary" aria-label="Atualizar" ng-disabled="peopleForm.$invalid">
 						<md-icon>save</md-icon>
-						<span hide-xs>Criar Conta</span>
-						<span hide-gt-sm hide-sm>Registrar</span>
+						<span>Atualizar</span>
 					</md-button>
 				</div>
 			</md-card>
 		</form>
 
-		<form name="businessForm" method="post" layout="row" layout-padding layout-align="center" data-ng-submit="vm.createUser()" data-ng-show="vm.profile == 'J'">
+		<form name="businessForm" method="post" layout="row" layout-padding layout-align="center" data-ng-submit="vm.updateUser()" data-ng-show="vm.user.cnpj" novalidate>
 			<md-card flex="80">
 				<md-content>
 					<md-input-container class="md-block" flex-gt-sm>
@@ -153,42 +111,20 @@
 						</md-input-container>
 						<md-input-container>
 							<label>Número do CEAC</label>
-							<input ng-model="vm.user.ceac" name="ceac" type="text" data-md-minlength="4" data-md-maxlength="4" maxlength="4" required autofocus>
+							<input ng-model="vm.user.ceac" name="ceac" type="text" data-md-minlength="4" data-md-maxlength="4" maxlength="4" required>
 							<div ng-messages="businessForm.ceac.$error" role="alert">
 								<div ng-message="required" class="my-message">CEAC é obrigatório</div>
 							</div>
 						</md-input-container>
 					</div>
-					<div layout-gt-sm="row">
-						<md-input-container class="md-block" flex-gt-sm>
-							<label>Digite a senha</label>
-							<input ng-model="vm.user.password1" type="password" name="password1" required>
-							<div ng-messages="businessForm.password1.$error" role="alert">
-								<div ng-message="required" class="my-message">
-									A senha é obrigatória
-								</div>
-							</div>
-						</md-input-container>
-						<md-input-container class="md-block" flex-gt-sm>
-							<label>Re-digite a senha</label>
-							<input ng-model="vm.user.password2" type="password" name="password2" required>
-							<div ng-messages="businessForm.password2.$error" role="alert">
-								<div ng-message="required" class="my-message">
-									A senha é obrigatória
-								</div>
-							</div>
-						</md-input-container>
-					</div>
 				</md-content>
 				<div layout="row" layout-align="center">
-					<md-button class="md-raised md-primary" aria-label="Criar Conta" type="submit" ng-disabled="businessForm.$invalid">
+					<md-button class="md-raised md-primary" aria-label="Atualizar" type="submit" ng-disabled="businessForm.$invalid">
 						<md-icon>save</md-icon>
-						<span hide-xs>Criar Conta</span>
-						<span hide-gt-sm hide-sm>Registrar</span>
+						<span>Atualizar</span>
 					</md-button>
 				</div>
 			</md-card>
 		</form>
 	</div>
-
 </div>

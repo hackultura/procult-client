@@ -6,8 +6,10 @@
 			'ngMessages',
 			'ngAnimate',
 			'ngAria',
+			'ngCookies',
 			'ui.router',
 			'ngMdIcons',
+			'ngFileUpload',
 			'lfNgMdFileInput',
 			'angular-intro'
 		]);
