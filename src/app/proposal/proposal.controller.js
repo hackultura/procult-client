@@ -9,19 +9,26 @@
 	.controller('ProposalDeleteController', ProposalDeleteController)
 	.controller('ProposalAnalysisController', ProposalAnalysisController);
 
-	ProposalController.$inject = ['$mdDialog', 'UserService', 'ProposalService', 'PROPOSAL_LIMIT'];
-	ProposalNewController.$inject = ['$state', 'ProposalService'];
-	ProposalUpdateController.$inject = ['$state', '$stateParams', 'ProposalService'];
-	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService'];
-	ProposalAnalysisController.$inject = ['$mdDialog'];
+	ProposalController.$inject = [
+		'$mdDialog',
+		'UserService',
+		'ProposalService',
+		'AlertService',
+		'PROPOSAL_LIMIT'
+	];
+	ProposalNewController.$inject = ['$state', 'ProposalService', 'AlertService'];
+	ProposalUpdateController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
+	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
+	ProposalAnalysisController.$inject = ['$mdDialog', 'AlertService'];
 
 	/* @ngInject */
-	function ProposalController($mdDialog, UserService, ProposalService, PROPOSAL_LIMIT) {
+	function ProposalController($mdDialog, UserService, ProposalService, AlertService, PROPOSAL_LIMIT) {
 		var vm = this;
 
 		vm.proposals = [];
 
 		vm.enableNewProposal = false;
+		vm.errors = [];
 
 		// Functions
 		vm.init = init;
@@ -37,7 +44,7 @@
 				vm.proposals = response.data;
 				vm.enableNewProposal = vm.proposals.length === PROPOSAL_LIMIT;
 			}, function(error){
-				console.log(error);
+				vm.errors = AlertService.message(error);
 			});
 		}
 
@@ -60,14 +67,16 @@
 	}
 
 	/* @ngInject */
-	function ProposalNewController($state, ProposalService) {
+	function ProposalNewController($state, ProposalService, AlertService) {
 		var vm = this;
 
 		vm.proposal = {};
+		vm.errors = [];
 
 		// Functions
 		vm.init = init;
 		vm.createProposal = createProposal;
+		vm.sendProposal = sendProposal;
 
 		function init() {
 
@@ -78,26 +87,41 @@
 				if(response.status === 201) {
 					vm.proposal.attachments.forEach(function(file){
 						ProposalService.uploadDocument(response.data, file).finally(function() {
-							console.log('acabou');
 							$state.go('admin.propostas');
 						});
 					});
 				}
 			}, function(error){
-				console.log(error);
+				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function sendProposal() {
+			ProposalService.sendProposal(vm.proposal).then(function(response) {
+				if(response.status === 201) {
+					vm.proposal.attachments.forEach(function(file){
+						ProposalService.uploadDocument(response.data, file).finally(function() {
+							$state.go('admin.propostas');
+						});
+					});
+				}
+			}, function(error){
+				vm.errors = AlertService.message(error);
 			});
 		}
 	}
 
 	/* @ngInject */
-	function ProposalUpdateController($state, $stateParams, ProposalService) {
+	function ProposalUpdateController($state, $stateParams, ProposalService, AlertService) {
 		var vm = this;
 
 		vm.proposal = {};
+		vm.errors = [];
 
 		// Functions
 		vm.init = init;
 		vm.updateProposal = updateProposal;
+		vm.sendProposal = sendProposal;
 		vm.deleteDocument = deleteDocument;
 
 		function init() {
@@ -105,7 +129,7 @@
 				vm.proposal = response.data;
 				vm.proposal.new_attachments = [];
 			}, function(error) {
-				console.log(error);
+				vm.errors = AlertService.message(error);
 			});
 		}
 
@@ -118,15 +142,26 @@
 				});
 				$state.go('admin.propostas');
 			}, function(error) {
-				console.log(error);
+				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function sendProposal() {
+			ProposalService.updateAndSendProposal(vm.proposal).then(function(response) {
+				vm.proposal.new_attachments.forEach(function(file){
+					ProposalService.uploadDocument(response.data, file).finally(function() {
+						$state.go('admin.propostas');
+					});
+				});
+				$state.go('admin.propostas');
+			}, function(error) {
+				vm.errors = AlertService.message(error);
 			});
 		}
 
 		function deleteDocument(attachment) {
-			console.log(vm.proposal.attachments);
 			ProposalService.deleteDocument(attachment.uid);
 			vm.proposal.attachments.slice(attachment, 1);
-			console.log(vm.proposal.attachments);
 		}
 	}
 
@@ -139,6 +174,8 @@
 		vm.hide = hide;
 		vm.cancel = cancel;
 		vm.deleteProposal = deleteProposal;
+
+		vm.errors = [];
 
 		function init() {
 
@@ -170,6 +207,8 @@
 		vm.hide = hide;
 		vm.cancel = cancel;
 		vm.deleteProposal = deleteProposal;
+
+		vm.errors = [];
 
 		function init() {
 

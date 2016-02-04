@@ -18,6 +18,7 @@
 			</md-button>
 		</div>
 	</div>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
 	<div class='md-padding' id="client-list" layout="column" layout-align="center">
 		<div layout="row" flex="80">
 			<md-input-container class="md-icon-float md-block" flex-gt-sm>

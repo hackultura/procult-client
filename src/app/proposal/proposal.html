@@ -18,6 +18,7 @@
 			</md-button>
 		</div>
 	</div>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
 	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
 		<md-card flex data-ng-repeat="proposal in vm.proposals">
 			<md-card-title>

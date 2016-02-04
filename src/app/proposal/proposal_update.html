@@ -17,12 +17,13 @@
 				</md-button>
 			</div>
 		</div>
-		<form name="clientForm" method="post" layout="row" layout-padding data-ng-submit="vm.updateProposal()" layout-align="center">
+		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
+		<form name="proposalForm" method="post" layout="row" layout-padding data-ng-submit="vm.updateProposal()" layout-align="center">
 			<md-card flex="80">
 				<md-input-container>
 					<label>Título da Proposta</label>
 					<input ng-model="vm.proposal.title" name="title" type="text" data-md-minlength="10" data-md-maxlength="60" maxlength="60" required autofocus>
-					<div ng-messages="clientForm.title.$error" role="alert">
+					<div ng-messages="proposalForm.title.$error" role="alert">
 						<div ng-message="required" class="my-message">Título da proposta é obrigatório</div>
 						<div ng-message="md-minlength" class="my-message">Título da proposta precisa ter no mínimo 10 caracteres</div>
 						<div ng-message="md-maxlength" class="my-message">Título da proposta precisa ter no máximo 60 caracteres</div>
@@ -66,13 +67,13 @@
 					</table>
 				</md-content>
 				<div layout="row" layout-align="center">
-					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit">
+					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit" data-ng-disabled="proposalForm.$invalid">
 						<md-icon>save</md-icon>
 						<span hide-xs>Atualizar Proposta</span>
 						<span hide-gt-sm hide-sm>Atualizar</span>
 					</md-button>
 
-					<md-button class="md-raised md-warn" aria-label="Enviar Proposta">
+					<md-button class="md-raised md-warn" aria-label="Enviar Proposta" data-ng-click="vm.sendProposal()" data-ng-disabled="proposalForm.$invalid">
 						<md-icon>email</md-icon>
 						<span hide-xs>Enviar Proposta</span>
 						<span hide-gt-sm hide-sm>Enviar</span>

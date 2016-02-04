@@ -9,17 +9,18 @@
 		.controller('UserUpdateController', UserUpdateController)
 		.controller('LoginController', LoginController);
 
-	UserController.$inject = ['UserService'];
-	UserProfileController.$inject = ['$state', '$stateParams', 'UserService'];
+	UserController.$inject = ['UserService', 'AlertService'];
+	UserProfileController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
 	UserRegisterController.$inject = ['UserService', 'AlertService', '$state'];
-	UserUpdateController.$inject = ['$state', '$stateParams', 'UserService'];
-	LoginController.$inject = ['$state', 'UserService'];
+	UserUpdateController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
+	LoginController.$inject = ['$state', 'UserService', 'AlertService'];
 
 	/* @ngInject */
-	function UserController(UserService) {
+	function UserController(UserService, AlertService) {
 		var vm = this;
 
 		vm.users = [];
+		vm.errors = [];
 
 		vm.init = init;
 
@@ -31,16 +32,17 @@
 			UserService.query().then(function(response){
 				vm.users = response.data;
 			}, function(erro){
-				console.log(erro);
+				vm.errors = AlertService.message(erro);
 			});
 		}
 	}
 
 	/* @ngInject */
-	function UserProfileController($state, $stateParams, UserService) {
+	function UserProfileController($state, $stateParams, UserService, AlertService) {
 		var vm = this;
 
 		vm.user = {};
+		vm.errors = [];
 
 		vm.init = init;
 		vm.saveProfile = saveProfile;
@@ -49,7 +51,7 @@
 			UserService.getUser($stateParams.id).then(function(response) {
 				vm.user = response.data;
 			}, function(error) {
-				console.log(error);
+				vm.errors = AlertService.message(error);
 			});
 		}
 
@@ -57,7 +59,7 @@
 			UserService.updateUser($stateParams.id, vm.user).then(function() {
 				$state.go('admin.propostas');
 			}, function(error) {
-				console.log(error);
+				vm.errors = AlertService.message(error);
 			});
 		}
 	}
@@ -92,26 +94,26 @@
 				});
 				$state.transitionTo($state.previous.name, $state.previous.params);
 			}, function(erro){
-				console.log(erro);
-				vm.errors = erro.data;
+				vm.errors = AlertService.message(erro);
 			});
 		}
 	}
 
 	/* @ngInject */
-	function UserUpdateController($state, $stateParams, UserService) {
+	function UserUpdateController($state, $stateParams, UserService, AlertService) {
 		var vm = this;
 
 		vm.init = init;
 		vm.updateUser = updateUser;
 
 		vm.user = {};
+		vm.errors = [];
 
 		function init() {
 			UserService.getUser($stateParams.id).then(function(response) {
 				vm.user = response.data;
 			}, function(error) {
-				console.log(error);
+				vm.errors = AlertService.message(error);
 			});
 		}
 
@@ -119,7 +121,7 @@
 			UserService.updateUser($stateParams.id, vm.user).then(function() {
 				$state.go('admin.usuarios');
 			}, function(error) {
-				console.log(error);
+				vm.errors = AlertService.message(error);
 			});
 		}
 	}
@@ -142,8 +144,11 @@
 				UserService.setAuthenticatedAccount(response.data);
 				$state.go('admin.propostas');
 			}, function(error){
-				console.log(error.data.message);
+				if(error.status === -1) {
+					vm.errors.push({msg: 'Ocorreu um problema no acesso a base de dados. Por favor, contacte a Secretaria de Cultura ou tente mais tarde.'});
+				} else {
 				vm.errors.push({msg: error.data.message});
+				}
 			});
 		}
 	}

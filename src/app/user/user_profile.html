@@ -17,6 +17,7 @@
 				</md-button>
 			</div>
 		</div>
+		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
 		<form name="profileForm" method="post" layout="row" layout-padding data-ng-submit="vm.saveProfile()" layout-align="center" novalidate>
 			<md-card flex="80">
 				<md-content>
