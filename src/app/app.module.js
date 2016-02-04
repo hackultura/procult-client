@@ -7,6 +7,7 @@
 			'ngAnimate',
 			'ngAria',
 			'ngCookies',
+			'ui.utils.masks',
 			'ui.router',
 			'ngMdIcons',
 			'ngFileUpload',
