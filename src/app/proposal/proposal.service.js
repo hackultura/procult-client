@@ -14,6 +14,8 @@
 			myProposals: myProposals,
 			createProposal: createProposal,
 			sendProposal: sendProposal,
+			approveProposal: approveProposal,
+			reproveProposal: reproveProposal,
 			getProposal: getProposal,
 			setProposalSelected: setProposalSelected,
 			updateProposal: updateProposal,
@@ -43,6 +45,22 @@
 					user: UserService.getAuthenticatedAccount().id,
 					title: proposal.title,
 					status: 'sended'
+			});
+		}
+
+		function approveProposal(proposal) {
+			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
+					user: proposal.user,
+					title: proposal.title,
+					status: 'approved'
+			});
+		}
+
+		function reproveProposal(proposal) {
+			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
+					user: proposal.user,
+					title: proposal.title,
+					status: 'reproved'
 			});
 		}
 

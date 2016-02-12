@@ -111,6 +111,20 @@
 					title: 'Propostas Enviadas'
 				}
 			})
+			.state('admin.propostas.analise.detalhe', {
+				parent: 'admin',
+				url: '/propostas/analise/:number',
+				authenticate: true,
+				admin: true,
+				views: {
+					'content@admin': {
+						templateUrl: 'proposal/proposal_detail.html'
+					}
+				},
+				data: {
+					title: 'Detalhe da Proposta'
+				}
+			})
 			.state('admin.usuarios', {
 				parent: 'admin',
 				authenticate: true,
@@ -164,6 +178,20 @@
 					title: 'Perfil do Usuário'
 				}
 			})
+			.state('admin.change_password', {
+				parent: 'admin',
+				authenticate: true,
+				admin: false,
+				url: '/usuarios/:id/senha/alterar',
+				views: {
+					'content@admin': {
+						templateUrl: 'user/user_changepassword.html'
+					}
+				},
+				data: {
+					title: 'Perfil do Usuário'
+				}
+			})
 			.state('simple.register', {
 				parent: 'simple',
 				url: '/registro',
@@ -202,11 +230,7 @@
 		function runConfig($rootScope, $state, UserService) {
 			// Verify if user is authenticated
 			$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-				console.log('Verificando rota...');
-				console.log('Usuario esta autenticado? ' + UserService.isAuthenticated());
-				console.log(toState);
 				if(toState.authenticate && !UserService.isAuthenticated()) {
-					console.log('Nao esta autenticado. Indo para login...');
 					$state.nextState = {};
 					$state.nextState.name = toState.name;
 					$state.nextState.params = toParams;
@@ -216,7 +240,6 @@
 				}
 
 				if(toState.admin && !UserService.isAdmin()) {
-					console.log(UserService.isAdmin());
 					$state.transitionTo('admin.propostas');
 					event.preventDefault();
 				}

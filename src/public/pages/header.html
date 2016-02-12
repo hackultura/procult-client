@@ -30,6 +30,13 @@
 				</md-menu-item>
 
 				<md-menu-item>
+					<md-button layout-fill md-ink-ripple data-ui-sref="admin.change_password({id: vm.user.id})">
+						<md-icon md-menu-align-target>lock</md-icon>
+						Alterar Senha
+					</md-button>
+				</md-menu-item>
+
+				<md-menu-item>
 					<md-button layout-fill md-ink-ripple data-ng-click="vm.logout()">
 						<md-icon md-menu-align-target>exit_to_app</md-icon>
 						Sair do Sistema

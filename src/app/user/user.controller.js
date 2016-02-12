@@ -7,25 +7,45 @@
 		.controller('UserProfileController', UserProfileController)
 		.controller('UserRegisterController', UserRegisterController)
 		.controller('UserUpdateController', UserUpdateController)
+		.controller('UserDeleteController', UserDeleteController)
+		.controller('UserChangePasswordController', UserUpdateController)
 		.controller('LoginController', LoginController);
 
-	UserController.$inject = ['UserService', 'AlertService'];
+	UserController.$inject = ['$mdDialog', 'UserService', 'AlertService'];
 	UserProfileController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
 	UserRegisterController.$inject = ['UserService', 'AlertService', '$state'];
 	UserUpdateController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
+	UserDeleteController.$inject = ['$state', '$mdDialog', 'UserService', 'AlertService'];
+	UserChangePasswordController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
 	LoginController.$inject = ['$state', 'UserService', 'AlertService'];
 
 	/* @ngInject */
-	function UserController(UserService, AlertService) {
+	function UserController($mdDialog, UserService, AlertService) {
 		var vm = this;
 
 		vm.users = [];
 		vm.errors = [];
 
 		vm.init = init;
+		vm.deleteDialog = deleteDialog;
 
 		function init() {
 			listUsers();
+		}
+
+		function deleteDialog(event, user) {
+			$mdDialog.show({
+				controller: UserDeleteController,
+				controllerAs: 'vm',
+				templateUrl: 'user/user_delete.tmpl.html',
+				parent: angular.element(document.body),
+				locals: {user: user},
+				bindToController: true,
+				targetEvent: event,
+				clickOutsideToClose: false
+			}).then(function() {
+				listUsers();
+			});
 		}
 
 		function listUsers() {
@@ -120,6 +140,68 @@
 		function updateUser() {
 			UserService.updateUser($stateParams.id, vm.user).then(function() {
 				$state.go('admin.usuarios');
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+	}
+
+	/* @ngInject */
+	function UserDeleteController($state, $mdDialog, UserService, AlertService) {
+		var vm = this;
+
+		vm.errors = [];
+
+		vm.deleteUser = deleteUser;
+		vm.hide = hide;
+		vm.cancel = cancel;
+
+		function deleteUser() {
+			UserService.removeUser(vm.user.id).then(function() {
+				$mdDialog.hide();
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function hide() {
+			$mdDialog.hide();
+		}
+
+		function cancel() {
+			$mdDialog.cancel();
+		}
+	}
+
+	/* @ngInject */
+	function UserChangePasswordController($state, $stateParams, UserService, AlertService) {
+		var vm = this;
+
+		vm.init = init;
+		vm.changePassword = changePassword;
+
+		vm.user = {};
+		vm.errors = [];
+
+		function init() {
+			UserService.getUser($stateParams.id).then(function(response) {
+				vm.user.email = response.data.email;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function changePassword() {
+			console.log(vm.user);
+			UserService.changePassword(
+				$stateParams.id,
+				vm.user.email,
+				vm.user.old_password,
+				vm.user.password1,
+				vm.user.password2
+			).then(function() {
+				UserService.unauthenticate();
+				$state.transitionTo('simple.login');
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});

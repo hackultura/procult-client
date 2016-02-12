@@ -1,53 +1,31 @@
-<div data-ng-controller="ProposalAnalysisController as vm">
-  <div layout="row" layout-padding  class="cover client_cover">
-    <div layout-align="center" layout-padding flex>
-      <h1 hide-xs>Propostas Enviadas</h1>
-      <h3 hide-gt-sm hide-sm>Propostas Enviadas</h3>
-    </div>
-  </div>
-  <div class='md-padding' id="client-list" layout="column" layout-align="center">
-    <md-card flex>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Proposta nº 102910</span>
-          <span class="md-subhead"><strong>Data de Envio: </strong> 15/01/2016</span>
-          <span class="md-subhead"><strong>Situação: </strong> Pronto para análise</span>
-          <span class="md-subhead"><strong>Número do CEAC: </strong> 0182012</span>
-          <span class="md-subhead"><strong>Total de Arquivos enviados: </strong> 6 arquivos</span>
-        </md-card-title-text>
-        <md-card-title-media hide-xs>
-          <i class="material-icons md-48">folder</i>
-        </md-card-title-media>
-      </md-card-title>
-      <md-card-actions layout="row" layout-align="end center">
-		  <md-button class="md-button md-raised md-primary" aria-label="Analisar"
-			  data-ng-click="vm.showProposal()"
-			  style="margin-right: 5px;">
-          <md-icon md-font-library="material-icons">library_books</md-icon>
-		  Analisar Proposta
-        </md-button>
-      </md-card-actions>
-    </md-card>
-
-    <md-card flex>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Proposta nº 102910</span>
-          <span class="md-subhead"><strong>Data de Envio: </strong> 15/01/2016</span>
-          <span class="md-subhead"><strong>Situação: </strong> Analisado</span>
-          <span class="md-subhead"><strong>Número do CEAC: </strong> 0182012</span>
-          <span class="md-subhead"><strong>Total de Arquivos enviados: </strong> 6 arquivos</span>
-        </md-card-title-text>
-        <md-card-title-media hide-xs>
-          <i class="material-icons md-48">folder</i>
-        </md-card-title-media>
-      </md-card-title>
-      <md-card-actions layout="row" layout-align="end center">
-        <md-button class="md-button md-raised md-warn" aria-label="Analisar" style="margin-right: 5px;">
-          <md-icon md-font-library="material-icons">create</md-icon>
-		  Refazer análise
-        </md-button>
-      </md-card-actions>
-    </md-card>
-
-  </div>
+<div data-ng-controller="ProposalAnalysisController as vm" data-ng-init="vm.init()">
+	<div layout="row" layout-padding  class="cover client_cover">
+		<div layout-align="center" layout-padding flex>
+			<h1 hide-xs>Propostas Enviadas</h1>
+			<h3 hide-gt-sm hide-sm>Propostas Enviadas</h3>
+		</div>
+	</div>
+	<div class='md-padding' id="client-list" layout="column" layout-align="center">
+		<md-card flex data-ng-repeat="proposal in vm.proposals">
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline">{{proposal.title}}</span>
+					<span class="md-subhead"><strong>Proposta nº:</strong> {{proposal.number}}</span>
+					<span class="md-subhead"><strong>Data de Envio: </strong> {{proposal.created_at | date:'d/MM/yyyy'}}</span>
+					<span class="md-subhead"><strong>Situação: </strong> {{proposal.status_display}}</span>
+				</md-card-title-text>
+				<md-card-title-media hide-xs>
+					<i class="material-icons md-48">folder</i>
+				</md-card-title-media>
+			</md-card-title>
+			<md-card-actions layout="row" layout-align="end center">
+				<md-button class="md-button md-raised md-primary" aria-label="Analisar"
+					data-ui-sref="admin.propostas.analise.detalhe({number: proposal.number})"
+					style="margin-right: 5px;">
+					<md-icon md-font-library="material-icons">library_books</md-icon>
+					Analisar Proposta
+				</md-button>
+			</md-card-actions>
+		</md-card>
+	</div>
+</div>

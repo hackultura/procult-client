@@ -15,6 +15,7 @@
 			updateUser: updateUser,
 			removeUser: removeUser,
 			login: login,
+			changePassword: changePassword,
 			getAuthenticatedAccount: getAuthenticatedAccount,
 			setAuthenticatedAccount: setAuthenticatedAccount,
 			isAuthenticated: isAuthenticated,
@@ -46,6 +47,15 @@
 			return $http.post(API_URI_PREFIX + '/auth/login/', {
 				email: email,
 				password: password
+			});
+		}
+
+		function changePassword(id, email, old_password, password1, password2) {
+			return $http.post(API_URI_PREFIX + '/auth/password/change/' + id, {
+				email: email,
+				old_password: old_password,
+				password1: password1,
+				password2: password2
 			});
 		}
 

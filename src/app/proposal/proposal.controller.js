@@ -7,7 +7,8 @@
 	.controller('ProposalNewController', ProposalNewController)
 	.controller('ProposalUpdateController', ProposalUpdateController)
 	.controller('ProposalDeleteController', ProposalDeleteController)
-	.controller('ProposalAnalysisController', ProposalAnalysisController);
+	.controller('ProposalAnalysisController', ProposalAnalysisController)
+	.controller('ProposalAnalysisDetailsController', ProposalAnalysisDetailsController);
 
 	ProposalController.$inject = [
 		'$mdDialog',
@@ -19,7 +20,8 @@
 	ProposalNewController.$inject = ['$state', 'ProposalService', 'AlertService'];
 	ProposalUpdateController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
-	ProposalAnalysisController.$inject = ['$mdDialog', 'AlertService'];
+	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
+	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 
 	/* @ngInject */
 	function ProposalController($mdDialog, UserService, ProposalService, AlertService, PROPOSAL_LIMIT) {
@@ -198,41 +200,60 @@
 	}
 
 	/* @ngInject */
-	function ProposalAnalysisController($mdDialog) {
+	function ProposalAnalysisController(ProposalService, AlertService) {
 		var vm = this;
 
 		// Functions
 		vm.init = init;
-		vm.showProposal = showProposal;
-		vm.hide = hide;
-		vm.cancel = cancel;
-		vm.deleteProposal = deleteProposal;
 
+		vm.proposals = [];
 		vm.errors = [];
 
 		function init() {
-
-		}
-
-		function showProposal(event) {
-			$mdDialog.show({
-				controller: ProposalAnalysisController,
-				controllerAs: 'vm',
-				templateUrl: 'proposal/proposal_detail.tmpl.html',
-				parent: angular.element(document.body),
-				targetEvent: event,
-				clickOutsideToClose: true
+			ProposalService.query().then(function(response) {
+				vm.proposals = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
 			});
 		}
 
-		function hide() {
-			$mdDialog.hide();
+	}
+
+	/* @ngInject */
+	function ProposalAnalysisDetailsController($state, $stateParams, ProposalService, AlertService) {
+		var vm = this;
+
+		// Functions
+		vm.init = init;
+		vm.approveProposal = approveProposal;
+		vm.reproveProposal = reproveProposal;
+
+		vm.proposal = {};
+		vm.errors = [];
+
+		function init() {
+			ProposalService.getProposal($stateParams.number).then(function(response) {
+				vm.proposal = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
 		}
 
-		function cancel() {
-			$mdDialog.cancel();
+		function approveProposal() {
+			ProposalService.approveProposal(vm.proposal).then(function() {
+				$state.go('admin.propostas.analise');
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
 		}
 
-		function deleteProposal() {}
+		function reproveProposal() {
+			ProposalService.reproveProposal(vm.proposal).then(function() {
+				$state.go('admin.propostas.analise');
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+
 	}
 })();
