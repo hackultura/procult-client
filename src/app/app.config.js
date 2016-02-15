@@ -13,7 +13,7 @@
 		'$mdThemingProvider'
 	];
 
-	runConfig.$inject = ['$rootScope', '$state', 'UserService'];
+	runConfig.$inject = ['$rootScope', '$state', '$http', '$cookies', 'UserService'];
 
 	function appConfig($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 		// Definindo a rota padrão
@@ -227,7 +227,10 @@
 			.accentPalette('light-green');
 		}
 
-		function runConfig($rootScope, $state, UserService) {
+		function runConfig($rootScope, $state, $http, $cookies, UserService) {
+			// Config CSRF Token
+			$http.defaults.headers.post['X-CSRFToken'] = $cookies.get('csrftoken');
+
 			// Verify if user is authenticated
 			$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
 				if(toState.authenticate && !UserService.isAuthenticated()) {

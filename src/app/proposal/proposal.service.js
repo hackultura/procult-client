@@ -36,7 +36,8 @@
 		function createProposal(proposal) {
 			return $http.post(API_URI_PREFIX + '/propostas/', {
 					user: UserService.getAuthenticatedAccount().id,
-					title: proposal.title
+					title: proposal.title,
+					status: 'draft'
 			});
 		}
 
