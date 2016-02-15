@@ -76,7 +76,8 @@
 		function updateProposal(proposal) {
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
 					user: UserService.getAuthenticatedAccount().id,
-					title: proposal.title
+					title: proposal.title,
+					status: proposal.status || 'draft'
 			});
 		}
 
