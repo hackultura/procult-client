@@ -233,9 +233,7 @@
 
 		function runConfig($rootScope, $state, $http, $cookies, UserService) {
 			// Config CSRF Token
-			$http.defaults.headers.post['X-CSRFToken'] = $cookies.get('csrftoken');
-			$http.defaults.headers.put['X-CSRFToken'] = $cookies.get('csrftoken');
-			$http.defaults.headers.delete['X-CSRFToken'] = $cookies.get('csrftoken');
+			$http.defaults.headers.common['X-CSRFToken'] = $cookies.get('csrftoken');
 
 			// Verify if user is authenticated
 			$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
