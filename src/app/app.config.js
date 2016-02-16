@@ -8,6 +8,7 @@
 
 
 	appConfig.$inject = [
+		'$httpProvider',
 		'$stateProvider',
 		'$urlRouterProvider',
 		'$mdThemingProvider'
@@ -15,12 +16,15 @@
 
 	runConfig.$inject = ['$rootScope', '$state', '$http', '$cookies', 'UserService'];
 
-	function appConfig($stateProvider, $urlRouterProvider, $mdThemingProvider) {
-		// Definindo a rota padrão
+	function appConfig($httpProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider) {
+		// Define CSRF
+		$httpProvider.defaults.xsrfCookieName = 'csrftoken';
+		$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+		// Define default router
 		$urlRouterProvider.otherwise('/login');
 
-		// Os templates disponiveis no projeto, configurados para
-		// serem herdado pelas rotas do sistema.
+		// Router templates base
 		$stateProvider
 			.state('admin', {
 				abstract: true,
@@ -57,7 +61,7 @@
 				}
 			});
 
-			// Todas as rotas do sistema
+			// Routes of system
 			$stateProvider.state('admin.propostas', {
 				parent: 'admin',
 				url: '/propostas',
@@ -230,6 +234,8 @@
 		function runConfig($rootScope, $state, $http, $cookies, UserService) {
 			// Config CSRF Token
 			$http.defaults.headers.post['X-CSRFToken'] = $cookies.get('csrftoken');
+			$http.defaults.headers.put['X-CSRFToken'] = $cookies.get('csrftoken');
+			$http.defaults.headers.delete['X-CSRFToken'] = $cookies.get('csrftoken');
 
 			// Verify if user is authenticated
 			$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
