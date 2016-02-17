@@ -89,21 +89,24 @@
 		}
 
 		function createProposal() {
+			showDialog();
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
 					vm.proposal.attachments.forEach(function(file){
 						file.upload = ProposalService.uploadDocument(response.data, file);
 
 						file.upload.then(function() {
-							$timeout(function() {
-								$state.go('admin.propostas');
-							});
 						}, function(response) {
 							if(response.status > 0) {
 								vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
 							}
-						}, function(event) {
-							file.progress = Math.min(100, parseInt(100.0 * event.loaded / event.total));
+						});
+
+						file.upload.success(function() {
+							$timeout(function() {
+								$mdDialog.hide();
+								$state.go('admin.propostas');
+							});
 						});
 					});
 				}
@@ -111,8 +114,6 @@
 				vm.errors = AlertService.message(error);
 			});
 		}
-
-							$state.go('admin.propostas');
 
 		function sendProposal() {
 			ProposalService.sendProposal(vm.proposal).then(function(response) {
@@ -125,6 +126,16 @@
 				}
 			}, function(error){
 				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function showDialog(ev) {
+			$mdDialog.show({
+				controller: ProposalUpdateController,
+				templateUrl: 'proposal/creating_proposal.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:false
 			});
 		}
 	}

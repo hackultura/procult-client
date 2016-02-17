@@ -26,7 +26,6 @@
 		// Customize loading
 		cfpLoadingBarProvider.includeSpinner = true;
 		cfpLoadingBarProvider.spinnerTemplate = '<div id="loading-bar"><h1>Carregando...</h1></div></div>';
-		cfpLoadingBarProvider.latencyThreshold = 500;
 
 		// Define default router
 		$urlRouterProvider.otherwise('/login');
@@ -86,6 +85,7 @@
 				parent: 'admin',
 				url: '/propostas/novo',
 				authenticate: true,
+				admin: false,
 				views: {
 					'content@admin': {
 						templateUrl: 'proposal/proposal_new.html'
@@ -99,6 +99,7 @@
 				parent: 'admin',
 				url: '/propostas/atualizar/:number',
 				authenticate: true,
+				admin: false,
 				views: {
 					'content@admin': {
 						templateUrl: 'proposal/proposal_update.html'

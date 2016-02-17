@@ -20,7 +20,7 @@
 	</div>
 	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
 	<p data-ng-show="vm.enableNewProposal" class="alert alert-info">
-		Você pode criar no máximo <strong>2 (duas) propostas</strong>. Se enviar suas propostas para análise, <strong>não poderá mais editar</strong>.
+		Você pode criar no máximo <strong>2 (duas) propostas</strong>. A proposta que for enviada <strong>não pode mais ser editada</strong>.
 	</p>
 	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
 		<md-card flex data-ng-repeat="proposal in vm.proposals">
