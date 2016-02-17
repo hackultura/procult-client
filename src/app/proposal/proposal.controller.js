@@ -93,21 +93,7 @@
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
 					vm.proposal.attachments.forEach(function(file){
-						file.upload = ProposalService.uploadDocument(response.data, file);
-
-						file.upload.then(function() {
-						}, function(response) {
-							if(response.status > 0) {
-								vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
-							}
-						});
-
-						file.upload.success(function() {
-							$timeout(function() {
-								$mdDialog.hide();
-								$state.go('admin.propostas');
-							});
-						});
+						uploadDocuments(response.data, file);
 					});
 				}
 			}, function(error){
@@ -116,16 +102,33 @@
 		}
 
 		function sendProposal() {
+			showDialog();
 			ProposalService.sendProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
 					vm.proposal.attachments.forEach(function(file){
-						ProposalService.uploadDocument(response.data, file).finally(function() {
-							$state.go('admin.propostas');
-						});
+						uploadDocuments(response.data, file);
 					});
 				}
 			}, function(error){
 				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function uploadDocuments(data, file) {
+			file.upload = ProposalService.uploadDocument(data, file);
+
+			file.upload.then(function() {
+			}, function(response) {
+				if(response.status > 0) {
+					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
+				}
+			});
+
+			file.upload.success(function() {
+				$timeout(function() {
+					$mdDialog.hide();
+					$state.go('admin.propostas');
+				});
 			});
 		}
 
@@ -166,21 +169,7 @@
 			showDialog();
 			ProposalService.updateProposal(vm.proposal).then(function(response) {
 				vm.proposal.new_attachments.forEach(function(file){
-						file.upload = ProposalService.uploadDocument(response.data, file);
-
-						file.upload.then(function() {
-						}, function(response) {
-							if(response.status > 0) {
-								vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
-							}
-						});
-
-						file.upload.success(function() {
-							$timeout(function() {
-								$mdDialog.hide();
-								$state.go('admin.propostas');
-							});
-						});
+					uploadDocuments(response.data, file);
 				});
 			}, function(error) {
 				vm.errors = AlertService.message(error);
@@ -188,11 +177,10 @@
 		}
 
 		function sendProposal() {
+			showDialog();
 			ProposalService.updateAndSendProposal(vm.proposal).then(function(response) {
 				vm.proposal.new_attachments.forEach(function(file){
-					ProposalService.uploadDocument(response.data, file).finally(function() {
-						$state.go('admin.propostas');
-					});
+					uploadDocuments(response.data, file);
 				});
 				$state.go('admin.propostas');
 			}, function(error) {
@@ -203,6 +191,24 @@
 		function deleteDocument(attachment) {
 			ProposalService.deleteDocument(attachment.uid);
 			vm.proposal.attachments.slice(attachment, 1);
+		}
+
+		function uploadDocuments(data, file) {
+			file.upload = ProposalService.uploadDocument(data, file);
+
+			file.upload.then(function() {
+			}, function(response) {
+				if(response.status > 0) {
+					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
+				}
+			});
+
+			file.upload.success(function() {
+				$timeout(function() {
+					$mdDialog.hide();
+					$state.go('admin.propostas');
+				});
+			});
 		}
 
 		function showDialog(ev) {

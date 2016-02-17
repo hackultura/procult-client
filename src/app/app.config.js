@@ -25,7 +25,7 @@
 
 		// Customize loading
 		cfpLoadingBarProvider.includeSpinner = true;
-		cfpLoadingBarProvider.spinnerTemplate = '<div id="loading-bar"><h1>Carregando...</h1></div></div>';
+		cfpLoadingBarProvider.spinnerTemplate = '<div id="loading-bar"></div></div>';
 
 		// Define default router
 		$urlRouterProvider.otherwise('/login');
