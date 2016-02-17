@@ -11,15 +11,21 @@
 		'$httpProvider',
 		'$stateProvider',
 		'$urlRouterProvider',
-		'$mdThemingProvider'
+		'$mdThemingProvider',
+		'cfpLoadingBarProvider'
 	];
 
 	runConfig.$inject = ['$rootScope', '$state', '$http', '$cookies', 'UserService'];
 
-	function appConfig($httpProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider) {
+	function appConfig($httpProvider, $stateProvider, $urlRouterProvider,
+										 $mdThemingProvider, cfpLoadingBarProvider) {
 		// Define CSRF
 		$httpProvider.defaults.xsrfCookieName = 'csrftoken';
 		$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+		// Customize loading
+		cfpLoadingBarProvider.includeSpinner = false;
+		cfpLoadingBarProvider.latencyThreshold = 500;
 
 		// Define default router
 		$urlRouterProvider.otherwise('/login');

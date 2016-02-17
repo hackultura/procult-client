@@ -11,6 +11,7 @@
 			'ui.router',
 			'ngMdIcons',
 			'ngFileUpload',
+			'angular-loading-bar',
 			'lfNgMdFileInput',
 			'angular-intro'
 		]);

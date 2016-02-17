@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html data-ng-app="procultApp" data-ng-cloak>
+<html data-ng-app="procultApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Procult | {{ title }}</title>
+	<title data-ng-bind="'Procult | ' + title">Procult</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -17,9 +17,12 @@
     <!-- endbuild -->
 
     <!-- build:vendor_css css/vendors.css -->
+	<link rel="stylesheet" href="vendors/angular/angular-csp.css">
 	<link rel="stylesheet" href="vendors/angular-material/angular-material.min.css">
 	<link rel="stylesheet" href="vendors/angular-material-icons/angular-material-icons.css"></script>
 	<link rel="stylesheet" href="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.css">
+	<link rel="stylesheet" href="vendors/angular-loading-bar/build/loading-bar.min.css">
+	<link rel="stylesheet" href="build/css/loading.css">
     <!-- endbuild -->
 	<link rel="stylesheet" href="fonts/material-icons.css">
 
@@ -30,7 +33,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="{{ pageClasses }}">
+  <body class="{{ pageClasses }}" data-ng-cloak>
 
 	<div data-ui-view layout="column" flex></div>
 
@@ -72,6 +75,8 @@
   <!-- Angular Input Masks -->
   <script src="vendors/angular-input-masks/angular-input-masks-dependencies.js"></script>
   <script src="vendors/angular-input-masks/angular-input-masks.br.js"></script>
+  <!-- Angular Loading Bar -->
+  <script src="vendors/angular-loading-bar/build/loading-bar.min.js"></script>
 
   <!-- endbuild -->
 
