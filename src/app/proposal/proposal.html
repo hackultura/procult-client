@@ -19,12 +19,14 @@
 		</div>
 	</div>
 	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
+	<p data-ng-show="vm.enableNewProposal" class="alert alert-info">
+		Você pode criar no máximo <strong>2 (duas) propostas</strong>. Se enviar suas propostas para análise, <strong>não poderá mais editar</strong>.
+	</p>
 	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
 		<md-card flex data-ng-repeat="proposal in vm.proposals">
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline">{{proposal.title}}</span>
-					<span class="md-subhead"><strong>Proposta nº:</strong> {{proposal.number}}</span>
 					<span class="md-subhead"><strong>Data de Envio: </strong> {{proposal.created_at | date:'d/MM/yyyy'}}</span>
 					<span class="md-subhead"><strong>Situação: </strong> {{proposal.status_display}}</span>
 				</md-card-title-text>
@@ -33,11 +35,12 @@
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-actions layout="row" layout-align="end center">
-				<md-button class="md-fab md-mini md-primary" aria-label="Editar"
+				<md-button class="md-fab md-mini md-primary" aria-label="Editar" data-ng-disabled="vm.isEditable(proposal)"
 					data-ui-sref="admin.propostas.editar({number: proposal.number})" style="margin-right: 5px;">
 					<md-icon md-font-library="material-icons">mode_edit</md-icon>
 				</md-button>
-				<md-button class="md-fab md-mini" aria-label="Remover" data-ng-click="vm.deleteDialog($event, proposal.number)">
+				<md-button class="md-fab md-mini" aria-label="Remover" data-ng-click="vm.deleteDialog($event, proposal.number)"
+					data-ng-disabled="vm.isEditable(proposal)">
 					<md-icon md-font-library="material-icons">delete</md-icon>
 				</md-button>
 			</md-card-actions>

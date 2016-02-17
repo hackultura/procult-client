@@ -3,8 +3,17 @@
 
 	angular
 		.module('procultApp')
+		//.constant('API_URI_PREFIX', 'https://editais.cultura.df.gov.br/api/v1')
 		.constant('API_URI_PREFIX', 'http://localhost:8000/api/v1')
 		.constant('PROPOSAL_LIMIT', 2)
+		.constant('PROPOSAL_STATUS', {
+			draft: 'draft',
+			sended: 'sended',
+			analysis: 'analysis',
+			approved: 'approved',
+			reproved: 'reproved',
+			block_update: ['sended', 'analysis', 'approved', 'reproved']
+		})
 		.constant('ACCEPTED_FORMAT_UPLOADS', [
 			'application/pdf',
 			'application/msword',

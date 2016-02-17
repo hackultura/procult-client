@@ -35,6 +35,7 @@
 		// Functions
 		vm.init = init;
 		vm.deleteDialog = deleteDialog;
+		vm.isEditable = isEditable;
 
 		function init() {
 			listProposal();
@@ -66,6 +67,9 @@
 			});
 		}
 
+		function isEditable(proposal) {
+			return ProposalService.disableProposal(proposal);
+		}
 	}
 
 	/* @ngInject */
@@ -254,6 +258,5 @@
 				vm.errors = AlertService.message(error);
 			});
 		}
-
 	}
 })();

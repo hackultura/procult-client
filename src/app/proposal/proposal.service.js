@@ -5,9 +5,16 @@
 		.module('procultApp')
 		.factory('ProposalService', ProposalService);
 
-	ProposalService.$inject = ['$http', 'API_URI_PREFIX', 'UserService', 'Upload'];
+	ProposalService.$inject = [
+		'$http',
+		'API_URI_PREFIX',
+		'UserService',
+		'Upload',
+		'PROPOSAL_STATUS'
+	];
 
-	function ProposalService($http, API_URI_PREFIX, UserService, Upload) {
+	function ProposalService($http, API_URI_PREFIX, UserService,
+													 Upload, PROPOSAL_STATUS) {
 		var proposalSelected = {};
 		return {
 			query: query,
@@ -22,7 +29,9 @@
 			updateAndSendProposal: updateAndSendProposal,
 			deleteProposal: deleteProposal,
 			uploadDocument: uploadDocument,
-			deleteDocument: deleteDocument
+			deleteDocument: deleteDocument,
+			disableProposal: disableProposal,
+			enableProposal: enableProposal
 		};
 
 		function query() {
@@ -102,6 +111,14 @@
 
 		function deleteDocument(uid) {
 			return $http.delete(API_URI_PREFIX + '/propostas/documentos/' + uid + '/');
+		}
+
+		function disableProposal(proposal) {
+			return PROPOSAL_STATUS.block_update.indexOf(proposal.status) !== -1;
+		}
+
+		function enableProposal(proposal) {
+			return PROPOSAL_STATUS.draft === proposal.status;
 		}
 	}
 }());
