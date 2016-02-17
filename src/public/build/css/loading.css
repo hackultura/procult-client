@@ -57,12 +57,16 @@
   border-radius: 100%;
 }
 
+#loading-bar h1 {
+	text-align: center;
+}
+
 #loading-bar-spinner {
   display: block;
   position: fixed;
   z-index: 10002;
-  top: 10px;
-  left: 10px;
+  top: 50px;
+  left: 50px;
 }
 
 #loading-bar-spinner .spinner-icon {

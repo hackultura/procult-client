@@ -24,7 +24,8 @@
 		$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 		// Customize loading
-		cfpLoadingBarProvider.includeSpinner = false;
+		cfpLoadingBarProvider.includeSpinner = true;
+		cfpLoadingBarProvider.spinnerTemplate = '<div id="loading-bar"><h1>Carregando...</h1></div></div>';
 		cfpLoadingBarProvider.latencyThreshold = 500;
 
 		// Define default router
