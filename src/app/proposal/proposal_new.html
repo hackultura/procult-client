@@ -32,7 +32,7 @@
 				<md-content layout-padding>
 					<div layout-gt-sm="row" hide-xs>
 						<lf-ng-md-file-input lf-files="vm.proposal.attachments"
-							lf-placeholder="Adicione seus arquivos"
+							lf-placeholder="Adicione seus arquivos" data-ngf-drop
 							lf-browse-label="Procurar" lf-remove-label="Remover"
 							lf-drag-and-drop-label="Arraste os seus arquivos aqui..."
 							multiple drag preview></lf-ng-md-file-input>
@@ -41,9 +41,12 @@
 
 					<div layout-gt-sm="row" hide-gt-sm hide-sm>
 						<lf-ng-md-file-input lf-files="vm.proposal.attachments"
-							lf-placeholder="Adicione seus arquivos"
+							lf-placeholder="Adicione seus arquivos" data-ngf-select
 							lf-browse-label="Procurar" lf-remove-label="Remover"
 							multiple></lf-ng-md-file-input>
+					</div>
+					<div data-ng-repeat="attachment in vm.proposal.attachments">
+						<p data-ng-show="attachment.progress >= 0">Carregando o arquivo {{attachment}}: {{attachment.progress}}%</p>
 					</div>
 				</md-content>
 				<div layout="row" layout-align="center">

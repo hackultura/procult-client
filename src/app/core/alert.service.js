@@ -27,13 +27,11 @@
 		}
 
 		function success(value) {
-			msgSuccess = value;
-			alert = true;
+			return [[value]];
 		}
 
 		function error(value) {
-			msgError = value;
-			alert = true;
+			return [[value]];
 		}
 
 		function info(value) {

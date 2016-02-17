@@ -17,8 +17,8 @@
 		'AlertService',
 		'PROPOSAL_LIMIT'
 	];
-	ProposalNewController.$inject = ['$state', 'ProposalService', 'AlertService'];
-	ProposalUpdateController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
+	ProposalNewController.$inject = ['$state', '$timeout', '$mdDialog', 'ProposalService', 'AlertService'];
+	ProposalUpdateController.$inject = ['$state', '$timeout', '$stateParams', '$mdDialog', 'ProposalService', 'AlertService'];
 	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
@@ -73,7 +73,7 @@
 	}
 
 	/* @ngInject */
-	function ProposalNewController($state, ProposalService, AlertService) {
+	function ProposalNewController($state, $timeout, $mdDialog, ProposalService, AlertService) {
 		var vm = this;
 
 		vm.proposal = {};
@@ -92,8 +92,18 @@
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
 					vm.proposal.attachments.forEach(function(file){
-						ProposalService.uploadDocument(response.data, file).finally(function() {
-							$state.go('admin.propostas');
+						file.upload = ProposalService.uploadDocument(response.data, file);
+
+						file.upload.then(function() {
+							$timeout(function() {
+								$state.go('admin.propostas');
+							});
+						}, function(response) {
+							if(response.status > 0) {
+								vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
+							}
+						}, function(event) {
+							file.progress = Math.min(100, parseInt(100.0 * event.loaded / event.total));
 						});
 					});
 				}
@@ -101,6 +111,8 @@
 				vm.errors = AlertService.message(error);
 			});
 		}
+
+							$state.go('admin.propostas');
 
 		function sendProposal() {
 			ProposalService.sendProposal(vm.proposal).then(function(response) {
@@ -118,7 +130,7 @@
 	}
 
 	/* @ngInject */
-	function ProposalUpdateController($state, $stateParams, ProposalService, AlertService) {
+	function ProposalUpdateController($state, $timeout, $stateParams, $mdDialog, ProposalService, AlertService) {
 		var vm = this;
 
 		vm.proposal = {};
@@ -140,13 +152,25 @@
 		}
 
 		function updateProposal() {
+			showDialog();
 			ProposalService.updateProposal(vm.proposal).then(function(response) {
 				vm.proposal.new_attachments.forEach(function(file){
-					ProposalService.uploadDocument(response.data, file).finally(function() {
-						$state.go('admin.propostas');
-					});
+						file.upload = ProposalService.uploadDocument(response.data, file);
+
+						file.upload.then(function() {
+						}, function(response) {
+							if(response.status > 0) {
+								vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
+							}
+						});
+
+						file.upload.success(function() {
+							$timeout(function() {
+								$mdDialog.hide();
+								$state.go('admin.propostas');
+							});
+						});
 				});
-				$state.go('admin.propostas');
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
@@ -168,6 +192,16 @@
 		function deleteDocument(attachment) {
 			ProposalService.deleteDocument(attachment.uid);
 			vm.proposal.attachments.slice(attachment, 1);
+		}
+
+		function showDialog(ev) {
+			$mdDialog.show({
+				controller: ProposalUpdateController,
+				templateUrl: 'proposal/creating_proposal.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:false
+			});
 		}
 	}
 
