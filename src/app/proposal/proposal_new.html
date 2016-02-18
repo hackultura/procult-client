@@ -21,7 +21,7 @@
 		<form name="proposalForm" method="post" layout="row" data-ng-submit="vm.createProposal()" layout-padding layout-align="center">
 			<md-card flex="80">
 				<md-input-container>
-					<label>Título da Proposta</label>
+					<label>Nome do Projeto</label>
 					<input ng-model="vm.proposal.title" name="title" type="text" data-md-minlength="10" data-md-maxlength="60" maxlength="60" required autofocus>
 					<div ng-messages="proposalForm.title.$error" role="alert">
 						<div ng-message="required" class="my-message">Título da proposta é obrigatório</div>

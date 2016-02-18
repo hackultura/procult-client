@@ -12,6 +12,7 @@
 			query: query,
 			getUser: getUser,
 			createUser: createUser,
+			createAdmin: createAdmin,
 			updateUser: updateUser,
 			removeUser: removeUser,
 			login: login,
@@ -32,6 +33,10 @@
 		}
 
 		function createUser(user) {
+			return $http.post(API_URI_PREFIX + '/usuarios/', user);
+		}
+
+		function createAdmin (user) {
 			return $http.post(API_URI_PREFIX + '/usuarios/', user);
 		}
 

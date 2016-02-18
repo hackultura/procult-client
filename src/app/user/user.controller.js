@@ -90,6 +90,7 @@
 
 		// Variables
 		vm.profile = '';
+		vm.user_admin = false;
 		vm.user = {};
 		vm.errors = [];
 
@@ -97,8 +98,10 @@
 		vm.init = init;
 		vm.setProfile = setProfile;
 		vm.createUser = createUser;
+		vm.createAdmin = createAdmin;
 
 		function init() {
+			vm.user_admin = UserService.getAuthenticatedAccount().is_admin;
 		}
 
 		function setProfile(profile) {
@@ -112,6 +115,12 @@
 					msg: 'Usuário criado com sucesso. Agora faça o seu login.',
 					show: true
 				});
+				$state.transitionTo($state.previous.name, $state.previous.params);
+			});
+		}
+
+		function createAdmin() {
+			UserService.createAdmin(vm.user).then(function() {
 				$state.transitionTo($state.previous.name, $state.previous.params);
 			}, function(erro){
 				vm.errors = AlertService.message(erro);

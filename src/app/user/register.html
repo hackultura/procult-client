@@ -1,4 +1,4 @@
-<div ng-controller="UserRegisterController as vm">
+<div ng-controller="UserRegisterController as vm" data-ng-init="vm.init()">
 	<div layout="column" ng-cloak class="md-inline-form">
 		<div layout="row" layout-padding  class="cover client_cover">
 			<div layout-align="left center" layout-padding flex>
@@ -22,6 +22,7 @@
 			<h2 data-ng-show="!vm.profile">Qual é o seu perfil? </h2>
 			<h2 data-ng-show="vm.profile == 'F'">Pessoa Física</h2>
 			<h2 data-ng-show="vm.profile == 'J'">Pessoa Jurídica</h2>
+			<h2 data-ng-show="vm.profile == 'S'">Servidor Público</h2>
 		</div>
 		<div class='md-padding profile_boxes' layout="row" layout-wrap
 			layout-align="center center" data-ng-hide="vm.profile">
@@ -36,6 +37,13 @@
 				<md-card-title>
 					<md-icon class="md-64">business</md-icon>
 					<h1>Pessoa Jurídica</h1>
+				</md-card-title>
+			</md-card>
+
+			<md-card flex="18" data-ng-click="vm.setProfile('S')" data-ng-show="vm.user_admin">
+				<md-card-title>
+					<md-icon class="md-64">assignment_ind</md-icon>
+					<h1>Servidor Público</h1>
 				</md-card-title>
 			</md-card>
 		</div>
@@ -188,6 +196,85 @@
 				</md-content>
 				<div layout="row" layout-align="center">
 					<md-button class="md-raised md-primary" aria-label="Criar Conta" type="submit" ng-disabled="businessForm.$invalid">
+						<md-icon>save</md-icon>
+						<span hide-xs>Criar Conta</span>
+						<span hide-gt-sm hide-sm>Registrar</span>
+					</md-button>
+				</div>
+			</md-card>
+		</form>
+
+		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
+		<form name="publicForm" method="post" layout="row" layout-padding layout-align="center" data-ng-show="vm.profile == 'S'" data-ng-submit="vm.createAdmin()">
+			<md-card flex="80">
+				<md-content>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Nome Completo</label>
+						<input ng-model="vm.user.name" name="name" type="text"
+						data-md-minlength="10" data-md-maxlength="50" maxlength="50" required autofocus>
+						<div ng-messages="publicForm.name.$error" role="alert">
+							<div ng-message="required" class="my-message">O nome é obrigatório</div>
+							<div ng-message="md-minlength" class="my-message">O mínimo é de 10 caracteres</div>
+						</div>
+					</md-input-container>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>CPF</label>
+							<input type="text" ng-model="vm.user.cpf" name="cpf" data-ui-br-cpf-mask
+							required minlength="11" maxlength="14" ng-pattern="/^[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{2}$/" />
+							<div ng-messages="publicForm.cpf.$error" role="alert">
+								<div ng-message-exp="['minlength', 'maxlength', 'pattern']" class="my-message">
+									Insira o CPF no seguinte formato: 000.000.000-00
+								</div>
+								<div ng-message="required" class="my-message">
+									O CPF é obrigatório
+								</div>
+								<div ng-message="cpf" class="my-message">
+									Esse CPF é inválido
+								</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Email</label>
+							<input name="email" ng-model="vm.user.email" type="text"
+							required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+							<div ng-messages="publicForm.email.$error" role="alert">
+								<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+									Seu e-mail deve ser entre 10 e 100 caracteres and ter o formato de um e-mail correto.
+								</div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Digite a senha</label>
+							<input ng-model="vm.user.password1" type="password" name="password1" required>
+							<div ng-messages="publicForm.password1.$error" role="alert">
+								<div ng-message="required" class="my-message">
+									A senha é obrigatória
+								</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Re-digite a senha</label>
+							<input ng-model="vm.user.password2" type="password" name="password2" required>
+							<div ng-messages="publicForm.password2.$error" role="alert">
+								<div ng-message="required" class="my-message">
+									A senha é obrigatória
+								</div>
+							</div>
+						</md-input-container>
+					</div>
+					<md-input-container class="md-block" flex-gt-sm>
+						<div flex-xs flex="50">
+							<md-checkbox ng-model="vm.user.is_admin" aria-label="Servidor Público?">
+								Sou servidor público e vou analisar as propostas enviadas
+							</md-checkbox>
+						</div>
+					</md-input-container>
+				</md-content>
+				<div layout="row" layout-align="center">
+					<md-button type="submit" class="md-raised md-primary" aria-label="Criar Conta" data-ng-disabled="publicForm.$invalid">
 						<md-icon>save</md-icon>
 						<span hide-xs>Criar Conta</span>
 						<span hide-gt-sm hide-sm>Registrar</span>
