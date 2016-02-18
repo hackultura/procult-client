@@ -196,8 +196,15 @@
 		}
 
 		function deleteDocument(attachment) {
-			ProposalService.deleteDocument(attachment.uid);
-			vm.proposal.attachments.slice(attachment, 1);
+			ProposalService.deleteDocument(attachment.uid).then(function(response) {
+				if(response.status === 204) {
+					vm.proposal.attachments = vm.proposal.attachments.filter(function(item) {
+						if(item.uid !== attachment.uid) {
+							return item;
+						}
+					});
+				}
+			});
 		}
 
 		function uploadDocuments(data, file) {

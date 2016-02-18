@@ -101,7 +101,9 @@
 		vm.createAdmin = createAdmin;
 
 		function init() {
-			vm.user_admin = UserService.getAuthenticatedAccount().is_admin;
+			if(UserService.getAuthenticatedAccount() !== undefined){
+				vm.user_admin = UserService.getAuthenticatedAccount().is_admin;
+			}
 		}
 
 		function setProfile(profile) {
