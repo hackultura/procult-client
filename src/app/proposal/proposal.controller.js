@@ -166,23 +166,30 @@
 		}
 
 		function updateProposal() {
-			showDialog();
 			ProposalService.updateProposal(vm.proposal).then(function(response) {
-				vm.proposal.new_attachments.forEach(function(file){
-					uploadDocuments(response.data, file);
-				});
+				if (vm.proposal.new_attachments.length > 0) {
+					showDialog();
+					vm.proposal.new_attachments.forEach(function(file){
+						uploadDocuments(response.data, file);
+					});
+				} else {
+					$state.go('admin.propostas');
+				}
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
 		}
 
 		function sendProposal() {
-			showDialog();
 			ProposalService.updateAndSendProposal(vm.proposal).then(function(response) {
-				vm.proposal.new_attachments.forEach(function(file){
-					uploadDocuments(response.data, file);
-				});
-				$state.go('admin.propostas');
+				if (vm.proposal.new_attachments.length > 0) {
+					showDialog();
+					vm.proposal.new_attachments.forEach(function(file){
+						uploadDocuments(response.data, file);
+					});
+				} else {
+					$state.go('admin.propostas');
+				}
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
@@ -204,8 +211,8 @@
 			});
 
 			file.upload.success(function() {
+				$mdDialog.hide();
 				$timeout(function() {
-					$mdDialog.hide();
 					$state.go('admin.propostas');
 				});
 			});
