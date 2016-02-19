@@ -19,7 +19,7 @@
 		</div>
 		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
 			<md-card flex="80">
-				<h2 class="md-headline"><strong>Título da Proposta:</strong> {{vm.proposal.title}}</h2>
+				<h2 class="md-headline"><strong>Nome do Projeto:</strong> {{vm.proposal.title}}</h2>
 				<h3 class="md-subhead">
 				<p> <strong>Número: </strong> {{vm.proposal.number}} </p>
 				<p> <strong>Data de Envio: </strong> {{vm.proposal.created_at | date:'dd/MM/yyyy'}} </p>

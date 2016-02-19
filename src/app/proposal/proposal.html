@@ -35,6 +35,10 @@
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-actions layout="row" layout-align="end center">
+				<md-button class="md-fab md-mini md-primary md-hue-2" aria-label="Imprimir Comprovante"
+					data-ui-sref="admin.propostas.detalhe_impressao({number: proposal.number})" style="margin-right: 5px;">
+					<md-icon md-font-library="material-icons">print</md-icon>
+				</md-button>
 				<md-button class="md-fab md-mini md-primary" aria-label="Editar" data-ng-disabled="vm.isEditable(proposal)"
 					data-ui-sref="admin.propostas.editar({number: proposal.number})" style="margin-right: 5px;">
 					<md-icon md-font-library="material-icons">mode_edit</md-icon>

@@ -95,6 +95,36 @@
 					title: 'Nova Proposta'
 				}
 			})
+			.state('admin.propostas.detalhes', {
+				parent: 'admin',
+				url: '/propostas/detalhes',
+				authenticate: true,
+				admin: false,
+				views: {
+					'content@admin': {
+						templateUrl: 'proposal/proposal_receipt.html'
+					}
+				},
+				data: {
+					title: 'Informações da Proposta'
+				}
+			})
+			.state('admin.propostas.detalhe_impressao', {
+				parent: 'admin',
+				url: '/proposta/:number/comprovante',
+				authenticate: true,
+				admin: false,
+				views: {
+					'content@admin': {
+						templateUrl: 'proposal/proposal_receipt_print.html'
+					}
+				},
+				data: {
+						title: 'Comprovante da Proposta - Visualização para Impressão',
+						wrapperClasses: 'wrapper',
+						pageClasses: 'print_wrapper page_a4_wrapper print_view'
+				}
+			})
 			.state('admin.propostas.editar', {
 				parent: 'admin',
 				url: '/propostas/atualizar/:number',
@@ -268,6 +298,7 @@
 
 				$rootScope.title = toState.data.title;
 				$rootScope.pageClasses = toState.data.pageClasses;
+				$rootScope.wrapperClasses = toState.data.wrapperClasses;
 			});
 
 			$rootScope.back = function() {

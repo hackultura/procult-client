@@ -5,6 +5,7 @@
 	.module('procultApp')
 	.controller('ProposalController', ProposalController)
 	.controller('ProposalNewController', ProposalNewController)
+	.controller('ProposalDetailsController', ProposalDetailsController)
 	.controller('ProposalUpdateController', ProposalUpdateController)
 	.controller('ProposalDeleteController', ProposalDeleteController)
 	.controller('ProposalAnalysisController', ProposalAnalysisController)
@@ -18,6 +19,7 @@
 		'PROPOSAL_LIMIT'
 	];
 	ProposalNewController.$inject = ['$state', '$timeout', '$mdDialog', 'ProposalService', 'AlertService'];
+	ProposalDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 	ProposalUpdateController.$inject = ['$state', '$timeout', '$stateParams', '$mdDialog', 'ProposalService', 'AlertService'];
 	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
@@ -92,6 +94,7 @@
 			showDialog();
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
+					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
 					});
@@ -105,6 +108,7 @@
 			showDialog();
 			ProposalService.sendProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
+					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
 					});
@@ -127,7 +131,7 @@
 			file.upload.success(function() {
 				$timeout(function() {
 					$mdDialog.hide();
-					$state.go('admin.propostas');
+					$state.go('admin.propostas.detalhe_impressao', {number: data.number});
 				});
 			});
 		}
@@ -139,6 +143,23 @@
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose:false
+			});
+		}
+	}
+
+	/* @ngInject */
+	function ProposalDetailsController($state, $stateParams, ProposalService, AlertService) {
+		var vm = this;
+
+		vm.proposal = {};
+
+		vm.init = init;
+
+		function init() {
+			ProposalService.getProposal($stateParams.number).then(function(response) {
+				vm.proposal = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
 			});
 		}
 	}

@@ -1,0 +1,40 @@
+/* CSS criado para a estilização de relatórios para impressão */
+body {
+	background: white;
+	font-size: 12pt;
+}
+
+@page {
+	size: A4;
+	margin-top: 2cm;
+
+	@top-left {
+		content: "first: " string(heading, first); 
+	}
+	@top-center {
+		content: "start: " string(heading, start); 
+	}
+	@top-right {
+		content: "last: " string(heading, last); 
+	}
+}
+
+@page :left {
+	margin-left: 2cm;
+}
+
+@page :right {
+	margin-left: 2cm;
+}
+
+md-toolbar, .header_wrapper, .md-toolbar-tools, .cover {
+	display: none;
+}
+
+.page_a4_wrapper {
+	height: auto;
+}
+
+p.details {
+	font-size: 10pt;
+}

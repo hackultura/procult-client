@@ -17,14 +17,21 @@
     <!-- endbuild -->
 
     <!-- build:vendor_css css/vendors.css -->
-	<link rel="stylesheet" href="vendors/angular/angular-csp.css">
-	<link rel="stylesheet" href="vendors/angular-material/angular-material.min.css">
-	<link rel="stylesheet" href="vendors/angular-material-icons/angular-material-icons.css"></script>
-	<link rel="stylesheet" href="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.css">
-	<link rel="stylesheet" href="vendors/angular-loading-bar/build/loading-bar.min.css">
-	<link rel="stylesheet" href="build/css/loading.css">
+	<link media="all" rel="stylesheet" href="vendors/angular/angular-csp.css">
+	<link media="all" rel="stylesheet" href="vendors/angular-material/angular-material.min.css">
+	<link media="all" rel="stylesheet" href="vendors/angular-material-icons/angular-material-icons.css"></script>
+	<link media="all" rel="stylesheet" href="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.css">
+	<link media="all" rel="stylesheet" href="vendors/angular-loading-bar/build/loading-bar.min.css">
+	<link media="all" rel="stylesheet" href="build/css/loading.css">
+	<link media="all" rel="stylesheet" href="build/css/print_view.css">
     <!-- endbuild -->
-	<link rel="stylesheet" href="fonts/material-icons.css">
+
+	<!-- build:vendor_print css/print.css -->
+	<link media="print" rel="stylesheet" href="vendors/angularPrint/angularPrint.css">
+	<link media="print" rel="stylesheet" href="build/css/print_template.css">
+	<!-- endbuild -->
+
+	<link media="all" rel="stylesheet" href="fonts/material-icons.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +42,7 @@
   </head>
   <body class="{{ pageClasses }}" data-ng-cloak>
 
-	<div data-ui-view layout="column" flex></div>
+	  <div data-ui-view layout="column" flex class="{{wrapperClasses}}"></div>
 
     <!-- build:layout_js js/layout.js -->
 	<!-- endbuild -->
@@ -45,13 +52,13 @@
     <!-- endbuild -->
 
 
-    <!-- build:app_lib js/app_lib.js -->
-    <!-- Angular -->
-    <script src="vendors/angular/angular.min.js"></script>
-    <!-- Angular i18n -->
-    <script src="vendors/angular-i18n/angular-locale_pt-br.js"></script>
-    <!-- Angular Aria -->
-    <script src="vendors/angular-aria/angular-aria.min.js"></script>
+	<!-- build:app_lib js/app_lib.js -->
+	<!-- Angular -->
+	<script src="vendors/angular/angular.min.js"></script>
+	<!-- Angular i18n -->
+	<script src="vendors/angular-i18n/angular-locale_pt-br.js"></script>
+	<!-- Angular Aria -->
+	<script src="vendors/angular-aria/angular-aria.min.js"></script>
 	<!-- Angular Animate -->
 	<script src="vendors/angular-animate/angular-animate.min.js"></script>
 	<!-- Angular Messages -->
@@ -59,26 +66,28 @@
 	<!-- Angular Cookies -->
 	<script src="vendors/angular-cookies/angular-cookies.min.js"></script>
 	<!-- Angular UI Route -->
-	<script src="vendors/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="vendors/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<!-- Intro.JS-->
-	<script src="vendors/intro.js/intro.js"></script>
+	<script src="vendors/intro.js/minified/intro.min.js"></script>
 	<!-- Angular Intro.JS-->
 	<script src="vendors/angular-intro.js/build/angular-intro.min.js"></script>
 	<!-- Angular Material -->
-  <script src="vendors/angular-material/angular-material.min.js"></script>
-  <!-- Angular Material Icons -->
-  <script src="vendors/angular-material-icons/angular-material-icons.js"></script>
-  <!-- Angular Material Fileinput -->
-  <script src="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.js"></script>
-  <!-- NG File Upload -->
-  <script src="vendors/ng-file-upload/ng-file-upload.js"></script>
-  <!-- Angular Input Masks -->
-  <script src="vendors/angular-input-masks/angular-input-masks-dependencies.js"></script>
-  <script src="vendors/angular-input-masks/angular-input-masks.br.js"></script>
-  <!-- Angular Loading Bar -->
-  <script src="vendors/angular-loading-bar/build/loading-bar.min.js"></script>
+	<script src="vendors/angular-material/angular-material.min.js"></script>
+	<!-- Angular Material Icons -->
+	<script src="vendors/angular-material-icons/angular-material-icons.min.js"></script>
+	<!-- Angular Material Fileinput -->
+	<script src="vendors/lf-ng-md-file-input/dist/lf-ng-md-file-input.min.js"></script>
+	<!-- NG File Upload -->
+	<script src="vendors/ng-file-upload/ng-file-upload.min.js"></script>
+	<!-- Angular Input Masks -->
+	<script src="vendors/angular-input-masks/angular-input-masks-dependencies.min.js"></script>
+	<script src="vendors/angular-input-masks/angular-input-masks.br.min.js"></script>
+	<!-- Angular Loading Bar -->
+	<script src="vendors/angular-loading-bar/build/loading-bar.min.js"></script>
+	<!-- Angular Print -->
+	<script src="vendors/angularPrint/angularPrint.js"></script>
+	<!-- endbuild -->
 
-  <!-- endbuild -->
 
     <!-- build:app app/app.js -->
     <!-- Angular App -->

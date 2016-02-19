@@ -24,6 +24,7 @@
 			approveProposal: approveProposal,
 			reproveProposal: reproveProposal,
 			getProposal: getProposal,
+			getProposalSelected: getProposalSelected,
 			setProposalSelected: setProposalSelected,
 			updateProposal: updateProposal,
 			updateAndSendProposal: updateAndSendProposal,
@@ -76,6 +77,10 @@
 
 		function getProposal(number) {
 			return $http.get(API_URI_PREFIX + '/propostas/' + number + '/');
+		}
+
+		function getProposalSelected() {
+			return proposalSelected;
 		}
 
 		function setProposalSelected(proposal) {

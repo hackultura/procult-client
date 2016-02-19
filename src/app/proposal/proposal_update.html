@@ -55,7 +55,10 @@
 						</thead>
 						<tbody>
 							<tr data-ng-repeat="attachment in vm.proposal.attachments">
-								<td><a href="{{attachment.file}}">{{attachment.file}}</a></td>
+								<td>
+									<a href="{{attachment.file}}">{{attachment.filename}}</a>
+									<p>Checksum: {{attachment.checksum}}</p>
+								</td>
 								<td>
 									<md-button class="md-secondary md-raised md-warn" data-ng-click="vm.deleteDocument(attachment)">
 										<md-icon>delete</md-icon>

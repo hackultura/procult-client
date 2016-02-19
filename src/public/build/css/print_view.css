@@ -1,0 +1,85 @@
+/* CSS criado para a estilização de relatórios para visualização */
+.wrapper {
+	background: #CCC;
+}
+
+p.details {
+	font-size: 10pt;
+	margin: 0;
+}
+
+.page_view {
+    margin: 0 auto;
+    -webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.75);
+    -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.75);
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.75);
+}
+
+.page_a4_wrapper {
+	height: 970px;
+}
+
+.page_a4 {
+    background: #FFF;
+    font-size: 12pt;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 5mm;
+    margin-top: 10mm;
+}
+
+.page_a4_content {
+	margin-left: 5%;
+	margin-right: 4%;
+	padding-top: 2em;
+}
+
+.header .logo {
+	float: left;
+}
+
+.header .logo img {
+	width: 80px;
+	height: 80px;
+}
+
+.header_title {
+    font-size: 1.4em;
+}
+
+.header_subtitle {
+    font-size: 0.9em;
+    margin: 0.1em 0;
+}
+
+.government {
+    text-transform: uppercase;
+    margin-bottom: 0.3em;
+}
+
+section.title {
+    text-align: center;
+    font-size: 1em;
+    padding-top: 8mm;
+}
+
+section.body {
+    padding-top: 10px;
+    line-height: 1.5em;
+}
+
+
+@page {
+	size: A4;
+	margin-top: 2cm;
+
+	@top-left {
+		content: "first: " string(heading, first); 
+	}
+	@top-center {
+		content: "start: " string(heading, start); 
+	}
+	@top-right {
+		content: "last: " string(heading, last); 
+	}
+}
