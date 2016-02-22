@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
-		<form name="proposalForm" method="post" layout="row" layout-padding data-ng-submit="vm.updateProposal()" layout-align="center">
+		<form name="proposalForm" method="post" layout="row" layout-padding data-ng-submit="vm.updateProposal($event)" layout-align="center">
 			<md-card flex="80">
 				<md-input-container>
 					<label>Nome do Projeto</label>
@@ -65,7 +65,7 @@
 					</md-card>
 				</div>
 				<div layout="row" layout-align="center">
-					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit" data-ng-click="vm.updateProposal()" data-ng-disabled="proposalForm.$invalid">
+					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit" data-ng-disabled="proposalForm.$invalid">
 						<md-icon>save</md-icon>
 						<span hide-xs>Atualizar Proposta</span>
 						<span hide-gt-sm hide-sm>Atualizar</span>

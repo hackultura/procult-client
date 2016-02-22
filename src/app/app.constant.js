@@ -3,8 +3,8 @@
 
 	angular
 		.module('procultApp')
-		//.constant('API_URI_PREFIX', 'https://editais.cultura.df.gov.br/api/v1')
-		.constant('API_URI_PREFIX', 'http://localhost:8000/api/v1')
+		.constant('API_URI_PREFIX', 'https://editais.cultura.df.gov.br/api/v1')
+		//.constant('API_URI_PREFIX', 'http://localhost:8000/api/v1')
 		.constant('PROPOSAL_LIMIT', 2)
 		.constant('PROPOSAL_STATUS', {
 			draft: 'draft',

@@ -234,9 +234,12 @@
 
 		function login() {
 			UserService.login(vm.user.email, vm.user.password).then(function(response){
-				console.log(response.data);
 				UserService.setAuthenticatedAccount(response.data);
-				$state.go('admin.propostas');
+				if (UserService.getAuthenticatedAccount().is_admin) {
+					$state.go('admin.propostas.analise');
+				} else {
+					$state.go('admin.propostas');
+				}
 			}, function(error){
 				if(error.status === -1) {
 					vm.errors.push({msg: 'Ocorreu um problema no acesso a base de dados. Por favor, contacte a Secretaria de Cultura ou tente mais tarde.'});

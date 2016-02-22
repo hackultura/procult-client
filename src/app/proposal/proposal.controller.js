@@ -122,18 +122,15 @@
 			file.upload = ProposalService.uploadDocument(data, file);
 
 			file.upload.then(function() {
-			}, function(response) {
-				if(response.status > 0) {
-					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
-				}
-			});
-
-			file.upload.success(function() {
 				if (!ProposalService.isUploadIsProgress()) {
 					$timeout(function() {
 						$mdDialog.hide();
 						$state.go('admin.propostas.detalhe_impressao', {number: data.number});
 					}, 300);
+				}
+			}, function(response) {
+				if(response.status > 0) {
+					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
 				}
 			});
 		}
@@ -192,10 +189,11 @@
 			showDialog();
 			ProposalService.updateProposal(vm.proposal).then(function(response) {
 				if (vm.proposal.new_attachments.length > 0) {
-					vm.proposal.new_attachments.forEach(function(index, file){
-						uploadDocuments(response.data, file, index);
+					vm.proposal.new_attachments.forEach(function(file){
+						uploadDocuments(response.data, file);
 					});
 				} else {
+					$mdDialog.hide();
 					$state.go('admin.propostas');
 				}
 			}, function(error) {
@@ -207,10 +205,11 @@
 			showDialog();
 			ProposalService.updateAndSendProposal(vm.proposal).then(function(response) {
 				if (vm.proposal.new_attachments.length > 0) {
-					vm.proposal.new_attachments.forEach(function(index, file){
-						uploadDocuments(response.data, file, index);
+					vm.proposal.new_attachments.forEach(function(file){
+						uploadDocuments(response.data, file);
 					});
 				} else {
+					$mdDialog.hide();
 					$state.go('admin.propostas');
 				}
 			}, function(error) {
@@ -234,18 +233,15 @@
 			file.upload = ProposalService.uploadDocument(data, file);
 
 			file.upload.then(function() {
-			}, function(response) {
-				if(response.status > 0) {
-					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
-				}
-			});
-
-			file.upload.success(function() {
 				if (!ProposalService.isUploadIsProgress()) {
 					$timeout(function() {
 						$mdDialog.hide();
 						$state.go('admin.propostas.detalhe_impressao', {number: data.number});
 					}, 300);
+				}
+			}, function(response) {
+				if(response.status > 0) {
+					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
 				}
 			});
 		}
