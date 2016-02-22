@@ -72,6 +72,7 @@
 				parent: 'admin',
 				url: '/propostas',
 				authenticate: true,
+				admin: false,
 				views: {
 					'content@admin': {
 						templateUrl: 'proposal/proposal.html'

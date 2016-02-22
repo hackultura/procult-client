@@ -45,30 +45,27 @@
 							multiple></lf-ng-md-file-input>
 					</div>
 				</md-content>
-				<md-content layout-padding>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Nome do arquivo</th>
-								<th>Opções</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr data-ng-repeat="attachment in vm.proposal.attachments">
-								<td>
-									<a href="{{attachment.file}}">{{attachment.filename}}</a>
-									<p>Checksum: {{attachment.checksum}}</p>
-								</td>
-								<td>
-									<md-button class="md-secondary md-raised md-warn" data-ng-click="vm.deleteDocument(attachment)">
-										<md-icon>delete</md-icon>
-										Remover
-									</md-button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</md-content>
+				<div class='md-padding' layout="row" layout-wrap layout-align="center">
+					<md-card style="width: 300px;" ng-repeat="attachment in vm.proposal.attachments">
+						<md-card-title>
+							<h2>{{attachment.filename}}</h2>
+						</md-card-title>
+						<md-card-content>
+							<p><strong>Tamanho do Arquivo: </strong>{{attachment.size}}</p>
+							<p><strong>Checksum: </strong>{{attachment.checksum}}</p>
+						</md-card-content>
+						<md-card-actions layout="row" layout-align="end center">
+							<md-button href="{{attachment.file}}" class="md-icon-button" aria-label="Baixar Arquivo" title="Baixar Arquivo">
+								<md-icon>cloud_download</md-icon>
+							</md-button>
+							<md-button class="md-icon-button" aria-label="Remover" title="Remover">
+								<md-icon>delete</md-icon>
+							</md-button>
+						</md-card-actions>
+					</md-card>
+				</div>
+			</div>
+		</div>
 				<div layout="row" layout-align="center">
 					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit" data-ng-disabled="proposalForm.$invalid">
 						<md-icon>save</md-icon>
