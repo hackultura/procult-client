@@ -56,18 +56,25 @@
 				<md-icon>face</md-icon>
 			</md-button>
 			<md-menu-content>
-				<md-subheader>Nome do usuário</md-subheader>
+				<md-subheader>{{vm.user.name}}</md-subheader>
 				<md-menu-item>
-					<md-button layout-fill md-ink-ripple>
+					<md-button layout-fill md-ink-ripple data-ui-sref="admin.perfil({id: vm.user.id})">
 						<md-icon md-menu-align-target>perm_identity</md-icon>
 						Meu Perfil
 					</md-button>
 				</md-menu-item>
 
 				<md-menu-item>
-					<md-button layout-fill md-ink-ripple>
+					<md-button layout-fill md-ink-ripple data-ui-sref="admin.change_password({id: vm.user.id})">
+						<md-icon md-menu-align-target>lock</md-icon>
+						Alterar Senha
+					</md-button>
+				</md-menu-item>
+
+				<md-menu-item>
+					<md-button layout-fill md-ink-ripple data-ng-click="vm.logout()">
 						<md-icon md-menu-align-target>exit_to_app</md-icon>
-						Sair
+						Sair do Sistema
 					</md-button>
 				</md-menu-item>
 			</md-menu-content>
