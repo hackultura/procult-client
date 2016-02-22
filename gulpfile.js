@@ -11,7 +11,12 @@ var rimraf = require('rimraf');
 var templateCache = require('gulp-angular-templatecache');
 var webserver = require('gulp-webserver');
 var jshint = require('gulp-jshint');
+var inject_string = require('gulp-inject-string');
 
+var API_URI_PREFIX = {
+	local: 'http://localhost:5000',
+	prod: 'https://editais.cultura.df.gov.br/api/v1'
+};
 
 var paths = {
 	root: '.',
@@ -19,7 +24,8 @@ var paths = {
 	app: {
 		root: './src/app',
 		js: './src/app/**/*.js',
-		html: './src/app/**/*.html'
+		html: './src/app/**/*.html',
+		constants: './src/app/app.constant.js'
 	},
 	public: {
 		index: './src/public/index.html',
@@ -84,6 +90,22 @@ gulp.task('usemin:fonts', function() {
 	.pipe(gulp.dest(paths.dist.public.fonts));
 });
 
+gulp.task('inject:api_uri_local', function() {
+	return gulp.src(paths.app.constants)
+		.pipe(inject_string.replace(
+			API_URI_PREFIX.prod, API_URI_PREFIX.local
+		))
+		.pipe(gulp.dest(paths.app.root));
+});
+
+gulp.task('inject:api_uri_prod', function() {
+	return gulp.src(paths.app.constants)
+		.pipe(inject_string.replace(
+			API_URI_PREFIX.local, API_URI_PREFIX.prod
+		))
+		.pipe(gulp.dest(paths.app.root));
+});
+
 gulp.task('imagemin', function() {
 	return gulp.src(paths.public.img.images)
 	.pipe(imagemin({ progressive: true }))
@@ -131,6 +153,8 @@ gulp.task('webserver', function() {
 	}));
 });
 
-gulp.task('build', ['clean', 'usemin', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
+gulp.task('build', ['clean', 'inject:api_uri_local', 'usemin', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
+
+gulp.task('build:prod', ['clean', 'inject:api_uri_prod', 'usemin', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
 
 gulp.task('default', ['build']);
