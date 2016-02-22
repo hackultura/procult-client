@@ -3,6 +3,7 @@
 	body {
 		background: transparent;
 		font-size: 12pt;
+		width: 100%;
 	}
 
 	a, a:visited {
@@ -34,17 +35,12 @@
 		max-width: 100% !important;
 	}
 
+	table {
+		width: 100% !important;
+	}
+
 	@page {
 		size: A4;
-	}
-
-	@page:left {
-		margin-left: 2cm;
-	}
-
-	@page:right {
-		margin-left: 2cm;
-		content: counter(page);
 	}
 
 	md-toolbar, .header_wrapper, .md-toolbar-tools, .cover {
@@ -75,14 +71,32 @@
 		height: 100%;
 	}
 
+	.header {
+		display: table-header-group;
+		width: 100%;
+	}
+
+	section.body {
+		display: inherit;
+		width: 100%;
+	}
+
 	p.details {
 		font-size: 10pt;
 	}
 
 	.footer {
 		display: table-footer-group;
-		position: fixed;
-		bottom: 0;
-		float: footnote;
+		width: 680px;
+		border-top: 1px solid #CCC !important;
+		margin-top: 10px;
+		padding-top: 20px;
+	}
+
+	.footer p {
+		float: left;
+		width: 120px;
+		font-size: 10pt;
+		font-weight: 700;
 	}
 }

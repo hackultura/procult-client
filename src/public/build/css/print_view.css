@@ -70,16 +70,6 @@ section.body {
 }
 
 .footer {
-    position: absolute;
-    bottom: -380px;
-    width: 680px;
-    border-top: 1px solid #CCC;
-    padding-top: 10px;
+	display: none;
 }
 
-.footer p {
-	float: left;
-	width: 120px;
-	font-size: 10pt;
-	font-weight: 700;
-}
