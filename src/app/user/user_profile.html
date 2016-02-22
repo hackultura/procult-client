@@ -40,7 +40,7 @@
 							</div>
 						</div>
 					</md-input-container>
-					<md-input-container>
+					<md-input-container data-ng-hide="vm.user.is_admin">
 						<label>Número do CEAC</label>
 						<input ng-model="vm.user.ente.ceac" name="ceac" type="text" data-md-minlength="4" data-md-maxlength="4" maxlength="4" required>
 						<div ng-messages="profileForm.ceac.$error" role="alert">

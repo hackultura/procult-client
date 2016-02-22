@@ -18,6 +18,7 @@
 			<md-button aria-label="Meu usuario" ng-click="$mdOpenMenu($event)">
 				<md-icon data-ng-show="vm.user.ente.cpf">face</md-icon>
 				<md-icon data-ng-show="vm.user.ente.cnpj">business</md-icon>
+				<md-icon data-ng-show="vm.user.is_admin">assignment_ind</md-icon>
 				{{vm.user.name}}
 			</md-button>
 			<md-menu-content>

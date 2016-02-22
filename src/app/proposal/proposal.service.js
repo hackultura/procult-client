@@ -61,7 +61,7 @@
 
 		function approveProposal(proposal) {
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
-					user: proposal.user,
+					ente: proposal.ente,
 					title: proposal.title,
 					status: 'approved'
 			});
@@ -69,7 +69,7 @@
 
 		function reproveProposal(proposal) {
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
-					user: proposal.user,
+					ente: proposal.ente,
 					title: proposal.title,
 					status: 'reproved'
 			});

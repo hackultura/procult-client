@@ -132,7 +132,7 @@
 				$timeout(function() {
 					$mdDialog.hide();
 					$state.go('admin.propostas.detalhe_impressao', {number: data.number});
-				});
+				}, 100);
 			});
 		}
 
@@ -242,7 +242,7 @@
 				$mdDialog.hide();
 				$timeout(function() {
 					$state.go('admin.propostas');
-				});
+				}, 100);
 			});
 		}
 

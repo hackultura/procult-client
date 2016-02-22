@@ -55,19 +55,17 @@
 							<p><strong>Checksum: </strong>{{attachment.checksum}}</p>
 						</md-card-content>
 						<md-card-actions layout="row" layout-align="end center">
-							<md-button href="{{attachment.file}}" class="md-icon-button" aria-label="Baixar Arquivo" title="Baixar Arquivo">
+							<md-button href="{{attachment.file}}" target="_blank" class="md-icon-button" aria-label="Baixar Arquivo" title="Baixar Arquivo">
 								<md-icon>cloud_download</md-icon>
 							</md-button>
-							<md-button class="md-icon-button" aria-label="Remover" title="Remover">
+							<md-button class="md-icon-button" aria-label="Remover" title="Remover" data-ng-click="vm.deleteDocument(attachment)">
 								<md-icon>delete</md-icon>
 							</md-button>
 						</md-card-actions>
 					</md-card>
 				</div>
-			</div>
-		</div>
 				<div layout="row" layout-align="center">
-					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit" data-ng-disabled="proposalForm.$invalid">
+					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit" data-ng-click="vm.updateProposal()" data-ng-disabled="proposalForm.$invalid">
 						<md-icon>save</md-icon>
 						<span hide-xs>Atualizar Proposta</span>
 						<span hide-gt-sm hide-sm>Atualizar</span>
