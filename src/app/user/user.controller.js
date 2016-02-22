@@ -234,6 +234,7 @@
 
 		function login() {
 			UserService.login(vm.user.email, vm.user.password).then(function(response){
+				console.log(response.data);
 				UserService.setAuthenticatedAccount(response.data);
 				$state.go('admin.propostas');
 			}, function(error){

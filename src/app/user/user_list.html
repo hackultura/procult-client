@@ -30,18 +30,22 @@
 		<md-card flex data-ng-repeat="user in vm.users | filter: vm.search">
 			<md-card-title>
 				<md-card-title-text>
-					<span class="md-headline">{{user.name}}</span>
-					<span class="md-subhead"><strong>CEAC: </strong> {{user.ceac}}</span>
+					<span class="md-headline"> {{user.name}} </span>
+					<span class="md-subhead"><strong>CEAC: </strong> {{user.ente.ceac}}</span>
 					<span class="md-subhead"><strong>E-mail: </strong> {{user.email}}</span>
-					<span class="md-subhead" data-ng-show="{{user.cpf}}"><strong>CPF: </strong> {{user.cpf}}</span>
-					<span class="md-subhead" data-ng-show="{{user.cnpj}}"><strong>CNPJ: </strong> {{user.cnpj}}</span>
+					<span class="md-subhead" data-ng-show="{{user.ente.cpf}}"><strong>CPF: </strong> {{user.ente.cpf}}</span>
+					<span class="md-subhead" data-ng-show="{{user.ente.cnpj}}"><strong>CNPJ: </strong> {{user.ente.cnpj}}</span>
 				</md-card-title-text>
-				<md-card-title-media hide-xs data-ng-show="user.cpf">
+				<md-card-title-media hide-xs data-ng-show="user.ente.cpf" title="Pessoa Física">
 					<i class="material-icons md-48">face</i>
 				</md-card-title-media>
 
-				<md-card-title-media hide-xs data-ng-show="user.cnpj">
+				<md-card-title-media hide-xs data-ng-show="user.ente.cnpj" title="Pessoa Jurídica">
 					<i class="material-icons md-48">business</i>
+				</md-card-title-media>
+
+				<md-card-title-media hide-xs data-ng-show="user.is_admin" title="Servidor Público">
+					<i class="material-icons md-48">assignment_ind</i>
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-actions layout="row" layout-align="end center">

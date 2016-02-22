@@ -45,7 +45,7 @@
 
 		function createProposal(proposal) {
 			return $http.post(API_URI_PREFIX + '/propostas/', {
-					user: UserService.getAuthenticatedAccount().id,
+					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					status: 'draft'
 			});
@@ -53,7 +53,7 @@
 
 		function sendProposal(proposal) {
 			return $http.post(API_URI_PREFIX + '/propostas/', {
-					user: UserService.getAuthenticatedAccount().id,
+					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					status: 'sended'
 			});
@@ -89,7 +89,7 @@
 
 		function updateProposal(proposal) {
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
-					user: UserService.getAuthenticatedAccount().id,
+					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					status: proposal.status || 'draft'
 			});
@@ -97,7 +97,7 @@
 
 		function updateAndSendProposal(proposal) {
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
-					user: UserService.getAuthenticatedAccount().id,
+					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					status: 'sended'
 			});
