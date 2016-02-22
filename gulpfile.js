@@ -14,7 +14,7 @@ var jshint = require('gulp-jshint');
 var inject_string = require('gulp-inject-string');
 
 var API_URI_PREFIX = {
-	local: 'http://localhost:5000',
+	local: 'http://localhost:8000/api/v1',
 	prod: 'https://editais.cultura.df.gov.br/api/v1'
 };
 
