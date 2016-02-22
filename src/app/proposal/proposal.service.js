@@ -30,6 +30,7 @@
 			updateAndSendProposal: updateAndSendProposal,
 			deleteProposal: deleteProposal,
 			uploadDocument: uploadDocument,
+			isUploadIsProgress: isUploadIsProgress,
 			deleteDocument: deleteDocument,
 			disableProposal: disableProposal,
 			enableProposal: enableProposal
@@ -112,6 +113,10 @@
 				url: API_URI_PREFIX + '/propostas/' + proposal.number + '/upload/',
 				data: {file: file.lfFile}
 			});
+		}
+
+		function isUploadIsProgress () {
+			return Upload.isUploadInProgress();
 		}
 
 		function deleteDocument(uid) {

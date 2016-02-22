@@ -129,10 +129,12 @@
 			});
 
 			file.upload.success(function() {
-				$timeout(function() {
-					$mdDialog.hide();
-					$state.go('admin.propostas.detalhe_impressao', {number: data.number});
-				}, 300);
+				if (!ProposalService.isUploadIsProgress()) {
+					$timeout(function() {
+						$mdDialog.hide();
+						$state.go('admin.propostas.detalhe_impressao', {number: data.number});
+					}, 300);
+				}
 			});
 		}
 
@@ -190,8 +192,8 @@
 			showDialog();
 			ProposalService.updateProposal(vm.proposal).then(function(response) {
 				if (vm.proposal.new_attachments.length > 0) {
-					vm.proposal.new_attachments.forEach(function(file){
-						uploadDocuments(response.data, file);
+					vm.proposal.new_attachments.forEach(function(index, file){
+						uploadDocuments(response.data, file, index);
 					});
 				} else {
 					$state.go('admin.propostas');
@@ -205,8 +207,8 @@
 			showDialog();
 			ProposalService.updateAndSendProposal(vm.proposal).then(function(response) {
 				if (vm.proposal.new_attachments.length > 0) {
-					vm.proposal.new_attachments.forEach(function(file){
-						uploadDocuments(response.data, file);
+					vm.proposal.new_attachments.forEach(function(index, file){
+						uploadDocuments(response.data, file, index);
 					});
 				} else {
 					$state.go('admin.propostas');
@@ -239,10 +241,12 @@
 			});
 
 			file.upload.success(function() {
-				$mdDialog.hide();
-				$timeout(function() {
-					$state.go('admin.propostas');
-				}, 300);
+				if (!ProposalService.isUploadIsProgress()) {
+					$timeout(function() {
+						$mdDialog.hide();
+						$state.go('admin.propostas.detalhe_impressao', {number: data.number});
+					}, 300);
+				}
 			});
 		}
 
