@@ -85,16 +85,30 @@
 		width: 100%;
 	}
 
+	.proposal_files_padding {
+		margin-top: 150px !important;
+	}
+
 	p.details {
 		font-size: 10pt;
 	}
 
 	.footer {
-		display: table-footer-group;
-		width: 680px;
-		border-top: 1px solid #CCC !important;
-		margin-top: 10px;
-		padding-top: 20px;
+		width: 690px !important;
+		border-top: 1px solid #CCC!important;
+		margin-top: 10px !important;
+		margin-right: 0 !important;
+		padding: 20px 0 0 0 !important;
+	}
+
+	.footer_fixed_print {
+		position: fixed;
+		bottom: 0;
+	}
+
+	.footer_content {
+		width: 350px !important;
+		margin-left: 55% !important;
 	}
 
 	.footer p {

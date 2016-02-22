@@ -21,6 +21,7 @@ p.details {
 }
 
 .page_a4 {
+	position: relative;
     background: #FFF;
     font-size: 12pt;
     width: 210mm;
@@ -69,7 +70,26 @@ section.body {
     line-height: 1.5em;
 }
 
-.footer {
-	display: none;
+.footer_content {
+	width: 350px;
+	margin-left: 55%;
 }
 
+.footer {
+	width: 688px;
+	border-top: 1px solid #CCC;
+    margin-top: 10px;
+    padding: 20px 0 0 0;
+}
+
+.footer_fixed_view {
+	position: absolute;
+    bottom: 0;
+}
+
+.footer p {
+	float: left;
+	width: 120px;
+	font-size: 10pt;
+	font-weight: 700;
+}

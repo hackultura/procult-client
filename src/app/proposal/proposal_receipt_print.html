@@ -37,7 +37,7 @@
 					<p><strong>Data de envio: </strong>{{vm.proposal.created_at | date:'dd/MM/yyyy HH:mm:ss'}}</p>
 				</div>
 				<section class="title"><h1>Arquivos Enviados</h1></section>
-				<table class="proposal_files table table-bordered">
+				<table class="proposal_files table table-bordered" data-ng-class="{proposal_files_padding: vm.proposal.attachments.length >= 5}">
 					<tbody>
 						<tr data-ng-repeat="attachment in vm.proposal.attachments">
 							<td>
@@ -49,9 +49,11 @@
 					</tbody>
 				</table>
 			</section>
-			<div class="footer">
-				<p>Secretaria de Estado de Cultura</p>
-				<img src="img/gdf_footer.png" alt="Governo de Brasília">
+			<div class="footer" data-ng-class="{'footer_fixed_print footer_fixed_view': vm.proposal.attachments.length <= 3}">
+				<div class="footer_content">
+					<p>Secretaria de Estado de Cultura</p>
+					<img src="img/gdf_footer.png" alt="Governo de Brasília">
+				</div>
 			</div>
 		</div>
 	</div>

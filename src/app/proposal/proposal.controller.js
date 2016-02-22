@@ -132,7 +132,7 @@
 				$timeout(function() {
 					$mdDialog.hide();
 					$state.go('admin.propostas.detalhe_impressao', {number: data.number});
-				}, 100);
+				}, 300);
 			});
 		}
 
@@ -187,9 +187,9 @@
 		}
 
 		function updateProposal() {
+			showDialog();
 			ProposalService.updateProposal(vm.proposal).then(function(response) {
 				if (vm.proposal.new_attachments.length > 0) {
-					showDialog();
 					vm.proposal.new_attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
 					});
@@ -202,9 +202,9 @@
 		}
 
 		function sendProposal() {
+			showDialog();
 			ProposalService.updateAndSendProposal(vm.proposal).then(function(response) {
 				if (vm.proposal.new_attachments.length > 0) {
-					showDialog();
 					vm.proposal.new_attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
 					});
@@ -242,7 +242,7 @@
 				$mdDialog.hide();
 				$timeout(function() {
 					$state.go('admin.propostas');
-				}, 100);
+				}, 300);
 			});
 		}
 
