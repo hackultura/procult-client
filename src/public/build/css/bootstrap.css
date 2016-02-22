@@ -23,6 +23,7 @@ th {
   padding: 0;
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+/*
 @media print {
   *,
   *:before,
@@ -94,6 +95,7 @@ th {
     border: 1px solid #ddd !important;
   }
 }
+*/
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

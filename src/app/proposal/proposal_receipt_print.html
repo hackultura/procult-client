@@ -34,7 +34,7 @@
 				<div class="proposal_info">
 					<p><strong>Nome do Projeto: </strong>{{vm.proposal.title}}</p>
 					<p><strong>Autor: </strong>{{vm.proposal.author}}</p>
-					<p><strong>Data de envio: </strong>{{vm.proposal.created_at | date:'dd/MM/yyyy'}}</p>
+					<p><strong>Data de envio: </strong>{{vm.proposal.created_at | date:'dd/MM/yyyy HH:mm:ss'}}</p>
 				</div>
 				<section class="title"><h1>Arquivos Enviados</h1></section>
 				<table class="proposal_files table table-bordered">
@@ -49,9 +49,10 @@
 					</tbody>
 				</table>
 			</section>
-			<footer>
-				<p>Edital Audio Visual 2016</p>
-			</footer>
+			<div class="footer">
+				<p>Secretaria de Estado de Cultura</p>
+				<img src="img/gdf_footer.png" alt="Governo de Brasília">
+			</div>
 		</div>
 	</div>
 </div>

@@ -17,6 +17,7 @@ p.details {
 
 .page_a4_wrapper {
 	height: 970px;
+	background-color: #CCC;
 }
 
 .page_a4 {
@@ -68,18 +69,17 @@ section.body {
     line-height: 1.5em;
 }
 
+.footer {
+    position: absolute;
+    bottom: -380px;
+    width: 680px;
+    border-top: 1px solid #CCC;
+    padding-top: 10px;
+}
 
-@page {
-	size: A4;
-	margin-top: 2cm;
-
-	@top-left {
-		content: "first: " string(heading, first); 
-	}
-	@top-center {
-		content: "start: " string(heading, start); 
-	}
-	@top-right {
-		content: "last: " string(heading, last); 
-	}
+.footer p {
+	float: left;
+	width: 120px;
+	font-size: 10pt;
+	font-weight: 700;
 }
