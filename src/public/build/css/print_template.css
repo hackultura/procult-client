@@ -72,8 +72,12 @@
 	}
 
 	.header {
-		display: table-header-group;
-		width: 100%;
+		display: table-caption;
+		width: 600px;
+	}
+
+	.header .logo {
+		margin-top: 20px;
 	}
 
 	section.body {
