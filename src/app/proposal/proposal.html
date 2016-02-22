@@ -5,14 +5,14 @@
 			<h3 hide-gt-sm hide-sm>Minhas Propostas</h3>
 		</div>
 		<div layout-align="end center" hide-xs>
-			<md-button class="md-raised md-fab md-primary button_cover"
+			<md-button class="md-raised md-fab md-primary button_cover" title="Nova Proposta"
 				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo" data-ng-disabled="vm.enableNewProposal">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
 		</div>
 
 		<div layout-align="end center" hide-gt-sm hide-sm>
-			<md-button class="md-raised md-fab md-mini md-primary button_cover" data-ng-disabled="vm.enableNewProposal"
+			<md-button class="md-raised md-fab md-mini md-primary button_cover" title="Nova Proposta" data-ng-disabled="vm.enableNewProposal"
 				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
@@ -23,6 +23,12 @@
 		Você pode criar no máximo <strong>2 (duas) propostas</strong>. A proposta que for enviada <strong>não pode mais ser editada</strong>.
 	</p>
 	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
+		<h2 data-ng-show="vm.proposals.length === 0" hide-xs>
+			Vimos que você não tem propostas cadastradas. Clique no botão <img src="img/button_new_proposal.png" alt="Nova proposta"> para inserir.
+		</h2>
+		<h4 data-ng-show="vm.proposals.length === 0" hide-gt-sm hide-sm>
+			Clique no botão <img src="img/button_new_proposal.png" width="48" height="48" alt="Nova Proposta"> para inserir.
+		</h4>
 		<md-card flex data-ng-repeat="proposal in vm.proposals">
 			<md-card-title>
 				<md-card-title-text>
