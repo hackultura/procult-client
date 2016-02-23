@@ -1,4 +1,4 @@
-<div ng-controller="ProposalNewController as vm">
+<div ng-controller="ProposalNewController as vm" data-ng-init="vm.init()">
 	<div layout="column" ng-cloak class="md-inline-form">
 		<div layout="row" layout-padding  class="cover client_cover">
 			<div layout-align="left center" layout-padding flex>
@@ -29,25 +29,20 @@
 						<div ng-message="md-maxlength" class="my-message">Título da proposta precisa ter no máximo 60 caracteres</div>
 					</div>
 				</md-input-container>
-				<md-content layout-padding>
-					<div layout-gt-sm="row" hide-xs>
-						<lf-ng-md-file-input lf-files="vm.proposal.attachments"
-							lf-placeholder="Adicione seus arquivos"
-							lf-browse-label="Procurar" lf-remove-label="Remover"
-							lf-drag-and-drop-label="Arraste os seus arquivos aqui..."
-							multiple drag preview></lf-ng-md-file-input>
-
+				<md-content layout-align="center">
+					<div ngf-select ngf-drop ng-model="vm.proposal.attachments" ngf-accept="'*/*'"
+						ngf-validate="{size: {max: '20MB', min: '10B'}, height: {max: 12000}, width: {max: 12000}, duration: {max: '5m'}}"
+						ngf-multiple ngf-allow-dir="allowDir" class="drop-box">
+						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
+						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
 					</div>
 
-					<div layout-gt-sm="row" hide-gt-sm hide-sm>
-						<lf-ng-md-file-input lf-files="vm.proposal.attachments"
-							lf-placeholder="Adicione seus arquivos"
-							lf-browse-label="Procurar" lf-remove-label="Remover"
-							multiple></lf-ng-md-file-input>
+					<input type="file" ngf-select ng-model="teste" name="file" ngf-max-size="25MB" required></input>
+
+					<div ng-show="proposalForm.file.$valid" data-ng-repeat="attachment in vm.proposal.attachments">
+						<p>Nome do Arquivo: {{attachment}}</p>
 					</div>
-					<div data-ng-repeat="attachment in vm.proposal.attachments">
-						<p data-ng-show="attachment.progress >= 0">Carregando o arquivo {{attachment}}: {{attachment.progress}}%</p>
-					</div>
+					<p>{{teste | json}}</p>
 				</md-content>
 				<div layout="row" layout-align="center">
 					<md-button class="md-raised md-primary" aria-label="Salvar Proposta" type="submit" data-ng-disabled="proposalForm.$invalid">

@@ -87,7 +87,7 @@
 		vm.sendProposal = sendProposal;
 
 		function init() {
-
+			vm.proposal.attachments = [];
 		}
 
 		function createProposal() {

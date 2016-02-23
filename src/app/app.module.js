@@ -13,7 +13,6 @@
 			'ngFileUpload',
 			'AngularPrint',
 			'angular-loading-bar',
-			'lfNgMdFileInput',
 			'angular-intro'
 		]);
 })();
