@@ -21,7 +21,15 @@
 	];
 	ProposalNewController.$inject = ['$state', '$timeout', '$mdDialog', 'ProposalService', 'AlertService'];
 	ProposalDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
-	ProposalUpdateController.$inject = ['$state', '$timeout', '$stateParams', '$mdDialog', 'ProposalService', 'AlertService'];
+	ProposalUpdateController.$inject = [
+		'$state',
+		'$timeout',
+		'$stateParams',
+		'$mdDialog',
+		'$window',
+		'ProposalService',
+		'AlertService'
+	];
 	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
 	ProposalCancelController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
@@ -119,6 +127,7 @@
 					});
 				}
 			}, function(error){
+				$mdDialog.hide();
 				vm.errors = AlertService.message(error);
 			});
 		}
@@ -133,6 +142,7 @@
 					});
 				}
 			}, function(error){
+				$mdDialog.hide();
 				vm.errors = AlertService.message(error);
 			});
 		}
@@ -149,6 +159,7 @@
 				}
 			}, function(response) {
 				if(response.status > 0) {
+					$mdDialog.hide();
 					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
 				}
 			});
@@ -156,11 +167,13 @@
 
 		function showDialog(ev) {
 			$mdDialog.show({
-				controller: ProposalUpdateController,
+				controller: ProposalNewController,
+				controllerAs: 'vm',
 				templateUrl: 'proposal/creating_proposal.tmpl.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
-				clickOutsideToClose:false
+				clickOutsideToClose:false,
+				escapeToClose: false
 			});
 		}
 	}
@@ -183,7 +196,9 @@
 	}
 
 	/* @ngInject */
-	function ProposalUpdateController($state, $timeout, $stateParams, $mdDialog, ProposalService, AlertService) {
+	function ProposalUpdateController($state, $timeout, $stateParams,
+																		$mdDialog, $window, ProposalService,
+																		AlertService) {
 		var vm = this;
 
 		vm.proposal = {};
@@ -216,6 +231,7 @@
 					$state.go('admin.propostas');
 				}
 			}, function(error) {
+				$mdDialog.hide();
 				vm.errors = AlertService.message(error);
 			});
 		}
@@ -232,6 +248,7 @@
 					$state.go('admin.propostas');
 				}
 			}, function(error) {
+				$mdDialog.hide();
 				vm.errors = AlertService.message(error);
 			});
 		}
@@ -260,7 +277,9 @@
 				}
 			}, function(response) {
 				if(response.status > 0) {
+					$mdDialog.hide();
 					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
+					$window.window.scrollTo(0, 0);
 				}
 			});
 		}
@@ -271,7 +290,8 @@
 				templateUrl: 'proposal/creating_proposal.tmpl.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
-				clickOutsideToClose:false
+				clickOutsideToClose:false,
+				escapeToClose: false
 			});
 		}
 	}
