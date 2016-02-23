@@ -267,7 +267,8 @@
 
 			$mdThemingProvider.theme('default')
 			.primaryPalette('blue')
-			.accentPalette('light-green');
+			.accentPalette('light-green')
+			.warnPalette('red');
 		}
 
 		function runConfig($rootScope, $state, $http, $cookies, UserService) {

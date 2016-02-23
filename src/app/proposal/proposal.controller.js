@@ -8,6 +8,7 @@
 	.controller('ProposalDetailsController', ProposalDetailsController)
 	.controller('ProposalUpdateController', ProposalUpdateController)
 	.controller('ProposalDeleteController', ProposalDeleteController)
+	.controller('ProposalCancelController', ProposalCancelController)
 	.controller('ProposalAnalysisController', ProposalAnalysisController)
 	.controller('ProposalAnalysisDetailsController', ProposalAnalysisDetailsController);
 
@@ -22,6 +23,7 @@
 	ProposalDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 	ProposalUpdateController.$inject = ['$state', '$timeout', '$stateParams', '$mdDialog', 'ProposalService', 'AlertService'];
 	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
+	ProposalCancelController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 
@@ -37,6 +39,7 @@
 		// Functions
 		vm.init = init;
 		vm.deleteDialog = deleteDialog;
+		vm.cancelDialog = cancelDialog;
 		vm.isEditable = isEditable;
 
 		function init() {
@@ -61,6 +64,22 @@
 				controller: ProposalDeleteController,
 				controllerAs: 'vm',
 				templateUrl: 'proposal/proposal_delete.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: event,
+				clickOutsideToClose: false
+			}).then(function() {
+				listProposal();
+			});
+		}
+
+		function cancelDialog(event, number) {
+			ProposalService.getProposal(number).then(function(response){
+				ProposalService.setProposalSelected(response.data);
+			});
+			$mdDialog.show({
+				controller: ProposalCancelController,
+				controllerAs: 'vm',
+				templateUrl: 'proposal/proposal_cancel.tmpl.html',
 				parent: angular.element(document.body),
 				targetEvent: event,
 				clickOutsideToClose: false
@@ -282,8 +301,38 @@
 		}
 
 		function deleteProposal() {
-			ProposalService.deleteProposal();
+			ProposalService.cancelProposal();
 
+			$mdDialog.hide();
+			$state.transitionTo('admin.propostas');
+		}
+	}
+
+	/* @ngInject */
+	function ProposalCancelController($mdDialog, $state, ProposalService) {
+		var vm = this;
+
+		// Functions
+		vm.init = init;
+		vm.hide = hide;
+		vm.cancel = cancel;
+		vm.cancelProposal = cancelProposal;
+
+		vm.errors = [];
+
+		function init() {
+		}
+
+		function hide() {
+			$mdDialog.hide();
+		}
+
+		function cancel() {
+			$mdDialog.cancel();
+		}
+
+		function cancelProposal() {
+			ProposalService.cancelProposal();
 			$mdDialog.hide();
 			$state.transitionTo('admin.propostas');
 		}

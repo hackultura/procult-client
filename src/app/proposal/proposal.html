@@ -45,12 +45,16 @@
 					data-ui-sref="admin.propostas.detalhe_impressao({number: proposal.number})" style="margin-right: 5px;">
 					<md-icon md-font-library="material-icons">print</md-icon>
 				</md-button>
-				<md-button class="md-fab md-mini md-primary" aria-label="Editar" data-ng-disabled="vm.isEditable(proposal)"
+				<md-button class="md-fab md-mini md-primary" aria-label="Editar" data-ng-hide="vm.isEditable(proposal)"
 					data-ui-sref="admin.propostas.editar({number: proposal.number})" style="margin-right: 5px;">
 					<md-icon md-font-library="material-icons">mode_edit</md-icon>
 				</md-button>
-				<md-button class="md-fab md-mini" aria-label="Remover" data-ng-click="vm.deleteDialog($event, proposal.number)"
-					data-ng-disabled="vm.isEditable(proposal)">
+				<md-button class="md-fab md-mini md-warn" aria-label="Cancelar" data-ng-click="vm.cancelDialog($event, proposal.number)"
+					data-ng-hide="proposal.status !== 'sended'">
+					<md-icon md-font-library="material-icons">cancel</md-icon>
+				</md-button>
+				<md-button class="md-fab md-mini md-warn" aria-label="Remover" data-ng-click="vm.deleteDialog($event, proposal.number)"
+					data-ng-hide="vm.isEditable(proposal)">
 					<md-icon md-font-library="material-icons">delete</md-icon>
 				</md-button>
 			</md-card-actions>

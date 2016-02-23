@@ -29,6 +29,7 @@
 			updateProposal: updateProposal,
 			updateAndSendProposal: updateAndSendProposal,
 			deleteProposal: deleteProposal,
+			cancelProposal: cancelProposal,
 			uploadDocument: uploadDocument,
 			isUploadIsProgress: isUploadIsProgress,
 			deleteDocument: deleteDocument,
@@ -106,6 +107,14 @@
 
 		function deleteProposal() {
 			return $http.delete(API_URI_PREFIX + '/propostas/' + proposalSelected.number + '/');
+		}
+
+		function cancelProposal() {
+			return $http.put(API_URI_PREFIX + '/propostas/' + proposalSelected.number + '/', {
+				ente: UserService.getAuthenticatedAccount().ente.id,
+				title: proposalSelected.title,
+				status: 'canceled'
+			});
 		}
 
 		function uploadDocument(proposal, file) {
