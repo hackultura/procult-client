@@ -26,58 +26,75 @@
 					<label>Nome do Projeto</label>
 					<input ng-model="vm.proposal.title" name="title" type="text" data-md-minlength="10" data-md-maxlength="60" maxlength="60" required autofocus>
 					<div ng-messages="proposalForm.title.$error" role="alert">
-						<div ng-message="required" class="my-message">Título da proposta é obrigatório</div>
-						<div ng-message="md-minlength" class="my-message">Título da proposta precisa ter no mínimo 10 caracteres</div>
-						<div ng-message="md-maxlength" class="my-message">Título da proposta precisa ter no máximo 60 caracteres</div>
+						<div ng-message="required" class="my-message">O nome do projeto é obrigatório</div>
+						<div ng-message="md-minlength" class="my-message">O nome do projeto precisa ter no mínimo 10 caracteres</div>
+						<div ng-message="md-maxlength" class="my-message">O nome do projeto precisa ter no máximo 60 caracteres</div>
 					</div>
 				</md-input-container>
-				<md-content layout-padding>
-					<div layout-gt-sm="row" hide-xs>
-						<lf-ng-md-file-input lf-files="vm.proposal.new_attachments"
-							lf-placeholder="Adicione seus arquivos"
-							lf-browse-label="Procurar" lf-remove-label="Remover"
-							lf-drag-and-drop-label="Arraste os seus arquivos aqui..."
-							multiple drag preview></lf-ng-md-file-input>
+				<md-content layout-align="center" data-ng-show="proposalForm.title.$valid">
+					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
+						ngf-min-size="10B" ngf-max-size="25MB" ngf-max-total-size="80MB"
+						ngf-multiple="true" ngf-allow-dir="allowDir" class="drop-box" data-ng-click="vm.errorFiles = []">
+						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
+						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
+					</div>
+					<div data-ng-repeat="attachment in vm.errorFiles">
+						<p ng-if="attachment.$error == 'minSize'" class="alert alert-warning">
+							<md-icon>warning</md-icon>
+							O arquivo {{attachment.name}} é muito grande. O máximo é de <strong>25MB</strong>.
+						</p>
+						<p ng-if="attachment.$error == 'maxSize'" class="alert alert-warning">
+							<md-icon>warning</md-icon>
+							O arquivo {{attachment.name}} é muito grande. O máximo é de <strong>25MB</strong>.
+						</p>
+						<p ng-if="attachment.$error == 'maxTotalSize'" class="alert alert-warning">
+							<md-icon>warning</md-icon>
+							Você excedeu o máximo para esse projeto, que é de <strong>80MB</strong>.
+						</p>
 					</div>
 
-					<div layout-gt-sm="row" hide-gt-sm hide-sm>
-						<lf-ng-md-file-input lf-files="vm.proposal.new_attachments"
-							lf-placeholder="Adicione seus arquivos"
-							lf-browse-label="Procurar" lf-remove-label="Remover"
-							multiple></lf-ng-md-file-input>
+					<div class='md-padding' layout-align="center" data-ng-show="vm.isFiles()">
+						<md-list>
+							<md-subheader class="md-no-sticky">Arquivos do Projeto</md-subheader>
+							<md-list-item class="md-3-line" ng-repeat="attachment in vm.proposal.attachments">
+								<md-icon class="md-48">attach_file</md-icon>
+								<div class="md-list-item-text" layout="column">
+									<h3><strong>{{ attachment.filename }}</strong></h3>
+									<h4><strong>Tamanho:</strong> {{ attachment.size }}</h4>
+									<h4><strong>Checksum:</strong> {{ attachment.checksum }}</h4>
+									<md-button class="md-secondary md-button md-raised md-warn" ng-click="vm.deleteDocument(attachment)">Remover</md-button>
+								</div>
+								<md-divider ></md-divider>
+							</md-list-item>
+						</md-list>
+
+						<md-list data-ng-show="vm.proposal.new_attachments.length > 0">
+							<md-subheader class="md-no-sticky">Arquivos para Envio</md-subheader>
+							<md-list-item class="md-3-line" ng-repeat="attachment in vm.proposal.new_attachments">
+								<md-icon class="md-48">attach_file</md-icon>
+								<div class="md-list-item-text" layout="column">
+									<h3><strong>{{ attachment.name }}</strong></h3>
+									<h4><strong>Tamanho:</strong> {{ attachment.size | prettyBytes }}</h4>
+									<md-button class="md-secondary md-button md-raised md-warn" ng-click="vm.removeDocumentToUpload(attachment)">Remover</md-button>
+								</div>
+								<md-divider ></md-divider>
+							</md-list-item>
+						</md-list>
 					</div>
 				</md-content>
-				<div class='md-padding' layout="row" layout-wrap layout-align="center">
-					<md-card style="width: 300px;" ng-repeat="attachment in vm.proposal.attachments">
-						<md-card-title>
-							<h2>{{attachment.filename}}</h2>
-						</md-card-title>
-						<md-card-content>
-							<p><strong>Tamanho do Arquivo: </strong>{{attachment.size}}</p>
-							<p><strong>Checksum: </strong>{{attachment.checksum}}</p>
-						</md-card-content>
-						<md-card-actions layout="row" layout-align="end center">
-							<md-button href="{{attachment.file}}" target="_blank" class="md-icon-button" aria-label="Baixar Arquivo" title="Baixar Arquivo">
-								<md-icon>cloud_download</md-icon>
-							</md-button>
-							<md-button class="md-icon-button" aria-label="Remover" title="Remover" data-ng-click="vm.deleteDocument(attachment)">
-								<md-icon>delete</md-icon>
-							</md-button>
-						</md-card-actions>
-					</md-card>
-				</div>
 				<div layout="row" layout-align="center">
-					<md-button class="md-raised md-primary" aria-label="Atualizar Proposta" type="submit" data-ng-disabled="proposalForm.$invalid">
+					<md-button class="md-raised md-primary" aria-label="Salvar Proposta" type="submit" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
 						<md-icon>save</md-icon>
-						<span hide-xs>Atualizar Proposta</span>
-						<span hide-gt-sm hide-sm>Atualizar</span>
+						<span hide-xs>Salvar Proposta</span>
+						<span hide-gt-sm hide-sm>Salvar</span>
 					</md-button>
 
-					<md-button class="md-raised md-warn md-hue-2" aria-label="Enviar Proposta" data-ng-click="vm.sendProposal()" data-ng-disabled="proposalForm.$invalid">
+					<md-button class="md-raised md-warn" aria-label="Enviar Proposta" data-ng-click="vm.sendProposal()" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
 						<md-icon>email</md-icon>
 						<span hide-xs>Enviar Proposta</span>
 						<span hide-gt-sm hide-sm>Enviar</span>
 					</md-button>
+				</div>
 				</div>
 			</md-card>
 		</form>

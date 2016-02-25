@@ -9,11 +9,11 @@
 			'ngCookies',
 			'ui.utils.masks',
 			'ui.router',
-			'ngMdIcons',
 			'ngFileUpload',
 			'AngularPrint',
+			'prettyBytes',
+			'idf.br-filters',
 			'angular-loading-bar',
-			'lfNgMdFileInput',
 			'angular-intro'
 		]);
 })();

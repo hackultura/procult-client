@@ -19,19 +19,37 @@
 		'AlertService',
 		'PROPOSAL_LIMIT'
 	];
-	ProposalNewController.$inject = ['$state', '$timeout', '$mdDialog', 'ProposalService', 'AlertService'];
-	ProposalDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
+	ProposalNewController.$inject = [
+		'$state',
+		'$timeout',
+		'$mdDialog',
+		'ProposalService',
+		'AlertService',
+		'UtilsService',
+		'UserService'
+	];
+	ProposalDetailsController.$inject = [
+		'$state',
+		'$stateParams',
+		'ProposalService',
+		'AlertService'
+	];
 	ProposalUpdateController.$inject = [
 		'$state',
 		'$timeout',
 		'$stateParams',
 		'$mdDialog',
-		'$window',
 		'ProposalService',
-		'AlertService'
+		'AlertService',
+		'UtilsService'
 	];
-	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
-	ProposalCancelController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
+	ProposalDeleteController.$inject = [
+		'$mdDialog',
+		'$state',
+		'ProposalService',
+		'AlertService',
+		'UserService'
+	];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 
@@ -102,25 +120,48 @@
 	}
 
 	/* @ngInject */
-	function ProposalNewController($state, $timeout, $mdDialog, ProposalService, AlertService) {
+	function ProposalNewController($state, $timeout, $mdDialog, ProposalService,
+																 AlertService, UtilsService) {
 		var vm = this;
 
 		vm.proposal = {};
 		vm.errors = [];
+		vm.errorFiles = [];
+		vm.acceptFiles = UtilsService.accept_files();
 
 		// Functions
 		vm.init = init;
+		vm.uploadFiles = uploadFiles;
+		vm.isFiles = isFiles;
 		vm.createProposal = createProposal;
 		vm.sendProposal = sendProposal;
 
 		function init() {
+			vm.proposal.attachments = [];
+		}
 
+		function uploadFiles(files, errorFiles) {
+			if(files !== null && (errorFiles === null || errorFiles.length === 0)) {
+				vm.proposal.attachments = vm.proposal.attachments.concat(files);
+			}
+
+			if(errorFiles !== null) {
+				vm.errorFiles = errorFiles;
+			}
+		}
+
+		function isFiles() {
+			return vm.proposal.attachments.length > 0;
 		}
 
 		function createProposal() {
 			showDialog();
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
+					var total = ProposalService.getTotalProjects();
+					total++;
+					ProposalService.updateTotalProjects(total);
+
 					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
@@ -197,18 +238,25 @@
 
 	/* @ngInject */
 	function ProposalUpdateController($state, $timeout, $stateParams,
-																		$mdDialog, $window, ProposalService,
-																		AlertService) {
+																		$mdDialog, ProposalService, AlertService,
+																		UtilsService) {
 		var vm = this;
 
 		vm.proposal = {};
+		vm.proposal.attachments = [];
+		vm.proposal.new_attachments = [];
 		vm.errors = [];
+		vm.errorFiles = [];
+		vm.acceptFiles = UtilsService.accept_files();
 
 		// Functions
 		vm.init = init;
+		vm.uploadFiles = uploadFiles;
+		vm.isFiles = isFiles;
 		vm.updateProposal = updateProposal;
 		vm.sendProposal = sendProposal;
 		vm.deleteDocument = deleteDocument;
+		vm.removeDocumentToUpload = removeDocumentToUpload;
 
 		function init() {
 			ProposalService.getProposal($stateParams.number).then(function(response) {
@@ -217,6 +265,20 @@
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
+		}
+
+		function uploadFiles(files, errorFiles) {
+			if(files !== null && (errorFiles === null || errorFiles.length === 0)) {
+				vm.proposal.new_attachments = vm.proposal.new_attachments.concat(files);
+			}
+
+			if(errorFiles !== null) {
+				vm.errorFiles = errorFiles;
+			}
+		}
+
+		function isFiles() {
+			return (vm.proposal.new_attachments.length > 0) || (vm.proposal.attachments.length > 0);
 		}
 
 		function updateProposal() {
@@ -265,6 +327,14 @@
 			});
 		}
 
+		function removeDocumentToUpload (attachment) {
+			vm.proposal.new_attachments = vm.proposal.new_attachments.filter(function(item) {
+				if(item.$$hashKey !== attachment.$$hashKey) {
+					return item;
+				}
+			});
+		}
+
 		function uploadDocuments(data, file) {
 			file.upload = ProposalService.uploadDocument(data, file);
 
@@ -279,7 +349,6 @@
 				if(response.status > 0) {
 					$mdDialog.hide();
 					vm.errors = AlertService.error('Erro ao enviar arquivo: ' + response.data);
-					$window.window.scrollTo(0, 0);
 				}
 			});
 		}
@@ -321,10 +390,13 @@
 		}
 
 		function deleteProposal() {
-			ProposalService.cancelProposal();
-
-			$mdDialog.hide();
-			$state.transitionTo('admin.propostas');
+			ProposalService.deleteProposal().then(function() {
+				var total = ProposalService.getTotalProjects();
+				total--;
+				ProposalService.updateTotalProjects(total);
+				$mdDialog.hide();
+				$state.transitionTo('admin.propostas');
+			});
 		}
 	}
 

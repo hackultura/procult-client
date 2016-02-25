@@ -43,3 +43,19 @@
 .login_form .md-block {
   font-size: 20px;
 }
+
+/* Upload */
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    text-align: center;
+    padding: 50px 10px;
+}
+
+.drop-box.dragover {
+    border: 5px dashed blue;
+}
+
+.drop-box.dragover-err {
+    border: 5px dashed red;
+}

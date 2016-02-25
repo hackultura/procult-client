@@ -33,7 +33,10 @@
 			<section class="body">
 				<div class="proposal_info">
 					<p><strong>Nome do Projeto: </strong>{{vm.proposal.title}}</p>
-					<p><strong>Autor: </strong>{{vm.proposal.author}}</p>
+					<p><strong>Autor: </strong>{{vm.proposal.ente_info.author}}</p>
+					<p data-ng-show="vm.proposal.ente_info.cpf"><strong>CPF: </strong>{{vm.proposal.ente_info.cpf | brCpf}}</p>
+					<p data-ng-show="vm.proposal.ente_info.cnpj"><strong>CNPJ: </strong>{{vm.proposal.ente_info.cnpj | brCnpj}}</p>
+					<p><strong>CEAC: </strong>{{vm.proposal.ente_info.ceac}}</p>
 					<p><strong>Data de envio: </strong>{{vm.proposal.created_at | date:'dd/MM/yyyy HH:mm:ss'}}</p>
 				</div>
 				<section class="title"><h1>Arquivos Enviados</h1></section>

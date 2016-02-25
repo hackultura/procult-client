@@ -17,7 +17,7 @@
 	UserUpdateController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
 	UserDeleteController.$inject = ['$state', '$mdDialog', 'UserService', 'AlertService'];
 	UserChangePasswordController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
-	LoginController.$inject = ['$state', 'UserService', 'AlertService'];
+	LoginController.$inject = ['$state', 'UserService', 'ProposalService'];
 
 	/* @ngInject */
 	function UserController($mdDialog, UserService, AlertService) {
@@ -220,7 +220,7 @@
 	}
 
 	/* @ngInject */
-	function LoginController($state, UserService) {
+	function LoginController($state, UserService, ProposalService) {
 		var vm = this;
 
 		vm.user = {};
@@ -235,6 +235,7 @@
 		function login() {
 			UserService.login(vm.user.email, vm.user.password).then(function(response){
 				UserService.setAuthenticatedAccount(response.data);
+				ProposalService.updateTotalProjects(response.data.ente.projects_total);
 				if (UserService.getAuthenticatedAccount().is_admin) {
 					$state.go('admin.propostas.analise');
 				} else {

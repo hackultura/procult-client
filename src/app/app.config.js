@@ -15,7 +15,15 @@
 		'cfpLoadingBarProvider'
 	];
 
-	runConfig.$inject = ['$rootScope', '$state', '$http', '$cookies', 'UserService'];
+	runConfig.$inject = [
+		'$rootScope',
+		'$state',
+		'$http',
+		'$cookies',
+		'UserService',
+		'ProposalService',
+		'PROPOSAL_LIMIT'
+	];
 
 	function appConfig($httpProvider, $stateProvider, $urlRouterProvider,
 										 $mdThemingProvider, cfpLoadingBarProvider) {
@@ -271,7 +279,8 @@
 			.warnPalette('red');
 		}
 
-		function runConfig($rootScope, $state, $http, $cookies, UserService) {
+		function runConfig($rootScope, $state, $http, $cookies, UserService,
+											 ProposalService, PROPOSAL_LIMIT) {
 			// Config CSRF Token
 			$http.defaults.headers.common['X-CSRFToken'] = $cookies.get('csrftoken');
 
@@ -287,6 +296,13 @@
 				}
 
 				if(toState.admin && !UserService.isAdmin()) {
+					$state.transitionTo('admin.propostas');
+					event.preventDefault();
+				}
+
+				// If user was created two projects, redirect to my proposals
+				var project_total = ProposalService.getTotalProjects();
+				if(toState.name === 'admin.propostas.novo' && project_total === PROPOSAL_LIMIT) {
 					$state.transitionTo('admin.propostas');
 					event.preventDefault();
 				}
