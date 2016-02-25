@@ -21,6 +21,7 @@
 		'$http',
 		'$cookies',
 		'UserService',
+		'ProposalService',
 		'PROPOSAL_LIMIT'
 	];
 
@@ -277,8 +278,8 @@
 			.accentPalette('light-green');
 		}
 
-		function runConfig($rootScope, $state, $http, $cookies,
-											 UserService, PROPOSAL_LIMIT) {
+		function runConfig($rootScope, $state, $http, $cookies, UserService,
+											 ProposalService, PROPOSAL_LIMIT) {
 			// Config CSRF Token
 			$http.defaults.headers.common['X-CSRFToken'] = $cookies.get('csrftoken');
 
@@ -299,7 +300,7 @@
 				}
 
 				// If user was created two projects, redirect to my proposals
-				var project_total = UserService.getAuthenticatedAccount().ente.projects_total;
+				var project_total = ProposalService.getTotalProjects();
 				if(toState.name === 'admin.propostas.novo' && project_total === PROPOSAL_LIMIT) {
 					$state.transitionTo('admin.propostas');
 					event.preventDefault();

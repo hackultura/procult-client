@@ -24,7 +24,8 @@
 		'$mdDialog',
 		'ProposalService',
 		'AlertService',
-		'UtilsService'
+		'UtilsService',
+		'UserService'
 	];
 	ProposalDetailsController.$inject = [
 		'$state',
@@ -41,7 +42,13 @@
 		'AlertService',
 		'UtilsService'
 	];
-	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
+	ProposalDeleteController.$inject = [
+		'$mdDialog',
+		'$state',
+		'ProposalService',
+		'AlertService',
+		'UserService'
+	];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 
@@ -95,8 +102,8 @@
 	}
 
 	/* @ngInject */
-	function ProposalNewController($state, $timeout, $mdDialog,
-																 ProposalService, AlertService, UtilsService) {
+	function ProposalNewController($state, $timeout, $mdDialog, ProposalService,
+																 AlertService, UtilsService) {
 		var vm = this;
 
 		vm.proposal = {};
@@ -133,6 +140,10 @@
 			showDialog();
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
+					var total = ProposalService.getTotalProjects();
+					total++;
+					ProposalService.updateTotalProjects(total);
+
 					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
@@ -352,10 +363,13 @@
 		}
 
 		function deleteProposal() {
-			ProposalService.deleteProposal();
-
-			$mdDialog.hide();
-			$state.transitionTo('admin.propostas');
+			ProposalService.deleteProposal().then(function() {
+				var total = ProposalService.getTotalProjects();
+				total--;
+				ProposalService.updateTotalProjects(total);
+				$mdDialog.hide();
+				$state.transitionTo('admin.propostas');
+			});
 		}
 	}
 
