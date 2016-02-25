@@ -18,9 +18,29 @@
 		'AlertService',
 		'PROPOSAL_LIMIT'
 	];
-	ProposalNewController.$inject = ['$state', '$timeout', '$mdDialog', 'ProposalService', 'AlertService'];
-	ProposalDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
-	ProposalUpdateController.$inject = ['$state', '$timeout', '$stateParams', '$mdDialog', 'ProposalService', 'AlertService'];
+	ProposalNewController.$inject = [
+		'$state',
+		'$timeout',
+		'$mdDialog',
+		'ProposalService',
+		'AlertService',
+		'UtilsService'
+	];
+	ProposalDetailsController.$inject = [
+		'$state',
+		'$stateParams',
+		'ProposalService',
+		'AlertService'
+	];
+	ProposalUpdateController.$inject = [
+		'$state',
+		'$timeout',
+		'$stateParams',
+		'$mdDialog',
+		'ProposalService',
+		'AlertService',
+		'UtilsService'
+	];
 	ProposalDeleteController.$inject = ['$mdDialog', '$state', 'ProposalService', 'AlertService'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
@@ -75,11 +95,13 @@
 	}
 
 	/* @ngInject */
-	function ProposalNewController($state, $timeout, $mdDialog, ProposalService, AlertService) {
+	function ProposalNewController($state, $timeout, $mdDialog,
+																 ProposalService, AlertService, UtilsService) {
 		var vm = this;
 
 		vm.proposal = {};
 		vm.errors = [];
+		vm.acceptFiles = UtilsService.accept_files();
 
 		// Functions
 		vm.init = init;
@@ -174,13 +196,17 @@
 	}
 
 	/* @ngInject */
-	function ProposalUpdateController($state, $timeout, $stateParams, $mdDialog, ProposalService, AlertService) {
+	function ProposalUpdateController($state, $timeout, $stateParams,
+																		$mdDialog, ProposalService, AlertService,
+																		UtilsService) {
 		var vm = this;
 
 		vm.proposal = {};
 		vm.proposal.attachments = [];
 		vm.proposal.new_attachments = [];
 		vm.errors = [];
+		vm.errorFiles = [];
+		vm.acceptFiles = UtilsService.accept_files();
 
 		// Functions
 		vm.init = init;
@@ -200,9 +226,13 @@
 			});
 		}
 
-		function uploadFiles(files) {
-			if(files !== null) {
+		function uploadFiles(files, errorFiles) {
+			if(files !== null && (errorFiles === null || errorFiles.length === 0)) {
 				vm.proposal.new_attachments = vm.proposal.new_attachments.concat(files);
+			}
+
+			if(errorFiles !== null) {
+				vm.errorFiles = errorFiles;
 			}
 		}
 
