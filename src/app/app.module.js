@@ -12,6 +12,7 @@
 			'ngFileUpload',
 			'AngularPrint',
 			'prettyBytes',
+			'idf.br-filters',
 			'angular-loading-bar',
 			'angular-intro'
 		]);
