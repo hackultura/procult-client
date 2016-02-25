@@ -189,6 +189,7 @@
 		vm.updateProposal = updateProposal;
 		vm.sendProposal = sendProposal;
 		vm.deleteDocument = deleteDocument;
+		vm.removeDocumentToUpload = removeDocumentToUpload;
 
 		function init() {
 			ProposalService.getProposal($stateParams.number).then(function(response) {
@@ -200,7 +201,9 @@
 		}
 
 		function uploadFiles(files) {
-			vm.proposal.new_attachments = vm.proposal.new_attachments.concat(files);
+			if(files !== null) {
+				vm.proposal.new_attachments = vm.proposal.new_attachments.concat(files);
+			}
 		}
 
 		function isFiles() {
@@ -247,6 +250,14 @@
 							return item;
 						}
 					});
+				}
+			});
+		}
+
+		function removeDocumentToUpload (attachment) {
+			vm.proposal.new_attachments = vm.proposal.new_attachments.filter(function(item) {
+				if(item.$$hashKey !== attachment.$$hashKey) {
+					return item;
 				}
 			});
 		}
