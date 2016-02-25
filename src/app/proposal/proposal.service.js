@@ -16,7 +16,7 @@
 	function ProposalService($http, API_URI_PREFIX, UserService,
 													 Upload, PROPOSAL_STATUS) {
 		var proposalSelected = {};
-		var proposalsTotal = UserService.getAuthenticatedAccount().ente.projects_total;
+		var proposalsTotal = null;
 		return {
 			query: query,
 			getTotalProjects: getTotalProjects,
@@ -43,7 +43,10 @@
 			return $http.get(API_URI_PREFIX + '/propostas/');
 		}
 
-		function getTotalProjects () {
+		function getTotalProjects() {
+			if(UserService.isAuthenticated() && proposalsTotal === null) {
+				proposalsTotal = UserService.getAuthenticatedAccount().ente.projects_total;
+			}
 			return proposalsTotal;
 		}
 
