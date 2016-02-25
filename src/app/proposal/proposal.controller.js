@@ -101,6 +101,7 @@
 
 		vm.proposal = {};
 		vm.errors = [];
+		vm.errorFiles = [];
 		vm.acceptFiles = UtilsService.accept_files();
 
 		// Functions
@@ -114,8 +115,14 @@
 			vm.proposal.attachments = [];
 		}
 
-		function uploadFiles(files) {
-			vm.proposal.attachments = vm.proposal.attachments.concat(files);
+		function uploadFiles(files, errorFiles) {
+			if(files !== null && (errorFiles === null || errorFiles.length === 0)) {
+				vm.proposal.attachments = vm.proposal.attachments.concat(files);
+			}
+
+			if(errorFiles !== null) {
+				vm.errorFiles = errorFiles;
+			}
 		}
 
 		function isFiles() {

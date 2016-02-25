@@ -30,11 +30,25 @@
 					</div>
 				</md-input-container>
 				<md-content layout-align="center" data-ng-show="proposalForm.title.$valid">
-					<div ngf-select="vm.uploadFiles($files)" ngf-drop ngf-accept="'*/*'"
-						ngf-validate="{size: {max: '20MB', min: '10B'}, height: {max: 12000}, width: {max: 12000}, duration: {max: '5m'}}"
-						ngf-multiple="true" ngf-allow-dir="allowDir" class="drop-box">
+					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
+						ngf-min-size="10B" ngf-max-size="25MB" ngf-max-total-size="80MB"
+						ngf-multiple="true" ngf-allow-dir="allowDir" class="drop-box" data-ng-click="vm.errorFiles = []">
 						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
 						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
+					</div>
+					<div data-ng-repeat="attachment in vm.errorFiles">
+						<p ng-if="attachment.$error == 'minSize'" class="alert alert-warning">
+							<md-icon>warning</md-icon>
+							O arquivo {{attachment.name}} é muito grande. O máximo é de <strong>25MB</strong>.
+						</p>
+						<p ng-if="attachment.$error == 'maxSize'" class="alert alert-warning">
+							<md-icon>warning</md-icon>
+							O arquivo {{attachment.name}} é muito grande. O máximo é de <strong>25MB</strong>.
+						</p>
+						<p ng-if="attachment.$error == 'maxTotalSize'" class="alert alert-warning">
+							<md-icon>warning</md-icon>
+							Você excedeu o máximo para esse projeto, que é de <strong>80MB</strong>.
+						</p>
 					</div>
 
 					<div class='md-padding' layout-align="center" data-ng-show="vm.proposal.attachments.length > 0">
