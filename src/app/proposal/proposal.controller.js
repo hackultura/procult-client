@@ -83,11 +83,21 @@
 
 		// Functions
 		vm.init = init;
+		vm.uploadFiles = uploadFiles;
+		vm.isFiles = isFiles;
 		vm.createProposal = createProposal;
 		vm.sendProposal = sendProposal;
 
 		function init() {
 			vm.proposal.attachments = [];
+		}
+
+		function uploadFiles(files) {
+			vm.proposal.attachments = vm.proposal.attachments.concat(files);
+		}
+
+		function isFiles() {
+			return vm.proposal.attachments.length > 0;
 		}
 
 		function createProposal() {
@@ -168,10 +178,14 @@
 		var vm = this;
 
 		vm.proposal = {};
+		vm.proposal.attachments = [];
+		vm.proposal.new_attachments = [];
 		vm.errors = [];
 
 		// Functions
 		vm.init = init;
+		vm.uploadFiles = uploadFiles;
+		vm.isFiles = isFiles;
 		vm.updateProposal = updateProposal;
 		vm.sendProposal = sendProposal;
 		vm.deleteDocument = deleteDocument;
@@ -183,6 +197,14 @@
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
+		}
+
+		function uploadFiles(files) {
+			vm.proposal.new_attachments = vm.proposal.new_attachments.concat(files);
+		}
+
+		function isFiles() {
+			return (vm.proposal.new_attachments.length > 0) || (vm.proposal.attachments.length > 0);
 		}
 
 		function updateProposal() {

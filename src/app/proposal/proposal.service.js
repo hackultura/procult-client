@@ -111,7 +111,7 @@
 		function uploadDocument(proposal, file) {
 			return Upload.upload({
 				url: API_URI_PREFIX + '/propostas/' + proposal.number + '/upload/',
-				data: {file: file.lfFile}
+				data: {file: file}
 			});
 		}
 

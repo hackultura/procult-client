@@ -12,6 +12,7 @@
 			'ngMdIcons',
 			'ngFileUpload',
 			'AngularPrint',
+			'prettyBytes',
 			'angular-loading-bar',
 			'angular-intro'
 		]);
