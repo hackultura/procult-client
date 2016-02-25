@@ -9,7 +9,6 @@
 			'ngCookies',
 			'ui.utils.masks',
 			'ui.router',
-			'ngMdIcons',
 			'ngFileUpload',
 			'AngularPrint',
 			'prettyBytes',
