@@ -6,13 +6,15 @@
 				<h3 hide-gt-sm hide-sm>Atualizar Proposta</h3>
 			</div>
 			<div layout-align="end" hide-xs>
-				<md-button class="md-raised md-fab md-warn button_cover" aria-label="Novo Cliente" data-ui-sref="admin.propostas">
+				<md-button class="md-raised md-fab md-accent button_cover" aria-label="Voltar"
+					title="Voltar" data-ui-sref="admin.propostas">
 					<md-icon md-font-library="material-icons">arrow_back</md-icon>
 				</md-button>
 			</div>
 
 			<div layout-align="end" hide-gt-sm hide-sm>
-				<md-button class="md-raised md-fab md-mini md-warn button_cover" aria-label="Novo Cliente" data-ui-sref="admin.propostas">
+				<md-button class="md-raised md-fab md-mini md-accent button_cover" aria-label="Voltar"
+					title="Voltar" data-ui-sref="admin.propostas">
 					<md-icon md-font-library="material-icons md-24">arrow_back</md-icon>
 				</md-button>
 			</div>
@@ -35,8 +37,8 @@
 					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
 						ngf-min-size="10B" ngf-max-size="25MB" ngf-max-total-size="80MB"
 						ngf-multiple="true" ngf-allow-dir="allowDir" class="drop-box" data-ng-click="vm.errorFiles = []">
-						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
-						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
+						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa</h4>
+						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa</h4>
 					</div>
 					<div data-ng-repeat="attachment in vm.errorFiles">
 						<p ng-if="attachment.$error == 'minSize'" class="alert alert-warning">
@@ -83,13 +85,15 @@
 					</div>
 				</md-content>
 				<div layout="row" layout-align="center">
-					<md-button class="md-raised md-primary" aria-label="Salvar Proposta" type="submit" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
+					<md-button class="md-raised md-accent" aria-label="Salvar Proposta" type="submit"
+						title="Salvar Proposta" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
 						<md-icon>save</md-icon>
 						<span hide-xs>Salvar Proposta</span>
 						<span hide-gt-sm hide-sm>Salvar</span>
 					</md-button>
 
-					<md-button class="md-raised md-warn" aria-label="Enviar Proposta" data-ng-click="vm.sendProposal()" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
+					<md-button class="md-raised md-warn" aria-label="Enviar Proposta" data-ng-click="vm.sendProposal()"
+						title="Enviar Proposta" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
 						<md-icon>email</md-icon>
 						<span hide-xs>Enviar Proposta</span>
 						<span hide-gt-sm hide-sm>Enviar</span>

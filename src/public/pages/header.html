@@ -1,6 +1,9 @@
 <md-toolbar data-ng-init="vm.init()">
 	<div class="md-toolbar-tools" hide-xs>
-		<h2 aria-label="Procult" hide-sm>Procult | FAC-DF</h2>
+		<div class="logo">
+			<img src="img/gdf_navbar_logo.png" alt="">
+			<h2 aria-label="Procult" hide-sm>FAC-DF</h2>
+		</div>
 
 		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas" data-ng-hide="vm.user.is_admin">
 			<md-icon>dashboard</md-icon>

@@ -273,9 +273,21 @@
 				}
 			});
 
+			var gdfPrimaryPalette = $mdThemingProvider.extendPalette('green', {
+				'500': '008e4b',
+				'contrastDefaultColor': 'light'
+			});
+			$mdThemingProvider.definePalette('gdf_primary', gdfPrimaryPalette);
+
+			var gdfAccentPalette = $mdThemingProvider.extendPalette('blue', {
+				'500': '34659A',
+				'A200': '3F79BB'
+			});
+			$mdThemingProvider.definePalette('gdf_accent', gdfAccentPalette);
+
 			$mdThemingProvider.theme('default')
-			.primaryPalette('blue')
-			.accentPalette('light-green')
+			.primaryPalette('gdf_primary')
+			.accentPalette('gdf_accent')
 			.warnPalette('red');
 		}
 

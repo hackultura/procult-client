@@ -1,3 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+html, body {
+	font-family: 'Montserrat', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+
 /* Material Icons Sizes */
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
@@ -6,16 +13,30 @@
 .material-icons.md-64 { font-size: 64px; }
 .material-icons.md-128 { font-size: 128px; }
 
+/*Navbar*/
+.logo {
+	width: 150px;
+	border-right: 1px solid #CCC;
+}
+
+.logo img {
+	float: left;
+}
+
+.logo h2 {
+	padding-top: 10px;
+}
+
 /* Covers */
 .cover {
-  color: #FFF;
+  color: #515151;
   -moz-box-shadow:    1px 1px 2px 1px #ccc;
   -webkit-box-shadow: 1px 1px 2px 1px #ccc;
   box-shadow:         1px 1px 2px 1px #ccc;
 }
 
 .cover h1 {
-  text-shadow: 1px 1px 1px #000;
+  /*text-shadow: 1px 1px 1px #000;*/
 }
 
 .cover .button_cover {
@@ -23,7 +44,8 @@
 }
 
 .client_cover {
-  background: url("../img/client_cover_bg.jpg");
+  /*background: url("../img/client_cover_bg.jpg");*/
+  background-color: #FFD54B;
 }
 
 /* Register Page */
