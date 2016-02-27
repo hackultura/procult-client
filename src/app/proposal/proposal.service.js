@@ -16,11 +16,8 @@
 	function ProposalService($http, API_URI_PREFIX, UserService,
 													 Upload, PROPOSAL_STATUS) {
 		var proposalSelected = {};
-		var proposalsTotal = null;
 		return {
 			query: query,
-			getTotalProjects: getTotalProjects,
-			updateTotalProjects: updateTotalProjects,
 			myProposals: myProposals,
 			createProposal: createProposal,
 			sendProposal: sendProposal,
@@ -42,17 +39,6 @@
 
 		function query() {
 			return $http.get(API_URI_PREFIX + '/propostas/');
-		}
-
-		function getTotalProjects() {
-			if(UserService.isAuthenticated() && proposalsTotal === null) {
-				proposalsTotal = UserService.getAuthenticatedAccount().ente.projects_total;
-			}
-			return proposalsTotal;
-		}
-
-		function updateTotalProjects (size) {
-			proposalsTotal = size;
 		}
 
 		function myProposals(user_id) {

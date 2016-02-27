@@ -111,7 +111,6 @@
 		}
 
 		function createUser() {
-			console.log(vm.user);
 			UserService.createUser(vm.user).then(function(){
 				AlertService.success({
 					msg: 'Usuário criado com sucesso. Agora faça o seu login.',
@@ -203,7 +202,6 @@
 		}
 
 		function changePassword() {
-			console.log(vm.user);
 			UserService.changePassword(
 				$stateParams.id,
 				vm.user.email,
@@ -220,7 +218,7 @@
 	}
 
 	/* @ngInject */
-	function LoginController($state, UserService, ProposalService) {
+	function LoginController($state, UserService) {
 		var vm = this;
 
 		vm.user = {};
@@ -235,7 +233,6 @@
 		function login() {
 			UserService.login(vm.user.email, vm.user.password).then(function(response){
 				UserService.setAuthenticatedAccount(response.data);
-				ProposalService.updateTotalProjects(response.data.ente.projects_total);
 				if (UserService.getAuthenticatedAccount().is_admin) {
 					$state.go('admin.propostas.analise');
 				} else {

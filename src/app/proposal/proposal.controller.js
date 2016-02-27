@@ -17,7 +17,8 @@
 		'UserService',
 		'ProposalService',
 		'AlertService',
-		'PROPOSAL_LIMIT'
+		'PROPOSAL_LIMIT',
+		'PROPOSAL_STATUS'
 	];
 	ProposalNewController.$inject = [
 		'$state',
@@ -50,22 +51,29 @@
 		'AlertService',
 		'UserService'
 	];
+	ProposalCancelController.$inject = [
+		'$mdDialog',
+		'$state',
+		'ProposalService'
+	];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 
 	/* @ngInject */
-	function ProposalController($mdDialog, UserService, ProposalService, AlertService, PROPOSAL_LIMIT) {
+	function ProposalController($mdDialog, UserService, ProposalService,
+															AlertService, PROPOSAL_LIMIT, PROPOSAL_STATUS) {
 		var vm = this;
 
 		vm.proposals = [];
 
-		vm.enableNewProposal = false;
 		vm.errors = [];
 
 		// Functions
 		vm.init = init;
 		vm.deleteDialog = deleteDialog;
 		vm.cancelDialog = cancelDialog;
+		vm.enablePrintProposal = enablePrintProposal;
+		vm.enableNewProposal = enableNewProposal;
 		vm.isEditable = isEditable;
 
 		function init() {
@@ -76,7 +84,6 @@
 			var user = UserService.getAuthenticatedAccount();
 			ProposalService.myProposals(user.id).then(function(response){
 				vm.proposals = response.data;
-				vm.enableNewProposal = vm.proposals.length === PROPOSAL_LIMIT;
 			}, function(error){
 				vm.errors = AlertService.message(error);
 			});
@@ -112,6 +119,20 @@
 			}).then(function() {
 				listProposal();
 			});
+		}
+
+		function enablePrintProposal (proposal) {
+			return PROPOSAL_STATUS.enable_print.indexOf(proposal.status) !== -1;
+		}
+
+		function enableNewProposal () {
+			var draft_total = 0;
+			vm.proposals.forEach(function(proposal) {
+				if(ProposalService.enableProposal(proposal)) {
+					draft_total++;
+				}
+			});
+			return draft_total === PROPOSAL_LIMIT;
 		}
 
 		function isEditable(proposal) {
@@ -158,13 +179,11 @@
 			showDialog();
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
-					var total = ProposalService.getTotalProjects();
-					total++;
-					ProposalService.updateTotalProjects(total);
 
 					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
+						$state.go('admin.propostas');
 					});
 				}
 			}, function(error){
@@ -180,6 +199,8 @@
 					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
+						$state.go('admin.propostas.detalhe_impressao',
+											{number: response.data.number});
 					});
 				}
 			}, function(error){
@@ -195,7 +216,6 @@
 				if (!ProposalService.isUploadIsProgress()) {
 					$timeout(function() {
 						$mdDialog.hide();
-						$state.go('admin.propostas.detalhe_impressao', {number: data.number});
 					}, 300);
 				}
 			}, function(response) {
@@ -307,7 +327,8 @@
 					});
 				} else {
 					$mdDialog.hide();
-					$state.go('admin.propostas');
+					$state.go('admin.propostas.detalhe_impressao',
+										{number: response.data.number});
 				}
 			}, function(error) {
 				$mdDialog.hide();
@@ -391,9 +412,6 @@
 
 		function deleteProposal() {
 			ProposalService.deleteProposal().then(function() {
-				var total = ProposalService.getTotalProjects();
-				total--;
-				ProposalService.updateTotalProjects(total);
 				$mdDialog.hide();
 				$state.transitionTo('admin.propostas');
 			});

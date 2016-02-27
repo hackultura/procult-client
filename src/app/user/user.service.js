@@ -72,7 +72,7 @@
 		}
 
 		function setAuthenticatedAccount(account) {
-			$cookies.put('user', JSON.stringify(account));
+			$cookies.put('user', JSON.stringify(account), {'expires': expireDate()});
 		}
 
 		function isAuthenticated() {
@@ -85,6 +85,12 @@
 
 		function unauthenticate() {
 			$cookies.remove('user');
+		}
+
+		function expireDate () {
+			var expireDate = new Date();
+			expireDate.setDate(expireDate.getDate() + 1);
+			return expireDate;
 		}
 	}
 }());

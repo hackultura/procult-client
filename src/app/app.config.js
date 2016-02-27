@@ -279,8 +279,7 @@
 			.warnPalette('red');
 		}
 
-		function runConfig($rootScope, $state, $http, $cookies, UserService,
-											 ProposalService, PROPOSAL_LIMIT) {
+		function runConfig($rootScope, $state, $http, $cookies, UserService) {
 			// Config CSRF Token
 			$http.defaults.headers.common['X-CSRFToken'] = $cookies.get('csrftoken');
 
@@ -300,12 +299,6 @@
 					event.preventDefault();
 				}
 
-				// If user was created two projects, redirect to my proposals
-				var project_total = ProposalService.getTotalProjects();
-				if(toState.name === 'admin.propostas.novo' && project_total === PROPOSAL_LIMIT) {
-					$state.transitionTo('admin.propostas');
-					event.preventDefault();
-				}
 			});
 
 			// Assign values to $rootScope made in data on router states

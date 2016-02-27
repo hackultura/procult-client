@@ -11,7 +11,8 @@
 			analysis: 'analysis',
 			approved: 'approved',
 			reproved: 'reproved',
-			block_update: ['sended', 'analysis', 'approved', 'reproved']
+			enable_print: ['sended', 'approved', 'reproved'],
+			block_update: ['sended', 'analysis', 'approved', 'reproved', 'canceled']
 		})
 		.constant('ACCEPTED_FORMAT_UPLOADS', [
 			'.pdf', '.doc', '.docx', '.xls', '.xlsx',

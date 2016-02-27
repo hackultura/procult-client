@@ -6,7 +6,7 @@
 		</div>
 		<div layout-align="end center" hide-xs>
 			<md-button class="md-raised md-fab md-primary button_cover" title="Nova Proposta"
-				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo" data-ng-disabled="vm.enableNewProposal">
+				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo" data-ng-disabled="vm.enableNewProposal()">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
 		</div>
@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
-	<p data-ng-show="vm.enableNewProposal" class="alert alert-info">
+	<p data-ng-show="vm.enableNewProposal()" class="alert alert-info">
 		Você pode criar no máximo <strong>2 (duas) propostas</strong>. A proposta que for enviada <strong>não pode mais ser editada</strong>.
 	</p>
 	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
@@ -29,34 +29,36 @@
 		<h4 data-ng-show="vm.proposals.length === 0" hide-gt-sm hide-sm>
 			Clique no botão <img src="img/button_new_proposal.png" width="48" height="48" alt="Nova Proposta"> para inserir.
 		</h4>
-		<md-card flex data-ng-repeat="proposal in vm.proposals">
-			<md-card-title>
-				<md-card-title-text>
-					<span class="md-headline">{{proposal.title}}</span>
-					<span class="md-subhead"><strong>Data de Envio: </strong> {{proposal.created_at | date:'d/MM/yyyy'}}</span>
-					<span class="md-subhead"><strong>Situação: </strong> {{proposal.status_display}}</span>
-				</md-card-title-text>
-				<md-card-title-media hide-xs>
-					<i class="material-icons md-48">folder</i>
-				</md-card-title-media>
-			</md-card-title>
-			<md-card-actions layout="row" layout-align="end center">
-				<md-button class="md-fab md-mini md-primary md-hue-2" aria-label="Imprimir Comprovante"
-					data-ui-sref="admin.propostas.detalhe_impressao({number: proposal.number})" style="margin-right: 5px;">
-					<md-icon md-font-library="material-icons">print</md-icon>
-				</md-button>
-				<md-button class="md-fab md-mini md-primary" aria-label="Editar" data-ng-hide="vm.isEditable(proposal)"
-					data-ui-sref="admin.propostas.editar({number: proposal.number})" style="margin-right: 5px;">
-					<md-icon md-font-library="material-icons">mode_edit</md-icon>
-				</md-button>
-				<md-button class="md-fab md-mini md-warn" aria-label="Cancelar" data-ng-click="vm.cancelDialog($event, proposal.number)"
-					data-ng-hide="proposal.status !== 'sended'">
-					<md-icon md-font-library="material-icons">cancel</md-icon>
-				</md-button>
-				<md-button class="md-fab md-mini md-warn" aria-label="Remover" data-ng-click="vm.deleteDialog($event, proposal.number)"
-					data-ng-hide="vm.isEditable(proposal)">
-					<md-icon md-font-library="material-icons">delete</md-icon>
-				</md-button>
-			</md-card-actions>
-		</md-card>
+		<div class="md-padding" layout="row" layout-wrap layout-align="center">
+			<md-card flex="30" data-ng-repeat="proposal in vm.proposals">
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">{{proposal.title}}</span>
+						<span class="md-subhead"><strong>Data de Envio: </strong> {{proposal.created_at | date:'d/MM/yyyy'}}</span>
+						<span class="md-subhead"><strong>Situação: </strong> {{proposal.status_display}}</span>
+					</md-card-title-text>
+					<md-card-title-media hide-xs>
+						<i class="material-icons md-48">folder</i>
+					</md-card-title-media>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="end center">
+					<md-button class="md-fab md-mini md-primary md-hue-2" aria-label="Imprimir Comprovante" data-ng-show="vm.enablePrintProposal(proposal)"
+						data-ui-sref="admin.propostas.detalhe_impressao({number: proposal.number})" style="margin-right: 5px;">
+						<md-icon md-font-library="material-icons">print</md-icon>
+					</md-button>
+					<md-button class="md-fab md-mini md-primary" aria-label="Editar" data-ng-hide="vm.isEditable(proposal)"
+						data-ui-sref="admin.propostas.editar({number: proposal.number})" style="margin-right: 5px;">
+						<md-icon md-font-library="material-icons">mode_edit</md-icon>
+					</md-button>
+					<md-button class="md-fab md-mini md-warn" aria-label="Cancelar" data-ng-click="vm.cancelDialog($event, proposal.number)"
+						data-ng-hide="proposal.status !== 'sended'">
+						<md-icon md-font-library="material-icons">cancel</md-icon>
+					</md-button>
+					<md-button class="md-fab md-mini md-warn" aria-label="Remover" data-ng-click="vm.deleteDialog($event, proposal.number)"
+						data-ng-hide="vm.isEditable(proposal)">
+						<md-icon md-font-library="material-icons">delete</md-icon>
+					</md-button>
+				</md-card-actions>
+			</md-card>
+		</div>
 	</div>
