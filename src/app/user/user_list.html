@@ -5,14 +5,14 @@
 			<h3 hide-gt-sm hide-sm>Usuários</h3>
 		</div>
 		<div layout-align="end center" hide-xs>
-			<md-button class="md-raised md-fab md-primary button_cover"
+			<md-button class="md-raised md-fab md-accent button_cover"
 				aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
 		</div>
 
 		<div layout-align="end center" hide-gt-sm hide-sm>
-			<md-button class="md-raised md-fab md-mini md-primary button_cover"
+			<md-button class="md-raised md-fab md-mini md-accent button_cover"
 				aria-label="Novo Usuário" data-ui-sref="admin.usuarios.novo">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
@@ -31,10 +31,10 @@
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline"> {{user.name}} </span>
-					<span class="md-subhead"><strong>CEAC: </strong> {{user.ente.ceac}}</span>
+					<span class="md-subhead" data-ng-show="user.ente.cpf || user.ente.cnpj"><strong>CEAC: </strong> {{user.ente.ceac}}</span>
 					<span class="md-subhead"><strong>E-mail: </strong> {{user.email}}</span>
-					<span class="md-subhead" data-ng-show="{{user.ente.cpf}}"><strong>CPF: </strong> {{user.ente.cpf}}</span>
-					<span class="md-subhead" data-ng-show="{{user.ente.cnpj}}"><strong>CNPJ: </strong> {{user.ente.cnpj}}</span>
+					<span class="md-subhead" data-ng-show="{{user.ente.cpf}}"><strong>CPF: </strong> {{user.ente.cpf | brCpf }}</span>
+					<span class="md-subhead" data-ng-show="{{user.ente.cnpj}}"><strong>CNPJ: </strong> {{user.ente.cnpj | brCnpj}}</span>
 				</md-card-title-text>
 				<md-card-title-media hide-xs data-ng-show="user.ente.cpf" title="Pessoa Física">
 					<i class="material-icons md-48">face</i>

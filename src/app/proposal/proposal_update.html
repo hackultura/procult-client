@@ -61,7 +61,7 @@
 							<md-list-item class="md-3-line" ng-repeat="attachment in vm.proposal.attachments">
 								<md-icon class="md-48">attach_file</md-icon>
 								<div class="md-list-item-text" layout="column">
-									<h3><strong>{{ attachment.filename }}</strong></h3>
+									<h3><a href="{{attachment.file}}" target="_blank"><strong>{{ attachment.filename }}</strong></a></h3>
 									<h4><strong>Tamanho:</strong> {{ attachment.size }}</h4>
 									<h4><strong>Checksum:</strong> {{ attachment.checksum }}</h4>
 									<md-button class="md-secondary md-button md-raised md-warn" ng-click="vm.deleteDocument(attachment)">Remover</md-button>
