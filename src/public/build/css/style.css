@@ -14,16 +14,16 @@ html, body {
 .material-icons.md-128 { font-size: 128px; }
 
 /*Navbar*/
-.logo {
+.logo_navbar {
 	width: 150px;
 	border-right: 1px solid #CCC;
 }
 
-.logo img {
+.logo_navbar img {
 	float: left;
 }
 
-.logo h2 {
+.logo_navbar h2 {
 	padding-top: 10px;
 }
 

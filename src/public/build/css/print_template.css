@@ -1,5 +1,9 @@
 /* CSS criado para a estilização de relatórios para impressão */
 @media print {
+	html, body {
+		font-family: Roboto, 'Helvetica Neue', Arial, Times New Roman, sans-serif;
+	}
+
 	body {
 		background: transparent;
 		font-size: 12pt;
@@ -83,6 +87,7 @@
 	section.body {
 		display: inherit;
 		width: 100%;
+		line-height: 1em;
 	}
 
 	.proposal_files_padding {
@@ -108,7 +113,7 @@
 
 	.footer_content {
 		width: 350px !important;
-		margin-left: 55% !important;
+		margin-left: 50% !important;
 	}
 
 	.footer p {
