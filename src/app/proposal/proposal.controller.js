@@ -154,6 +154,7 @@
 		vm.init = init;
 		vm.uploadFiles = uploadFiles;
 		vm.isFiles = isFiles;
+		vm.removeDocumentToUpload = removeDocumentToUpload;
 		vm.createProposal = createProposal;
 		vm.sendProposal = sendProposal;
 
@@ -173,6 +174,14 @@
 
 		function isFiles() {
 			return vm.proposal.attachments.length > 0;
+		}
+
+		function removeDocumentToUpload (attachment) {
+			vm.proposal.attachments = vm.proposal.attachments.filter(function(item) {
+				if(item.$$hashKey !== attachment.$$hashKey) {
+					return item;
+				}
+			});
 		}
 
 		function createProposal() {

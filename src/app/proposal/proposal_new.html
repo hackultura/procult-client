@@ -32,11 +32,11 @@
 					</div>
 				</md-input-container>
 				<md-content layout-align="center" data-ng-show="proposalForm.title.$valid">
-					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
+					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop="vm.uploadFiles($files, $invalidFiles)" ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
 						ngf-min-size="10B" ngf-max-size="25MB" ngf-max-total-size="80MB"
-						ngf-multiple="true" ngf-allow-dir="allowDir" class="drop-box" data-ng-click="vm.errorFiles = []">
-						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa</h4>
-						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa</h4>
+						ngf-multiple="true" ngf-allow-dir="true" class="drop-box" data-ng-click="vm.errorFiles = []">
+						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
+						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa ou arraste aqui</h4>
 					</div>
 					<div data-ng-repeat="attachment in vm.errorFiles">
 						<p ng-if="attachment.$error == 'minSize'" class="alert alert-warning">
@@ -61,6 +61,7 @@
 								<div class="md-list-item-text" layout="column">
 									<h3><strong>{{ attachment.name }}</strong></h3>
 									<h4><strong>Tamanho:</strong> {{ attachment.size | prettyBytes }}</h4>
+									<md-button class="md-secondary md-button md-raised md-warn" ng-click="vm.removeDocumentToUpload(attachment)">Remover</md-button>
 								</div>
 								<md-divider ></md-divider>
 							</md-list-item>
