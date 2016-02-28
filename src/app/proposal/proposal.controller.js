@@ -307,6 +307,7 @@
 				if (vm.proposal.new_attachments.length > 0) {
 					vm.proposal.new_attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
+						$state.go('admin.propostas');
 					});
 				} else {
 					$mdDialog.hide();
@@ -363,7 +364,6 @@
 				if (!ProposalService.isUploadIsProgress()) {
 					$timeout(function() {
 						$mdDialog.hide();
-						$state.go('admin.propostas.detalhe_impressao', {number: data.number});
 					}, 300);
 				}
 			}, function(response) {

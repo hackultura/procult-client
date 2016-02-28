@@ -35,8 +35,8 @@
 				</md-input-container>
 				<md-content layout-align="center" data-ng-show="proposalForm.title.$valid">
 					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
-						ngf-min-size="10B" ngf-max-size="25MB" ngf-max-total-size="80MB"
-						ngf-multiple="true" ngf-allow-dir="allowDir" class="drop-box" data-ng-click="vm.errorFiles = []">
+						ngf-min-size="10B" ngf-max-size="25MB" ngf-max-total-size="80MB" ngf-capture="'camera'" ngf-drop-available="true"
+						ngf-multiple="true" ngf-allow-dir="true" class="drop-box">
 						<h4 class="md-display-1" hide-xs>Selecione seus arquivos clicando nessa caixa</h4>
 						<h4 hide-gt-sm hide-sm>Selecione seus arquivos clicando nessa caixa</h4>
 					</div>

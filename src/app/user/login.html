@@ -11,7 +11,7 @@
         <md-content>
           <md-input-container class="md-block" flex-gt-sm>
             <label>Email</label>
-            <input name="email" ng-model="vm.user.email" type="text"
+            <input name="email" ng-model="vm.user.email" type="email"
             required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
             <div ng-messages="loginForm.email.$error" role="alert">
               <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">

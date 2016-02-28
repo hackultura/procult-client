@@ -12,6 +12,7 @@
 		'$stateProvider',
 		'$urlRouterProvider',
 		'$mdThemingProvider',
+		'$mdGestureProvider',
 		'cfpLoadingBarProvider'
 	];
 
@@ -26,7 +27,12 @@
 	];
 
 	function appConfig($httpProvider, $stateProvider, $urlRouterProvider,
-										 $mdThemingProvider, cfpLoadingBarProvider) {
+										 $mdThemingProvider, $mdGestureProvider,
+										 cfpLoadingBarProvider) {
+
+		// Hijack click to mobile
+		$mdGestureProvider.skipClickHijack();
+
 		// Define CSRF
 		$httpProvider.defaults.xsrfCookieName = 'csrftoken';
 		$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -146,6 +152,20 @@
 				},
 				data: {
 					title: 'Atualizar Proposta'
+				}
+			})
+			.state('admin.propostas.painel', {
+				parent: 'admin',
+				url: '/propostas/painel',
+				authenticate: true,
+				admin: true,
+				views: {
+					'content@admin': {
+						templateUrl: 'proposal/dashboard.html'
+					}
+				},
+				data: {
+					title: 'Propostas Enviadas'
 				}
 			})
 			.state('admin.propostas.analise', {
