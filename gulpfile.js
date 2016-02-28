@@ -149,6 +149,7 @@ gulp.task('webserver', function() {
 	//gulp.src('./src')
 	gulp.src(paths.dist.root)
 	.pipe(webserver({
+		host: '0.0.0.0',
 		port: 5000
 	}));
 });
