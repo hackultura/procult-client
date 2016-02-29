@@ -1,7 +1,7 @@
 <div ng-controller="LoginController as vm" data-ng-init="vm.init()">
     <div layout="row" layout-align="center">
-	  <h1 hide-xs class="md-display-3">Procult | Login</h1>
-	  <h3 hide-gt-sm hide-sm class="md-display-2">Procult</h3>
+	  <h1 hide-xs class="md-display-3">FAC-DF | Login</h1>
+	  <h3 hide-gt-sm hide-sm class="md-display-2">FAC-DF</h3>
     </div>
 	<div layout="column" flex="80" layout-align="center" style="margin: 0 auto;">
 		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.msg }}</p>
@@ -42,6 +42,16 @@
             <span>Registrar</span>
           </md-button>
         </div>
+		<div layout-align="center" layout="column" class="login_footer">
+			<p>Se esse for seu primeiro acesso, clique-se em Registrar para gerar seu usuário e senha.</p>
+			<div layout="row" layout-align="center">
+				<div class="fac_logo"><img src="img/fac_logo.jpg" alt=""></div>
+				<div class="gdf_logo">
+					<span hide-xs hide-sm>Secretaria de Estado de Cultura</span>
+					<img src="img/gdf_footer.png" alt="Governo de Brasília">
+				</div>
+			</div>
+		</div>
       </md-card>
     </form>
   </div>

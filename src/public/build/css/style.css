@@ -11,6 +11,36 @@ html, body {
 .material-icons.md-64 { font-size: 64px; }
 .material-icons.md-128 { font-size: 128px; }
 
+/* Login */
+.login_footer p {
+	text-align: center
+}
+.fac_logo {
+	width: 64px;
+	height: 64px;
+	margin-right: 20px;
+}
+.fac_logo img {
+	width: 64px;
+	height: 64px;
+}
+
+.gdf_logo {
+	width: 300px;
+}
+
+.gdf_logo img {
+    width: 170px;
+    height: 65px;
+	float: right;
+}
+
+.gdf_logo span {
+	margin-top: 10px;
+    width: 130px;
+    float: left;
+}
+
 /*Navbar*/
 .logo_navbar {
 	width: 150px;
@@ -52,6 +82,10 @@ html, body {
 }
 
 /* Login Page */
+body.login {
+	background: transparent;
+}
+
 .login h1, .login h3 {
   color: #FFF;
   text-shadow: 1px 1px 1px #000;

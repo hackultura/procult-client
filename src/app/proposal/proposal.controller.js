@@ -73,8 +73,7 @@
 		vm.deleteDialog = deleteDialog;
 		vm.cancelDialog = cancelDialog;
 		vm.enablePrintProposal = enablePrintProposal;
-		vm.enableNewProposal = enableNewProposal;
-		vm.isEditable = isEditable;
+		vm.disableNewProposal = disableNewProposal;
 
 		function init() {
 			listProposal();
@@ -121,22 +120,22 @@
 			});
 		}
 
-		function enablePrintProposal (proposal) {
+		function enablePrintProposal(proposal) {
 			return PROPOSAL_STATUS.enable_print.indexOf(proposal.status) !== -1;
 		}
 
-		function enableNewProposal () {
-			var draft_total = 0;
+		function disableNewProposal() {
+			var disable_total = 0;
+			var enable_total = 0;
 			vm.proposals.forEach(function(proposal) {
+				if(ProposalService.disableProposal(proposal)) {
+					disable_total++;
+				}
 				if(ProposalService.enableProposal(proposal)) {
-					draft_total++;
+					enable_total++;
 				}
 			});
-			return draft_total === PROPOSAL_LIMIT;
-		}
-
-		function isEditable(proposal) {
-			return ProposalService.disableProposal(proposal);
+			return (disable_total + enable_total) === PROPOSAL_LIMIT;
 		}
 	}
 
@@ -191,8 +190,9 @@
 
 					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
-						uploadDocuments(response.data, file);
-						$state.go('admin.propostas');
+						uploadDocuments(response.data, file, function() {
+							$state.go('admin.propostas');
+						});
 					});
 				}
 			}, function(error){
@@ -207,9 +207,10 @@
 				if(response.status === 201) {
 					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
-						uploadDocuments(response.data, file);
-						$state.go('admin.propostas.detalhe_impressao',
-											{number: response.data.number});
+						uploadDocuments(response.data, file, function() {
+							$state.go('admin.propostas.detalhe_impressao',
+												{number: response.data.number});
+						});
 					});
 				}
 			}, function(error){
@@ -218,13 +219,14 @@
 			});
 		}
 
-		function uploadDocuments(data, file) {
+		function uploadDocuments(data, file, after_upload) {
 			file.upload = ProposalService.uploadDocument(data, file);
 
 			file.upload.then(function() {
 				if (!ProposalService.isUploadIsProgress()) {
 					$timeout(function() {
 						$mdDialog.hide();
+						after_upload();
 					}, 300);
 				}
 			}, function(response) {

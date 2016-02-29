@@ -34,7 +34,8 @@
 			isUploadIsProgress: isUploadIsProgress,
 			deleteDocument: deleteDocument,
 			disableProposal: disableProposal,
-			enableProposal: enableProposal
+			enableProposal: enableProposal,
+			isCanceledProposal: isCanceledProposal
 		};
 
 		function query() {
@@ -133,11 +134,15 @@
 		}
 
 		function disableProposal(proposal) {
-			return PROPOSAL_STATUS.block_update.indexOf(proposal.status) !== -1;
+			return PROPOSAL_STATUS.block_insert.indexOf(proposal.status) !== -1;
 		}
 
 		function enableProposal(proposal) {
 			return PROPOSAL_STATUS.draft === proposal.status;
+		}
+
+		function isCanceledProposal(proposal) {
+			return PROPOSAL_STATUS.canceled === proposal.status;
 		}
 	}
 }());

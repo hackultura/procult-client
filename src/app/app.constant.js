@@ -12,6 +12,7 @@
 			approved: 'approved',
 			reproved: 'reproved',
 			enable_print: ['sended', 'approved', 'reproved'],
+			block_insert: ['sended', 'analysis', 'approved', 'reproved'],
 			block_update: ['sended', 'analysis', 'approved', 'reproved', 'canceled']
 		})
 		.constant('ACCEPTED_FORMAT_UPLOADS', [

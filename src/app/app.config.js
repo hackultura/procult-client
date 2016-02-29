@@ -289,7 +289,8 @@
 				},
 				data: {
 						title: 'Login de Acesso',
-						pageClasses: 'login login_bg'
+						pageClasses: 'login',
+						documentClasses: 'login login_bg'
 				}
 			});
 
@@ -342,6 +343,7 @@
 				$rootScope.title = toState.data.title;
 				$rootScope.pageClasses = toState.data.pageClasses;
 				$rootScope.wrapperClasses = toState.data.wrapperClasses;
+				$rootScope.documentClasses = toState.data.documentClasses;
 			});
 
 			$rootScope.back = function() {
