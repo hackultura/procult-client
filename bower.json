@@ -30,6 +30,7 @@
     "angular-loading-bar": "~0.8.0",
     "angularPrint": "~0.3.8",
     "angular-pretty-bytes": "^1.0.1",
-    "angular-br-filters": "^0.5.0"
+    "angular-br-filters": "^0.5.0",
+	"angular-color-this": "git://github.com/eknowles/angular-color-this.git#v1.0.1"
   }
 }

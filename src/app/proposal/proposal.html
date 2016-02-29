@@ -29,8 +29,8 @@
 		<h4 data-ng-show="vm.proposals.length === 0" hide-gt-sm hide-sm>
 			Clique no botão <img src="img/button_new_proposal.png" width="48" height="48" alt="Nova Proposta"> para inserir.
 		</h4>
-		<div class="md-padding" layout="row" layout-wrap layout-align="center">
-			<md-card flex flex-xs="100" flex-gt-xs="40" data-ng-repeat="proposal in vm.proposals" style="min-width: 400px;">
+		<div class="md-padding" layout="row" layout-wrap layout-xs="column" layout-align="center">
+			<md-card class="proposal_box" flex flex-xs="100" data-ng-repeat="proposal in vm.proposals">
 				<md-card-title>
 					<md-card-title-text>
 						<span class="md-headline">{{proposal.title}}</span>

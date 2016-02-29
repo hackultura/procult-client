@@ -165,7 +165,7 @@
 					}
 				},
 				data: {
-					title: 'Propostas Enviadas'
+					title: 'Painel de Controle'
 				}
 			})
 			.state('admin.propostas.analise', {

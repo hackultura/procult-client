@@ -234,7 +234,7 @@
 			UserService.login(vm.user.email, vm.user.password).then(function(response){
 				UserService.setAuthenticatedAccount(response.data);
 				if (UserService.getAuthenticatedAccount().is_admin) {
-					$state.go('admin.propostas.analise');
+					$state.go('admin.propostas.painel');
 				} else {
 					$state.go('admin.propostas');
 				}

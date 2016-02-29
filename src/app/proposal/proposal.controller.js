@@ -9,6 +9,7 @@
 	.controller('ProposalUpdateController', ProposalUpdateController)
 	.controller('ProposalDeleteController', ProposalDeleteController)
 	.controller('ProposalCancelController', ProposalCancelController)
+	.controller('ProposalDashboardController', ProposalDashboardController)
 	.controller('ProposalAnalysisController', ProposalAnalysisController)
 	.controller('ProposalAnalysisDetailsController', ProposalAnalysisDetailsController);
 
@@ -56,6 +57,7 @@
 		'$state',
 		'ProposalService'
 	];
+	ProposalDashboardController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
 
@@ -457,6 +459,26 @@
 			$mdDialog.hide();
 			$state.transitionTo('admin.propostas');
 		}
+	}
+
+	/* @ngInject */
+	function ProposalDashboardController(ProposalService, AlertService) {
+		var vm = this;
+
+		// Functions
+		vm.init = init;
+
+		vm.dashboard = [];
+		vm.errors = [];
+
+		function init() {
+			ProposalService.dashboard().then(function(response) {
+				vm.dashboard = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+
 	}
 
 	/* @ngInject */

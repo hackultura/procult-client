@@ -19,6 +19,7 @@
 		return {
 			query: query,
 			myProposals: myProposals,
+			dashboard: dashboard,
 			createProposal: createProposal,
 			sendProposal: sendProposal,
 			approveProposal: approveProposal,
@@ -44,6 +45,10 @@
 
 		function myProposals(user_id) {
 			return $http.get(API_URI_PREFIX + '/propostas/user/' + user_id + '/');
+		}
+
+		function dashboard() {
+			return $http.get(API_URI_PREFIX + '/propostas/dashboard/');
 		}
 
 		function createProposal(proposal) {

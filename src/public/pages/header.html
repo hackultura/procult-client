@@ -9,6 +9,10 @@
 			<md-icon>dashboard</md-icon>
 			Minhas Propostas
 		</md-button>
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas.painel" data-ng-show="vm.user.is_admin">
+			<md-icon>line_style</md-icon>
+			Painel de Controle
+		</md-button>
 		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas.analise" data-ng-show="vm.user.is_admin">
 			<md-icon>view_list</md-icon>
 			Propostas enviadas
@@ -51,8 +55,16 @@
 	</div>
 
 	<div class="md-toolbar-tools" hide-gt-sm hide-sm>
-		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas">
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas" data-ng-hide="vm.user.is_admin">
 			<md-icon>dashboard</md-icon>
+		</md-button>
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas.painel" data-ng-show="vm.user.is_admin">
+			<md-icon>line_style</md-icon>
+			Painel de Controle
+		</md-button>
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.propostas.analise" data-ng-show="vm.user.is_admin">
+			<md-icon>view_list</md-icon>
+			Propostas enviadas
 		</md-button>
 		<md-menu md-position-mode="target-right target">
 			<md-button aria-label="Meu usuario" ng-click="$mdOpenMenu($event)">

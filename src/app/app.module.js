@@ -13,6 +13,7 @@
 			'AngularPrint',
 			'prettyBytes',
 			'idf.br-filters',
+			'ngColorThis',
 			'angular-loading-bar',
 			'angular-intro'
 		]);
