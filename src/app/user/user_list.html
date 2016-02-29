@@ -27,7 +27,7 @@
 				<input ng-model="vm.search" type="text" autofocus>
 			</md-input-container>
 		</div>
-		<md-card flex data-ng-repeat="user in vm.users | filter: vm.search">
+		<md-card flex data-ng-repeat="user in vm.users.results | filter: vm.search">
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline"> {{user.name}} </span>
