@@ -66,7 +66,26 @@ gulp.task('clean', function() {
 	rimraf.sync(paths.dist.root);
 });
 
-gulp.task('usemin', function () {
+gulp.task('usemin:local', ['inject:api_uri_local'], function () {
+	return gulp.src('./src/public/index.html')
+	.pipe(usemin({
+		enableHtmlComment: false,
+		jsAttributines: {
+			async: false
+		},
+		css: [minifyCSS({rebase: false}), 'concat', rev()],
+		layout_css: [minifyCSS(), 'concat', rev()],
+		vendor_css: [minifyCSS(), 'concat', rev()],
+		vendor_print: [minifyCSS(), 'concat', rev()],
+		layout_js: [uglify(), rev()],
+		layout_config: [uglify(), rev()],
+		lib: [uglify(), rev()],
+		app: [uglify(), rev()]
+	}))
+	.pipe(gulp.dest(paths.dist.root));
+});
+
+gulp.task('usemin:prod', ['inject:api_uri_prod'], function () {
 	return gulp.src('./src/public/index.html')
 	.pipe(usemin({
 		enableHtmlComment: false,
@@ -154,8 +173,8 @@ gulp.task('webserver', function() {
 	}));
 });
 
-gulp.task('build', ['clean', 'inject:api_uri_local', 'usemin', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
+gulp.task('build', ['clean', 'usemin:local', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
 
-gulp.task('build:prod', ['clean', 'inject:api_uri_prod', 'usemin', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
+gulp.task('build:prod', ['clean', 'usemin:prod', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
 
 gulp.task('default', ['build']);
