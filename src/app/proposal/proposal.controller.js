@@ -487,12 +487,30 @@
 
 		// Functions
 		vm.init = init;
+		vm.nextPage = nextPage;
+		vm.previousPage = previousPage;
 
 		vm.proposals = [];
 		vm.errors = [];
 
 		function init() {
 			ProposalService.query().then(function(response) {
+				vm.proposals = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function nextPage() {
+			ProposalService.queryPaginate(vm.proposals.next).then(function(response) {
+				vm.proposals = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function previousPage() {
+			ProposalService.queryPaginate(vm.proposals.previous).then(function(response) {
 				vm.proposals = response.data;
 			}, function(error) {
 				vm.errors = AlertService.message(error);

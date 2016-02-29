@@ -18,6 +18,7 @@
 		var proposalSelected = {};
 		return {
 			query: query,
+			queryPaginate: queryPaginate,
 			myProposals: myProposals,
 			dashboard: dashboard,
 			createProposal: createProposal,
@@ -41,6 +42,10 @@
 
 		function query() {
 			return $http.get(API_URI_PREFIX + '/propostas/');
+		}
+
+		function queryPaginate(url) {
+			return $http.get(url);
 		}
 
 		function myProposals(user_id) {

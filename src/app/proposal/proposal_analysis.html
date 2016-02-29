@@ -5,27 +5,81 @@
 			<h3 hide-gt-sm hide-sm>Propostas Enviadas</h3>
 		</div>
 	</div>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
 	<div class='md-padding' id="client-list" layout="column" layout-align="center">
-		<md-card flex data-ng-repeat="proposal in vm.proposals">
-			<md-card-title>
-				<md-card-title-text>
-					<span class="md-headline">{{proposal.title}}</span>
-					<span class="md-subhead"><strong>Proposta nº:</strong> {{proposal.number}}</span>
-					<span class="md-subhead"><strong>Data de Envio: </strong> {{proposal.created_at | date:'d/MM/yyyy'}}</span>
-					<span class="md-subhead"><strong>Situação: </strong> {{proposal.status_display}}</span>
-				</md-card-title-text>
-				<md-card-title-media hide-xs>
-					<i class="material-icons md-48">folder</i>
-				</md-card-title-media>
-			</md-card-title>
-			<md-card-actions layout="row" layout-align="end center">
-				<md-button class="md-button md-raised md-primary" aria-label="Analisar"
-					data-ui-sref="admin.propostas.analise.detalhe({number: proposal.number})"
-					style="margin-right: 5px;">
-					<md-icon md-font-library="material-icons">library_books</md-icon>
-					Analisar Proposta
-				</md-button>
-			</md-card-actions>
-		</md-card>
+		<div layout="row" flex="80" layout-xs="column">
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>Nome do projeto</label>
+				<md-icon>folder</md-icon>
+				<input ng-model="vm.project_name" type="text">
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex="15" flex-xs>
+				<label>Número do projeto</label>
+				<md-icon>repeat_one</md-icon>
+				<input ng-model="vm.project_number" type="number" min="1">
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>Autor do Projeto</label>
+				<md-icon>folder</md-icon>
+				<input ng-model="vm.project_author" type="text">
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex="10" flex-xs>
+				<label>CEAC</label>
+				<md-icon>repeat_one</md-icon>
+				<input ng-model="vm.project_ceac" type="number" min="1">
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex="10" flex-xs>
+				<label>Status</label>
+				<md-select ng-model="vm.project_status">
+					<md-option value="">Todos</md-option>
+					<md-option value="sended">Enviado</md-option>
+					<md-option value="approved">Aprovado</md-option>
+					<md-option value="reproved">Reprovado</md-option>
+					<md-option value="canceled">Cancelado</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+	<div class='md-padding' id="client-list" layout="column" layout-align="center">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td>Nome do Projeto</td>
+					<td>Número</td>
+					<td>Autor</td>
+					<td>CEAC</td>
+					<td>Status</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="proposal in vm.proposals.results | filter: {title: vm.project_name,
+					id: vm.project_number, ente_info: {author: vm.project_author, ceac: vm.project_ceac}, status: vm.project_status}">
+					<td><a data-ui-sref="admin.propostas.analise.detalhe({number: proposal.number})">{{proposal.title}}</a></td>
+					<td>{{proposal.id}}</td>
+					<td>{{proposal.ente_info.author}}</td>
+					<td>{{proposal.ente_info.ceac}}</td>
+					<td>
+						<span data-ng-show="proposal.status === 'sended'" class="label label-primary">{{proposal.status_display}}</span>
+						<span data-ng-show="proposal.status === 'approve'" class="label label-success">{{proposal.status_display}}</span>
+						<span data-ng-show="proposal.status === 'reprove'" class="label label-danger">{{proposal.status_display}}</span>
+						<span data-ng-show="proposal.status === 'canceled'" class="label label-default">{{proposal.status_display}}</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div layout="row" layout-align="center">
+			<md-button class="md-raised md-accent" aria-label="Página Anterior" type="submit"
+				title="Página Anterior" data-ng-disabled="vm.proposals.next || !vm.proposals.previous" data-ng-click="vm.previousPage()">
+				<md-icon>fast_rewind</md-icon>
+				<span hide-xs>Anterior</span>
+				<span hide-gt-sm hide-sm>Anterior</span>
+			</md-button>
+
+			<md-button class="md-raised md-accent" aria-label="Próxima Página" type="submit"
+				title="Próxima Página" data-ng-disabled="!vm.proposals.next || vm.proposal.previous" data-ng-click="vm.nextPage()">
+				<md-icon>fast_forward</md-icon>
+				<span hide-xs>Próximo</span>
+				<span hide-gt-sm hide-sm>Próximo</span>
+			</md-button>
+		</div>
 	</div>
 </div>

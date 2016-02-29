@@ -2,8 +2,8 @@
 	<div layout="column" ng-cloak class="md-inline-form">
 		<div layout="row" layout-padding  class="cover client_cover">
 			<div layout-align="left center" layout-padding flex>
-				<h1 hide-xs>Atualizar Proposta</h1>
-				<h3 hide-gt-sm hide-sm>Atualizar Proposta</h3>
+				<h1 hide-xs>Atualizar Projeto</h1>
+				<h3 hide-gt-sm hide-sm>Atualizar Projeto</h3>
 			</div>
 			<div layout-align="end" hide-xs>
 				<md-button class="md-raised md-fab md-primary button_cover" aria-label="Voltar"
@@ -64,7 +64,7 @@
 								<div class="md-list-item-text" layout="column">
 									<h3><a href="{{attachment.file}}" target="_blank"><strong>{{ attachment.filename }}</strong></a></h3>
 									<h4><strong>Tamanho:</strong> {{ attachment.size }}</h4>
-									<h4><strong>Checksum:</strong> {{ attachment.checksum }}</h4>
+									<h4><strong>Assinatura Digital:</strong> {{ attachment.checksum }}</h4>
 									<md-button class="md-secondary md-button md-raised md-warn" ng-click="vm.deleteDocument(attachment)">Remover</md-button>
 								</div>
 								<md-divider ></md-divider>
@@ -86,17 +86,17 @@
 					</div>
 				</md-content>
 				<div layout="row" layout-align="center">
-					<md-button class="md-raised md-accent" aria-label="Salvar Proposta" type="submit"
-						title="Salvar Proposta" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
+					<md-button class="md-raised md-accent" aria-label="Salvar Projeto" type="submit"
+						title="Salvar Projeto" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
 						<md-icon>save</md-icon>
-						<span hide-xs>Salvar Proposta</span>
+						<span hide-xs>Salvar Projeto</span>
 						<span hide-gt-sm hide-sm>Salvar</span>
 					</md-button>
 
-					<md-button class="md-raised md-warn" aria-label="Enviar Proposta" data-ng-click="vm.sendProposal()"
-						title="Enviar Proposta" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
+					<md-button class="md-raised md-warn" aria-label="Enviar Projeto" data-ng-click="vm.sendProposal()"
+						title="Enviar Projeto" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
 						<md-icon>email</md-icon>
-						<span hide-xs>Enviar Proposta</span>
+						<span hide-xs>Enviar Projeto</span>
 						<span hide-gt-sm hide-sm>Enviar</span>
 					</md-button>
 				</div>
