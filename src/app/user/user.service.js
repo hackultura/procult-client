@@ -56,7 +56,7 @@
 		}
 
 		function changePassword(id, email, old_password, password1, password2) {
-			return $http.post(API_URI_PREFIX + '/auth/password/change/' + id, {
+			return $http.post(API_URI_PREFIX + '/auth/password/change/' + id + '/', {
 				email: email,
 				old_password: old_password,
 				password1: password1,

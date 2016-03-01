@@ -66,7 +66,7 @@ gulp.task('clean', function() {
 	rimraf.sync(paths.dist.root);
 });
 
-gulp.task('usemin:local', ['inject:api_uri_local'], function () {
+gulp.task('usemin:local', function () {
 	return gulp.src('./src/public/index.html')
 	.pipe(usemin({
 		enableHtmlComment: false,
@@ -145,7 +145,7 @@ gulp.task('html:pages', function() {
 });
 
 gulp.task('watch', function () {
-	gulp.watch([paths.app.js, paths.app.html, paths.public.html, paths.public.pages, paths.public.index], ['clean', 'usemin', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
+	gulp.watch([paths.app.js, paths.app.html, paths.public.html, paths.public.pages, paths.public.index], ['clean', 'usemin:local', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
 });
 
 gulp.task('uglify:app', function () {
