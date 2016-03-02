@@ -66,6 +66,7 @@
 
 		vm.init = init;
 		vm.saveProfile = saveProfile;
+		vm.saveAdminProfile = saveAdminProfile;
 
 		function init() {
 			UserService.getUser($stateParams.id).then(function(response) {
@@ -76,7 +77,14 @@
 		}
 
 		function saveProfile() {
+			updateProfile();
+		}
+
+		function saveAdminProfile() {
 			delete vm.user.ente;
+		}
+
+		function updateProfile() {
 			UserService.updateUser($stateParams.id, vm.user).then(function() {
 				UserService.setAuthenticatedAccount(vm.user);
 				if(vm.user.is_admin) {
