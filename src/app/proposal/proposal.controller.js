@@ -390,7 +390,7 @@
 		function showDialog(ev) {
 			$mdDialog.show({
 				controller: ProposalUpdateController,
-				templateUrl: 'proposal/creating_proposal.tmpl.html',
+				templateUrl: 'proposal/updating_proposal.tmpl.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose:false,

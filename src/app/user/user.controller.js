@@ -76,8 +76,14 @@
 		}
 
 		function saveProfile() {
+			delete vm.user.ente;
 			UserService.updateUser($stateParams.id, vm.user).then(function() {
-				$state.go('admin.propostas');
+				UserService.setAuthenticatedAccount(vm.user);
+				if(vm.user.is_admin) {
+					$state.go('admin.propostas.painel');
+				} else {
+					$state.go('admin.propostas');
+				}
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});

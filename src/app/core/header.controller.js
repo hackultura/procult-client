@@ -5,10 +5,10 @@
 	.module('procultApp')
 	.controller('HeaderController', HeaderController);
 
-	HeaderController.$inject = ['$mdSidenav', '$state', 'UserService'];
+	HeaderController.$inject = ['$scope', '$mdSidenav', '$state', 'UserService'];
 
 	/* @ngInject */
-	function HeaderController($mdSidenav, $state, UserService) {
+	function HeaderController($scope, $mdSidenav, $state, UserService) {
 		var vm = this;
 
 		// Variables
@@ -20,7 +20,11 @@
 		vm.logout = logout;
 
 		function init() {
-			vm.user = UserService.getAuthenticatedAccount();
+			$scope.$watch(function() {
+				return UserService.getAuthenticatedAccount();
+			}, function(newAuthenticatedaccount) {
+				vm.user = newAuthenticatedaccount;
+			}, true);
 		}
 
 		function toggleSidenav(menu) {
