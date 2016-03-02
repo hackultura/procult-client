@@ -200,7 +200,6 @@
 		}
 
 		function changePassword() {
-			console.log('Entrou no changePassword.');
 			UserService.changePassword(
 				$stateParams.id,
 				vm.user.email,
@@ -208,7 +207,6 @@
 				vm.user.password1,
 				vm.user.password2
 			).then(function() {
-				console.log('Enviado e desconectando...');
 				UserService.unauthenticate();
 				$state.transitionTo('simple.login');
 			}, function(error) {

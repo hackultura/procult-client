@@ -22,7 +22,6 @@
     vm.stateGo = stateGo;
 
     function stateGo() {
-      console.log("TEste");
     }
   }
 })();
