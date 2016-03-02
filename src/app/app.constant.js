@@ -21,6 +21,7 @@
 			'.png', '.jpg', '.jpeg', '.gif', '.tiff', '.bmp',
 			'.mp3', '.ogg', '.mp4', '.mpeg', '.rmvb', '.wav',
 			'.aiff', '.voc', '.midi', '.mpg', '.mov', '.webm',
-			'.dv', '.svg', '.cdr'
+			'.dv', '.svg', '.cdr',
+			'.zip', '.7z', '.rar',
 		]);
 }());
