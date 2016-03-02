@@ -6,8 +6,6 @@
 		.factory('AlertService', AlertService);
 
 	function AlertService() {
-		var msgSuccess = {};
-		var msgError = {};
 		var msgInfo = {};
 		var alert = false;
 		return {
@@ -22,7 +20,7 @@
 			if(error.status === -1) {
 				return [['Ocorreu um problema no acesso a base de dados. Por favor, contacte a Secretaria de Cultura ou tente mais tarde.']];
 			} else {
-				return error.data;
+				return error.data.errors;
 			}
 		}
 

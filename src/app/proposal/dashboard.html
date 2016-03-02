@@ -5,7 +5,7 @@
 			<h3 hide-gt-sm hide-sm>Painel Printipal</h3>
 		</div>
 	</div>
-	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
 	<div class="md-padding" layout="row" layout-wrap layout-xs="column" layout-align="center">
 		<div flex class="dashboard_box counter md-whiteframe-1dp"
 			color-this="background-color" data-color="vm.dashboard">

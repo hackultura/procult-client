@@ -112,11 +112,9 @@
 
 		function createUser() {
 			UserService.createUser(vm.user).then(function(){
-				AlertService.success({
-					msg: 'Usuário criado com sucesso. Agora faça o seu login.',
-					show: true
-				});
 				$state.transitionTo($state.previous.name, $state.previous.params);
+			}, function(error) {
+				vm.errors = AlertService.message(error);
 			});
 		}
 

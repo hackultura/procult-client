@@ -18,7 +18,7 @@
 			</md-button>
 		</div>
 	</div>
-	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
 	<p data-ng-show="vm.disableNewProposal()" class="alert alert-info">
 		Você pode criar no máximo <strong>2 (duas) propostas</strong>. A proposta que for enviada ou cancelada <strong>não pode mais ser editada</strong>.
 	</p>

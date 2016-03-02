@@ -19,7 +19,7 @@
 				</md-button>
 			</div>
 		</div>
-		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
+		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
 		<form name="proposalForm" method="post" layout="row" data-ng-submit="vm.createProposal()" layout-padding layout-align="center">
 			<md-card flex="80">
 				<md-input-container>
