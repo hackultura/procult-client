@@ -41,7 +41,7 @@
 					<p data-ng-show="vm.proposal.ente_info.cpf"><strong>CPF: </strong>{{vm.proposal.ente_info.cpf | brCpf}}</p>
 					<p data-ng-show="vm.proposal.ente_info.cnpj"><strong>CNPJ: </strong>{{vm.proposal.ente_info.cnpj | brCnpj}}</p>
 					<p><strong>CEAC: </strong>{{vm.proposal.ente_info.ceac}}</p>
-					<p><strong>Data de envio: </strong>{{vm.proposal.created_at | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+					<p><strong>Data de envio: </strong>{{vm.proposal.sended_at | date:'dd/MM/yyyy HH:mm:ss':'-0300'}}</p>
 				</div>
 				<section class="title"><h1>Arquivos Enviados</h1></section>
 				<table class="proposal_files table table-bordered" data-ng-class="{proposal_files_padding: vm.proposal.attachments.length >= 5}">
