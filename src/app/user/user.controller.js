@@ -51,16 +51,16 @@
 		}
 
 		function nextPage() {
-			UserService.queryPaginate(vm.proposals.next).then(function(response) {
-				vm.proposals = response.data;
+			UserService.queryPaginate(vm.users.next).then(function(response) {
+				vm.users = response.data;
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
 		}
 
 		function previousPage() {
-			UserService.queryPaginate(vm.proposals.previous).then(function(response) {
-				vm.proposals = response.data;
+			UserService.queryPaginate(vm.users.previous).then(function(response) {
+				vm.users = response.data;
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
