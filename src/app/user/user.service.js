@@ -10,6 +10,7 @@
 	function UserService($http, $cookies, API_URI_PREFIX) {
 		return {
 			query: query,
+			queryPaginate: queryPaginate,
 			getUser: getUser,
 			createUser: createUser,
 			createAdmin: createAdmin,
@@ -26,6 +27,10 @@
 
 		function query() {
 			return $http.get(API_URI_PREFIX + '/usuarios/');
+		}
+
+		function queryPaginate(url) {
+			return $http.get(url);
 		}
 
 		function getUser(id) {

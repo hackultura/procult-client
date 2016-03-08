@@ -28,6 +28,8 @@
 
 		vm.init = init;
 		vm.deleteDialog = deleteDialog;
+		vm.nextPage = nextPage;
+		vm.previousPage = previousPage;
 
 		function init() {
 			listUsers();
@@ -45,6 +47,22 @@
 				clickOutsideToClose: false
 			}).then(function() {
 				listUsers();
+			});
+		}
+
+		function nextPage() {
+			UserService.queryPaginate(vm.proposals.next).then(function(response) {
+				vm.proposals = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function previousPage() {
+			UserService.queryPaginate(vm.proposals.previous).then(function(response) {
+				vm.proposals = response.data;
+			}, function(error) {
+				vm.errors = AlertService.message(error);
 			});
 		}
 
