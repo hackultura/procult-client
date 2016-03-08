@@ -64,14 +64,14 @@
 
 		<div layout="row" layout-align="center">
 			<md-button class="md-raised md-accent" aria-label="Página Anterior" type="submit"
-				title="Página Anterior" data-ng-disabled="vm.proposals.next || !vm.proposals.previous" data-ng-click="vm.previousPage()">
+				title="Página Anterior" data-ng-disabled="vm.users.next || !vm.users.previous" data-ng-click="vm.previousPage()">
 				<md-icon>fast_rewind</md-icon>
 				<span hide-xs>Anterior</span>
 				<span hide-gt-sm hide-sm>Anterior</span>
 			</md-button>
 
 			<md-button class="md-raised md-accent" aria-label="Próxima Página" type="submit"
-				title="Próxima Página" data-ng-disabled="!vm.proposals.next || vm.proposal.previous" data-ng-click="vm.nextPage()">
+				title="Próxima Página" data-ng-disabled="!vm.users.next || vm.users.previous" data-ng-click="vm.nextPage()">
 				<md-icon>fast_forward</md-icon>
 				<span hide-xs>Próximo</span>
 				<span hide-gt-sm hide-sm>Próximo</span>
