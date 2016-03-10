@@ -18,7 +18,7 @@
 
 		function message(error) {
 			if(error.status === -1) {
-				return [['Ocorreu um problema no acesso a base de dados. Por favor, contacte a Secretaria de Cultura ou tente mais tarde.']];
+				return ['Ocorreu um problema no acesso a base de dados. Por favor, contacte a Secretaria de Cultura ou tente mais tarde.'];
 			} else {
 				return error.data.errors;
 			}

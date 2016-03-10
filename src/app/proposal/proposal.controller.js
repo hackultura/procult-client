@@ -270,9 +270,8 @@
 	}
 
 	/* @ngInject */
-	function ProposalUpdateController($state, $timeout, $stateParams,
-																		$mdDialog, ProposalService, AlertService,
-																		UtilsService) {
+	function ProposalUpdateController($state, $timeout, $stateParams, $mdDialog,
+									  ProposalService, AlertService, UtilsService) {
 		var vm = this;
 
 		vm.proposal = {};
