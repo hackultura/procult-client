@@ -42,7 +42,7 @@
 				<input ng-model="vm.search.cnpj" type="text">
 			</md-input-container>
 		</div>
-		<md-card flex data-ng-repeat="user in vm.users.results | filter: {name: vm.search.name, email: vm.search.email, ente: {cpf: vm.search.cpf, cnpj: vm.search.cnpj}}">
+		<md-card flex data-ng-repeat="user in vm.users.results | filter: {name: vm.search.name, email: vm.search.email, ente: {cpf: vm.search.cpf, cnpj: vm.search.cnpj}, ente: '!'}">
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline"> {{user.name}} </span>
@@ -79,14 +79,14 @@
 
 		<div layout="row" layout-align="center">
 			<md-button class="md-raised md-accent" aria-label="Página Anterior" type="submit"
-				title="Página Anterior" data-ng-disabled="vm.users.next || !vm.users.previous" data-ng-click="vm.previousPage()">
+				title="Página Anterior" data-ng-disabled="!vm.users.previous" data-ng-click="vm.previousPage()">
 				<md-icon>fast_rewind</md-icon>
 				<span hide-xs>Anterior</span>
 				<span hide-gt-sm hide-sm>Anterior</span>
 			</md-button>
 
 			<md-button class="md-raised md-accent" aria-label="Próxima Página" type="submit"
-				title="Próxima Página" data-ng-disabled="!vm.users.next || vm.users.previous" data-ng-click="vm.nextPage()">
+				title="Próxima Página" data-ng-disabled="!vm.users.next" data-ng-click="vm.nextPage()">
 				<md-icon>fast_forward</md-icon>
 				<span hide-xs>Próximo</span>
 				<span hide-gt-sm hide-sm>Próximo</span>
