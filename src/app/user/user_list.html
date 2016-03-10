@@ -22,12 +22,27 @@
 	<div class='md-padding' id="client-list" layout="column" layout-align="center">
 		<div layout="row" flex="80">
 			<md-input-container class="md-icon-float md-block" flex-gt-sm>
-				<label>Pesquisar Usuários</label>
-				<md-icon>search</md-icon>
-				<input ng-model="vm.search" type="text" autofocus>
+				<label>Nome do Ente Artístico</label>
+				<md-icon>face</md-icon>
+				<input ng-model="vm.search.name" type="text">
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>E-mail</label>
+				<md-icon>email</md-icon>
+				<input ng-model="vm.search.email" type="text">
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>CPF</label>
+				<md-icon>credit_card</md-icon>
+				<input ng-model="vm.search.cpf" type="text">
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>CNPJ</label>
+				<md-icon>credit_card</md-icon>
+				<input ng-model="vm.search.cnpj" type="text">
 			</md-input-container>
 		</div>
-		<md-card flex data-ng-repeat="user in vm.users.results | filter: vm.search">
+		<md-card flex data-ng-repeat="user in vm.users.results | filter: {name: vm.search.name, email: vm.search.email, ente: {cpf: vm.search.cpf, cnpj: vm.search.cnpj}}">
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline"> {{user.name}} </span>
