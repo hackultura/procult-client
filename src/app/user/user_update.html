@@ -65,6 +65,26 @@
 							</div>
 						</md-input-container>
 					</div>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Digite a senha</label>
+							<input ng-model="vm.user.password1" type="password" name="password1">
+							<div ng-messages="peopleForm.password1.$error" role="alert">
+								<div ng-message="required" class="my-message">
+									A senha é obrigatória
+								</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Re-digite a senha</label>
+							<input ng-model="vm.user.password2" type="password" name="password2">
+							<div ng-messages="peopleForm.password2.$error" role="alert">
+								<div ng-message="required" class="my-message">
+									A senha é obrigatória
+								</div>
+							</div>
+						</md-input-container>
+					</div>
 				</md-content>
 				<div layout="row" layout-align="center">
 					<md-button type="submit" class="md-raised md-primary" aria-label="Atualizar" ng-disabled="peopleForm.$invalid">
@@ -115,6 +135,26 @@
 							<input ng-model="vm.user.ente.ceac" name="ceac" type="text" data-md-minlength="4" data-md-maxlength="4" maxlength="4" required>
 							<div ng-messages="businessForm.ceac.$error" role="alert">
 								<div ng-message="required" class="my-message">CEAC é obrigatório</div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Digite a senha</label>
+							<input ng-model="vm.user.password1" type="password" name="password1">
+							<div ng-messages="businessForm.password1.$error" role="alert">
+								<div ng-message="required" class="my-message">
+									A senha é obrigatória
+								</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Re-digite a senha</label>
+							<input ng-model="vm.user.password2" type="password" name="password2">
+							<div ng-messages="businessForm.password2.$error" role="alert">
+								<div ng-message="required" class="my-message">
+									A senha é obrigatória
+								</div>
 							</div>
 						</md-input-container>
 					</div>

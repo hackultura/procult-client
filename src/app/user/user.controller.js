@@ -14,7 +14,7 @@
 	UserController.$inject = ['$mdDialog', 'UserService', 'AlertService'];
 	UserProfileController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
 	UserRegisterController.$inject = ['UserService', 'AlertService', '$state'];
-	UserUpdateController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
+	UserUpdateController.$inject = ['$state', '$stateParams', '$filter', 'UserService', 'AlertService'];
 	UserDeleteController.$inject = ['$state', '$mdDialog', 'UserService', 'AlertService'];
 	UserChangePasswordController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
 	LoginController.$inject = ['$state', 'UserService', 'ProposalService'];
@@ -160,7 +160,7 @@
 	}
 
 	/* @ngInject */
-	function UserUpdateController($state, $stateParams, UserService, AlertService) {
+	function UserUpdateController($state, $stateParams, $filter, UserService, AlertService) {
 		var vm = this;
 
 		vm.init = init;
@@ -172,6 +172,7 @@
 		function init() {
 			UserService.getUser($stateParams.id).then(function(response) {
 				vm.user = response.data;
+				vm.user = filterUserData(vm.user);
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
@@ -183,6 +184,12 @@
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
+		}
+
+		function filterUserData(user) {
+			user.ente.cpf = $filter('brCpf')(user.ente.cpf);
+			user.ente.cnpj = $filter('brCnpj')(user.ente.cnpj);
+			return user;
 		}
 	}
 
