@@ -196,6 +196,20 @@
 					title: 'Detalhe da Proposta'
 				}
 			})
+			.state('admin.artistas', {
+				parent: 'admin',
+				url: '/propostas/artistas',
+				authenticate: true,
+				admin: true,
+				views: {
+					'content@admin': {
+						templateUrl: 'artist/artist_list.html'
+					}
+				},
+				data: {
+					title: 'Lista de Artistas'
+				}
+			})
 			.state('admin.usuarios', {
 				parent: 'admin',
 				authenticate: true,
