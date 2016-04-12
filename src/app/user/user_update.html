@@ -21,7 +21,7 @@
 		</div>
 
 		<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs.join(', ') }}</p>
-		<form name="peopleForm" method="post" layout="row" layout-padding layout-align="center" data-ng-show="vm.user.ente.cpf" data-ng-submit="vm.updateUser()" novalidate>
+		<form name="peopleForm" method="post" layout="row" layout-padding layout-align="center" data-ng-submit="vm.updateUser()" novalidate>
 			<md-card flex="80">
 				<md-content>
 					<md-input-container class="md-block" flex-gt-sm>
