@@ -526,6 +526,7 @@
 		vm.init = init;
 		vm.approveProposal = approveProposal;
 		vm.reproveProposal = reproveProposal;
+    vm.removeProposal = removeProposal;
 
 		vm.proposal = {};
 		vm.errors = [];
@@ -533,6 +534,7 @@
 		function init() {
 			ProposalService.getProposal($stateParams.number).then(function(response) {
 				vm.proposal = response.data;
+        ProposalService.setProposalSelected(vm.proposal);
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
@@ -553,5 +555,11 @@
 				vm.errors = AlertService.message(error);
 			});
 		}
+
+    function removeProposal() {
+      ProposalService.deleteProposal().then(function(response) {
+        $state.go('admin.propostas.analise');
+      });
+    }
 	}
 })();
