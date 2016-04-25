@@ -37,7 +37,8 @@
 			deleteDocument: deleteDocument,
 			disableProposal: disableProposal,
 			enableProposal: enableProposal,
-			isCanceledProposal: isCanceledProposal
+			isCanceledProposal: isCanceledProposal,
+      downloadFiles: downloadFiles
 		};
 
 		function query() {
@@ -154,5 +155,9 @@
 		function isCanceledProposal(proposal) {
 			return PROPOSAL_STATUS.canceled === proposal.status;
 		}
+
+    function downloadFiles(proposal) {
+			return $http.get(API_URI_PREFIX + '/propostas/' + proposal.number + '/zip/');
+    }
 	}
 }());

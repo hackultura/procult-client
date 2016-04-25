@@ -59,7 +59,13 @@
 	];
 	ProposalDashboardController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
-	ProposalAnalysisDetailsController.$inject = ['$state', '$stateParams', 'ProposalService', 'AlertService'];
+	ProposalAnalysisDetailsController.$inject = [
+    '$state',
+    '$stateParams',
+		'$mdDialog',
+    'ProposalService',
+    'AlertService'
+  ];
 
 	/* @ngInject */
 	function ProposalController($mdDialog, UserService, ProposalService,
@@ -519,7 +525,8 @@
 	}
 
 	/* @ngInject */
-	function ProposalAnalysisDetailsController($state, $stateParams, ProposalService, AlertService) {
+	function ProposalAnalysisDetailsController($state, $stateParams, $mdDialog,
+                                             ProposalService, AlertService) {
 		var vm = this;
 
 		// Functions
@@ -527,8 +534,10 @@
 		vm.approveProposal = approveProposal;
 		vm.reproveProposal = reproveProposal;
     vm.removeProposal = removeProposal;
+    vm.downloadFiles = downloadFiles;
 
 		vm.proposal = {};
+    vm.downloadFile = '';
 		vm.errors = [];
 
 		function init() {
@@ -561,5 +570,27 @@
         $state.go('admin.propostas.analise');
       });
     }
+
+    function downloadFiles() {
+      showDialog();
+      ProposalService.downloadFiles(vm.proposal).then(function(response) {
+        window.location.assign(response.data.url);
+        $mdDialog.hide();
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+    }
+
+		function showDialog(ev) {
+			$mdDialog.show({
+				controller: ProposalAnalysisDetailsController,
+				controllerAs: 'vm',
+				templateUrl: 'proposal/downloading_files_proposal.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:false,
+				escapeToClose: false
+			});
+		}
 	}
 })();
