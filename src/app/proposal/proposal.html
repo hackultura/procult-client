@@ -6,13 +6,13 @@
 		</div>
 		<div layout-align="end center" hide-xs>
 			<md-button class="md-raised md-fab md-primary button_cover" title="Nova Proposta" title="Nova Proposta"
-				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo" data-ng-disabled="vm.disableNewProposal()">
+				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo" data-ng-disabled="true">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
 		</div>
 
 		<div layout-align="end center" hide-gt-sm hide-sm>
-			<md-button class="md-raised md-fab md-mini md-primary button_cover" title="Nova Proposta" data-ng-disabled="vm.disableNewProposal()"
+			<md-button class="md-raised md-fab md-mini md-primary button_cover" title="Nova Proposta" data-ng-disabled="true"
 				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
@@ -48,17 +48,17 @@
 						title="Imprimir Comprovante do Projeto">
 						<md-icon md-font-library="material-icons">print</md-icon>
 					</md-button>
-					<md-button class="md-fab md-mini md-accent" aria-label="Editar" data-ng-show="proposal.status === 'draft'"
+					<md-button class="md-fab md-mini md-accent" aria-label="Editar" data-ng-show="false"
 						data-ui-sref="admin.propostas.editar({number: proposal.number})" style="margin-right: 5px;"
 						title="Editar Projeto">
 						<md-icon md-font-library="material-icons">mode_edit</md-icon>
 					</md-button>
 					<md-button class="md-fab md-mini md-warn" aria-label="Cancelar" data-ng-click="vm.cancelDialog($event, proposal.number)"
-						data-ng-show="proposal.status === 'sended'" title="Cancelar Projeto">
+						data-ng-show="false" title="Cancelar Projeto">
 						<md-icon md-font-library="material-icons">cancel</md-icon>
 					</md-button>
 					<md-button class="md-fab md-mini md-warn" aria-label="Remover" data-ng-click="vm.deleteDialog($event, proposal.number)"
-						data-ng-show="proposal.status === 'draft'" title="Remover Proposta">
+						data-ng-show="false" title="Remover Proposta">
 						<md-icon md-font-library="material-icons">delete</md-icon>
 					</md-button>
 				</md-card-actions>

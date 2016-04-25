@@ -355,6 +355,10 @@
           event.preventDefault();
         }
 
+        if(UserService.isAuthenticated()) {
+          $state.transitionTo('simple.login');
+        }
+
         if(toState.admin && !UserService.isAdmin()) {
           $state.transitionTo('admin.propostas');
           event.preventDefault();
