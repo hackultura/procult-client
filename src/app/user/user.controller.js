@@ -274,6 +274,7 @@
           $state.go('admin.propostas.painel');
         } else {
           $state.go('admin.propostas');
+          //$state.go('admin.comunicado');
         }
       }, function(error){
         if(error.status === -1) {
