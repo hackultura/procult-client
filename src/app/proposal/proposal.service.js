@@ -7,18 +7,20 @@
 
 	ProposalService.$inject = [
 		'$http',
+    '$window',
 		'API_URI_PREFIX',
 		'UserService',
 		'Upload',
 		'PROPOSAL_STATUS'
 	];
 
-	function ProposalService($http, API_URI_PREFIX, UserService,
+	function ProposalService($http, $window, API_URI_PREFIX, UserService,
 													 Upload, PROPOSAL_STATUS) {
 		var proposalSelected = {};
 		return {
 			query: query,
 			queryPaginate: queryPaginate,
+      exportProposals: exportProposals,
 			myProposals: myProposals,
 			dashboard: dashboard,
 			createProposal: createProposal,
@@ -48,6 +50,10 @@
 		function queryPaginate(url) {
 			return $http.get(url);
 		}
+
+    function exportProposals() {
+      $window.location.assign(API_URI_PREFIX + '/propostas/export/csv/');
+    }
 
 		function myProposals(user_id) {
 			return $http.get(API_URI_PREFIX + '/propostas/user/' + user_id + '/');

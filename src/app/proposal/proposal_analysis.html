@@ -4,6 +4,13 @@
 			<h1 hide-xs>Propostas Enviadas</h1>
 			<h3 hide-gt-sm hide-sm>Propostas Enviadas</h3>
 		</div>
+
+		<div layout-align="end center" hide-xs>
+			<md-button class="md-raised md-fab md-primary button_cover" title="Exportar Propostas" title="Exportar Propostas"
+				aria-label="Exportar Propostas" data-ng-click="vm.exportProposals()">
+				<md-icon md-font-library="material-icons">cloud_download</md-icon>
+			</md-button>
+		</div>
 	</div>
 	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
 	<div class='md-padding' id="client-list" layout="column" layout-align="center">

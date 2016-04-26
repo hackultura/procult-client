@@ -494,6 +494,7 @@
 		vm.init = init;
 		vm.nextPage = nextPage;
 		vm.previousPage = previousPage;
+    vm.exportProposals = exportProposals;
 
 		vm.proposals = [];
 		vm.errors = [];
@@ -521,6 +522,10 @@
 				vm.errors = AlertService.message(error);
 			});
 		}
+
+    function exportProposals() {
+      ProposalService.exportProposals();
+    }
 
 	}
 
