@@ -20,6 +20,7 @@
 			changePassword: changePassword,
 			getAuthenticatedAccount: getAuthenticatedAccount,
 			setAuthenticatedAccount: setAuthenticatedAccount,
+      canCreateProposal: canCreateProposal,
 			isAuthenticated: isAuthenticated,
 			isAdmin: isAdmin,
 			unauthenticate: unauthenticate
@@ -59,6 +60,10 @@
 				password: password
 			});
 		}
+
+    function canCreateProposal() {
+      return $http.get(API_URI_PREFIX + '/canCreateProposal/1/?format=json');
+    }
 
 		function changePassword(id, email, old_password, password1, password2) {
 			return $http.post(API_URI_PREFIX + '/auth/password/change/' + id + '/', {
