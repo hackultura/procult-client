@@ -173,8 +173,16 @@ gulp.task('webserver', function() {
 	}));
 });
 
+gulp.task('app', function() {
+  return gulp
+  .src('./src/app/**/*.html')
+  .pipe(gulp.dest(paths.dist.root));
+});
+
 gulp.task('build', ['clean', 'usemin:local', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
 
 gulp.task('build:prod', ['clean', 'usemin:prod', 'usemin:fonts', 'imagemin', 'html', 'html:pages']);
 
 gulp.task('default', ['build']);
+
+//require('es6-promise').polyfill();
