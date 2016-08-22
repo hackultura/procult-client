@@ -355,10 +355,7 @@
           event.preventDefault();
         }
 
-        if(UserService.isAuthenticated()) {
-          $state.transitionTo('simple.login');
-        }
-
+        // If the state need admin permission and user is not admin, redirect
         if(toState.admin && !UserService.isAdmin()) {
           $state.transitionTo('admin.propostas');
           event.preventDefault();
