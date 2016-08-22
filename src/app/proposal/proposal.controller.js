@@ -81,6 +81,7 @@
 		vm.deleteDialog = deleteDialog;
 		vm.cancelDialog = cancelDialog;
 		vm.enablePrintProposal = enablePrintProposal;
+		vm.disableEditProposal = disableEditProposal;
 		vm.disableNewProposal = disableNewProposal;
 
 		function init() {
@@ -130,6 +131,10 @@
 
 		function enablePrintProposal(proposal) {
 			return PROPOSAL_STATUS.enable_print.indexOf(proposal.status) !== -1;
+		}
+
+		function disableEditProposal(proposal) {
+			return PROPOSAL_STATUS.block_update.indexOf(proposal.status) == -1;
 		}
 
 		function disableNewProposal() {
