@@ -90,7 +90,12 @@
 		}
 
 		function isAdmin() {
-			return getAuthenticatedAccount().is_admin;
+			var auth_account = getAuthenticatedAccount();
+			if(auth_account === undefined){
+				return false;
+			} else{
+				return auth_account.is_admin;
+			}
 		}
 
 		function unauthenticate() {
