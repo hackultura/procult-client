@@ -1,0 +1,54 @@
+<div data-ng-controller="EditalController as vm" data-ng-init="vm.init()">
+	<div layout="row" layout-padding  class="cover client_cover">
+		<div layout-align="center" layout-padding flex>
+			<h1 hide-xs>Editais</h1>
+			<h3 hide-gt-sm hide-sm>Editais</h3>
+		</div>
+		<div layout-align="end center" hide-xs data-ng-show="vm.proposals.length !== 2">
+			<md-button class="md-raised md-fab md-primary button_cover" title="Novo Edital" title="Nova Edital"
+				aria-label="Novo Edital" data-ui-sref="admin.editais.novo">
+				<md-icon md-font-library="material-icons">add</md-icon>
+			</md-button>
+		</div>
+
+		<div layout-align="end center" hide-gt-sm hide-sm data-ng-show="vm.proposals.length !== 2">
+			<md-button class="md-raised md-fab md-mini md-primary button_cover" title="Nova Edital"
+				aria-label="Novo Edital" data-ui-sref="admin.editais.novo">
+				<md-icon md-font-library="material-icons">add</md-icon>
+			</md-button>
+		</div>
+	</div>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
+	<p data-ng-show="vm.hasOpenEdital == false" class="alert alert-info">
+		Não há nenhum edital aberto no momento
+	</p>
+	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
+		<div class="md-padding" layout="row" layout-wrap layout-xs="column" layout-align="center">
+			<md-card class="proposal_box" flex flex-xs="100" data-ng-repeat="edital in vm.editais.results">
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">{{edital.title}}</span>
+						<span class="md-subhead">{{edital.description}}</span>
+					</md-card-title-text>
+					<md-card-title-media hide-xs>
+						<i class="material-icons md-48">folder</i>
+					</md-card-title-media>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="end center">
+					<span data-ng-show="vm.enableEnterEdital(edital) == false" class="md-subhead alert-info">Edital fechado</span>
+					<span class="md-subhead">Propostas</span>
+					<md-button class="md-fab md-mini md-primary md-hue-2" aria-label="Propostas"
+						data-ui-sref="admin.propostas.painel({id: edital.id})" style="margin-right: 5px;"
+						title="Propostas">
+						<md-icon md-font-library="material-icons">folder</md-icon>
+					</md-button>
+					<md-button class="md-fab md-mini md-primary md-hue-2" aria-label="Propostas"
+						data-ui-sref="admin.editais.editar({id: edital.id})" style="margin-right: 5px;"
+						title="Propostas">
+						<md-icon md-font-library="material-icons">editar</md-icon>
+					</md-button>
+				</md-card-actions>
+			</md-card>
+		</div>
+	</div>
+</div>
