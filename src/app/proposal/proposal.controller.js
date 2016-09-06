@@ -59,7 +59,7 @@
 		'$state',
 		'ProposalService'
 	];
-	ProposalDashboardController.$inject = ['ProposalService', 'AlertService'];
+	ProposalDashboardController.$inject = ['ProposalService', 'AlertService', '$stateParams'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = [
     '$state',
@@ -478,7 +478,7 @@
 	}
 
 	/* @ngInject */
-	function ProposalDashboardController(ProposalService, AlertService) {
+	function ProposalDashboardController(ProposalService, AlertService, $stateParams) {
 		var vm = this;
 
 		// Functions
@@ -488,7 +488,7 @@
 		vm.errors = [];
 
 		function init() {
-			ProposalService.dashboard().then(function(response) {
+			ProposalService.dashboardNotice($stateParams.id).then(function(response) {
 				vm.dashboard = response.data;
 			}, function(error) {
 				vm.errors = AlertService.message(error);

@@ -23,6 +23,7 @@
       exportProposals: exportProposals,
 			myProposals: myProposals,
 			dashboard: dashboard,
+			dashboardNotice: dashboardNotice,
 			createProposal: createProposal,
 			sendProposal: sendProposal,
 			approveProposal: approveProposal,
@@ -61,6 +62,10 @@
 
 		function dashboard() {
 			return $http.get(API_URI_PREFIX + '/propostas/dashboard/');
+		}
+
+		function dashboardNotice(notice_id) {
+			return $http.get(API_URI_PREFIX + '/propostas/dashboard/' + notice_id + '/');
 		}
 
 		function createProposal(proposal) {
