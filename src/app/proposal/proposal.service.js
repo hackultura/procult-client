@@ -23,6 +23,7 @@
       exportProposals: exportProposals,
 			myProposals: myProposals,
 			dashboard: dashboard,
+			dashboardNotice: dashboardNotice,
 			createProposal: createProposal,
 			sendProposal: sendProposal,
 			approveProposal: approveProposal,
@@ -55,18 +56,23 @@
       $window.location.assign(API_URI_PREFIX + '/propostas/export/csv/');
     }
 
-		function myProposals(user_id) {
-			return $http.get(API_URI_PREFIX + '/propostas/user/' + user_id + '/');
+		function myProposals(user_id, notice_id) {
+			return $http.get(API_URI_PREFIX + '/propostas/user/' + user_id + '/' + notice_id + '/');
 		}
 
 		function dashboard() {
 			return $http.get(API_URI_PREFIX + '/propostas/dashboard/');
 		}
 
+		function dashboardNotice(notice_id) {
+			return $http.get(API_URI_PREFIX + '/propostas/dashboard/' + notice_id + '/');
+		}
+
 		function createProposal(proposal) {
 			return $http.post(API_URI_PREFIX + '/propostas/', {
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
+					notice: proposal.notice,
 					status: 'draft'
 			});
 		}
@@ -75,6 +81,7 @@
 			return $http.post(API_URI_PREFIX + '/propostas/', {
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
+					notice: proposal.notice,
 					status: 'sended'
 			});
 		}

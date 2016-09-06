@@ -45,6 +45,11 @@
 					<md-option value="canceled">Cancelado</md-option>
 				</md-select>
 			</md-input-container>
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>Edital</label>
+				<md-icon>folder</md-icon>
+				<input ng-model="vm.notice" type="text">
+			</md-input-container>
 		</div>
 	<div class='md-padding' id="client-list" layout="column" layout-align="center">
 		<table class="table table-bordered">
@@ -55,11 +60,12 @@
 					<td>Autor</td>
 					<td>CEAC</td>
 					<td>Status</td>
+					<td>Edital</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="proposal in vm.proposals.results | filter: {title: vm.project_name,
-					id: vm.project_number, ente_info: {author: vm.project_author, ceac: vm.project_ceac}, status: vm.project_status}">
+					id: vm.project_number, ente_info: {author: vm.project_author, ceac: vm.project_ceac}, status: vm.project_status, notice: vm.notice}">
 					<td><a data-ui-sref="admin.propostas.analise.detalhe({number: proposal.number})">{{proposal.title}}</a></td>
 					<td>{{proposal.id}}</td>
 					<td>{{proposal.ente_info.author}}</td>
@@ -70,6 +76,7 @@
 						<span data-ng-show="proposal.status === 'reproved'" class="label label-danger">{{proposal.status_display}}</span>
 						<span data-ng-show="proposal.status === 'canceled'" class="label label-default">{{proposal.status_display}}</span>
 					</td>
+					<td><a data-ui-sref="admin.editais({id: proposal.notice})">{{proposal.notice}}</a></td>
 				</tr>
 			</tbody>
 		</table>

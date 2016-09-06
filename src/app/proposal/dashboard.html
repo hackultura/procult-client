@@ -4,6 +4,19 @@
 			<h1 hide-xs>Painel Principal</h1>
 			<h3 hide-gt-sm hide-sm>Painel Printipal</h3>
 		</div>
+		<div layout-align="end" hide-xs>
+				<md-button class="md-raised md-fab md-primary button_cover" aria-label="Voltar"
+					title="Voltar" data-ui-sref="admin.editais.painel">
+					<md-icon md-font-library="material-icons">arrow_back</md-icon>
+				</md-button>
+			</div>
+
+			<div layout-align="end" hide-gt-sm hide-sm>
+				<md-button class="md-raised md-fab md-mini md-primary button_cover" aria-label="Voltar"
+					title="Voltar" data-ui-sref="admin.editais.painel">
+					<md-icon md-font-library="material-icons md-24">arrow_back</md-icon>
+				</md-button>
+			</div>
 	</div>
 	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
 	<div class="md-padding" layout="row" layout-wrap layout-xs="column" layout-align="center">

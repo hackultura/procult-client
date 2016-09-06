@@ -6,14 +6,14 @@
 		</div>
 		<div layout-align="end center" hide-xs data-ng-show="vm.proposals.length !== 2">
 			<md-button class="md-raised md-fab md-primary button_cover" title="Nova Proposta" title="Nova Proposta"
-				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo">
+				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo({id: vm.edital_id})">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
 		</div>
 
 		<div layout-align="end center" hide-gt-sm hide-sm data-ng-show="vm.proposals.length !== 2">
 			<md-button class="md-raised md-fab md-mini md-primary button_cover" title="Nova Proposta"
-				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo">
+				aria-label="Novo Cliente" data-ui-sref="admin.propostas.novo({id: vm.edital_id})">
 				<md-icon md-font-library="material-icons">add</md-icon>
 			</md-button>
 		</div>
@@ -24,7 +24,7 @@
 	</p>
 	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
 		<h2 data-ng-show="vm.proposals.length === 0" hide-xs>
-			Vimos que você não tem propostas cadastradas. Clique no botão <a data-ui-sref="admin.propostas.novo"><img src="img/button_new_proposal.png" alt="Nova proposta"></a> para inserir.
+			Vimos que você não tem propostas cadastradas. Clique no botão <a data-ui-sref="admin.propostas.novo({id: vm.edital_id})"><img src="img/button_new_proposal.png" alt="Nova proposta"></a> para inserir.
 		</h2>
 		<h4 data-ng-show="vm.proposals.length === 0" hide-gt-sm hide-sm>
 			Clique no botão <img src="img/button_new_proposal.png" width="48" height="48" alt="Nova Proposta"> para inserir.
