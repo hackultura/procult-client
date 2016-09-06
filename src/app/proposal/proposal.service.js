@@ -55,8 +55,8 @@
       $window.location.assign(API_URI_PREFIX + '/propostas/export/csv/');
     }
 
-		function myProposals(user_id) {
-			return $http.get(API_URI_PREFIX + '/propostas/user/' + user_id + '/');
+		function myProposals(user_id, notice_id) {
+			return $http.get(API_URI_PREFIX + '/propostas/user/' + user_id + '/' + notice_id + '/');
 		}
 
 		function dashboard() {
@@ -67,6 +67,7 @@
 			return $http.post(API_URI_PREFIX + '/propostas/', {
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
+					notice: proposal.notice,
 					status: 'draft'
 			});
 		}
@@ -75,6 +76,7 @@
 			return $http.post(API_URI_PREFIX + '/propostas/', {
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
+					notice: proposal.notice,
 					status: 'sended'
 			});
 		}

@@ -23,6 +23,7 @@
     '$cookies',
     'UserService',
     'ProposalService',
+    'EditalService',
     'PROPOSAL_LIMIT'
   ];
 
@@ -42,7 +43,7 @@
     cfpLoadingBarProvider.spinnerTemplate = '<div id="loading-bar"></div></div>';
 
     // Define default router
-    $urlRouterProvider.otherwise('/comunicado');
+    $urlRouterProvider.otherwise('/editais');
 
     // Router templates base
     $stateProvider
@@ -84,7 +85,7 @@
       // Routes of system
       $stateProvider.state('admin.propostas', {
         parent: 'admin',
-        url: '/propostas',
+        url: '/propostas/:id',
         authenticate: true,
         admin: false,
         views: {
@@ -112,7 +113,7 @@
       })
       .state('admin.propostas.novo', {
         parent: 'admin',
-        url: '/propostas/novo',
+        url: '/propostas/:id/novo',
         authenticate: true,
         admin: false,
         views: {
@@ -170,7 +171,7 @@
       })
       .state('admin.propostas.painel', {
         parent: 'admin',
-        url: '/propostas/painel',
+        url: '/painel/:id/',
         authenticate: true,
         admin: true,
         views: {
@@ -182,9 +183,51 @@
           title: 'Painel de Controle'
         }
       })
+      .state('admin.editais.painel', {
+        parent: 'admin',
+        url: '/painel',
+        authenticate: true,
+        admin: true,
+        views: {
+          'content@admin': {
+            templateUrl: '/edital/edital_dashboard.html'
+          }
+        },
+        data: {
+          title: 'Painel de Controle'
+        }
+      })
+      .state('admin.editais.novo', {
+        parent: 'admin',
+        url: '/edital/novo',
+        authenticate: true,
+        admin: true,
+        views: {
+          'content@admin': {
+            templateUrl: '/edital/edital_new.html'
+          }
+        },
+        data: {
+          title: 'Novo Edital'
+        }
+      })
+      .state('admin.editais.editar', {
+        parent: 'admin',
+        url: '/edital/:id/atualizar',
+        authenticate: true,
+        admin: true,
+        views: {
+          'content@admin': {
+            templateUrl: 'edital/edital_update.html'
+          }
+        },
+        data: {
+          title: 'Novo Edital'
+        }
+      })
       .state('admin.propostas.analise', {
         parent: 'admin',
-        url: '/propostas/analise',
+        url: '/analise',
         authenticate: true,
         admin: true,
         views: {
@@ -291,6 +334,22 @@
           title: 'Perfil do Usuário'
         }
       })
+
+      $stateProvider.state('admin.editais', {
+        parent: 'admin',
+        url: '/editais',
+        authenticate: true,
+        admin: false,
+        views: {
+          'content@admin': {
+            templateUrl: '/edital/editais.html'
+          }
+        },
+        data: {
+          title: 'Editais'
+        }
+      })
+
       .state('simple.register', {
         parent: 'simple',
         url: '/registro',
@@ -357,7 +416,7 @@
 
         // If the state need admin permission and user is not admin, redirect
         if(toState.admin && !UserService.isAdmin()) {
-          $state.transitionTo('admin.propostas');
+          $state.transitionTo('admin.editais');
           event.preventDefault();
         }
       });

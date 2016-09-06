@@ -271,15 +271,9 @@
       UserService.login(vm.user.email, vm.user.password).then(function(response){
         UserService.setAuthenticatedAccount(response.data);
         if (UserService.getAuthenticatedAccount().is_admin) {
-          $state.go('admin.propostas.painel');
+          $state.go('admin.editais.painel');
         } else {
-          UserService.canCreateProposal().then(function(response){
-            if (response.data.is_available) {
-              $state.go('admin.propostas.painel');
-            } else {
-              $state.go('admin.comunicado');
-            }
-          });
+          $state.go('admin.editais');
         }
       }, function(error){
         if(error.status === -1) {

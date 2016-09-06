@@ -15,6 +15,7 @@
 
 	ProposalController.$inject = [
 		'$mdDialog',
+		'$stateParams',
 		'UserService',
 		'ProposalService',
 		'AlertService',
@@ -23,6 +24,7 @@
 	];
 	ProposalNewController.$inject = [
 		'$state',
+		'$stateParams',
 		'$timeout',
 		'$mdDialog',
 		'ProposalService',
@@ -68,12 +70,12 @@
   ];
 
 	/* @ngInject */
-	function ProposalController($mdDialog, UserService, ProposalService,
+	function ProposalController($mdDialog, $stateParams, UserService, ProposalService,
 															AlertService, PROPOSAL_LIMIT, PROPOSAL_STATUS) {
 		var vm = this;
 
+		vm.edital_id = $stateParams.id
 		vm.proposals = [];
-
 		vm.errors = [];
 
 		// Functions
@@ -90,7 +92,7 @@
 
 		function listProposal() {
 			var user = UserService.getAuthenticatedAccount();
-			ProposalService.myProposals(user.id).then(function(response){
+			ProposalService.myProposals(user.id, $stateParams.id).then(function(response){
 				vm.proposals = response.data;
 			}, function(error){
 				vm.errors = AlertService.message(error);
@@ -153,10 +155,11 @@
 	}
 
 	/* @ngInject */
-	function ProposalNewController($state, $timeout, $mdDialog, ProposalService,
+	function ProposalNewController($state, $stateParams, $timeout, $mdDialog, ProposalService,
 																 AlertService, UtilsService) {
 		var vm = this;
 
+		vm.edital_id = $stateParams.id
 		vm.proposal = {};
 		vm.errors = [];
 		vm.errorFiles = [];
@@ -198,13 +201,15 @@
 
 		function createProposal() {
 			showDialog();
+			vm.proposal.notice = vm.edital_id
+			console.log(vm.proposal);
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
 
 					ProposalService.setProposalSelected(response.data);
 					vm.proposal.attachments.forEach(function(file){
 						uploadDocuments(response.data, file, function() {
-							$state.go('admin.propostas');
+							$state.go('admin.propostas', {'id': vm.edital_id});
 						});
 					});
 				}
@@ -216,6 +221,7 @@
 
 		function sendProposal() {
 			showDialog();
+			vm.proposal.notice = vm.edital_id
 			ProposalService.sendProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
 					ProposalService.setProposalSelected(response.data);
@@ -330,11 +336,11 @@
 				if (vm.proposal.new_attachments.length > 0) {
 					vm.proposal.new_attachments.forEach(function(file){
 						uploadDocuments(response.data, file);
-						$state.go('admin.propostas');
+						$state.go('admin.propostas', {'id': vm.proposal.notice});
 					});
 				} else {
 					$mdDialog.hide();
-					$state.go('admin.propostas');
+					$state.go('admin.propostas', {'id': vm.proposal.notice});
 				}
 			}, function(error) {
 				$mdDialog.hide();
