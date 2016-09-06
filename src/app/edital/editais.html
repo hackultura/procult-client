@@ -1,0 +1,38 @@
+<div data-ng-controller="EditalController as vm" data-ng-init="vm.init()">
+	<div layout="row" layout-padding  class="cover client_cover">
+		<div layout-align="center" layout-padding flex>
+			<h1 hide-xs>Editais</h1>
+			<h3 hide-gt-sm hide-sm>Editais</h3>
+		</div>
+	</div>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
+	<p data-ng-show="vm.hasOpenEdital == false" class="alert alert-info">
+		Não há nenhum edital aberto no momento
+	</p>
+	<div class='md-padding' id="client-list" layout="row" layout-wrap layout-align="center">
+		<div class="md-padding" layout="row" layout-wrap layout-xs="column" layout-align="center">
+			<md-card class="proposal_box" flex flex-xs="100" data-ng-repeat="edital in vm.editais.results">
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">{{edital.title}}</span>
+						<span class="md-subhead">{{edital.description}}</span>
+					</md-card-title-text>
+					<md-card-title-media hide-xs>
+						<i class="material-icons md-48">folder</i>
+					</md-card-title-media>
+				</md-card-title>
+				<md-card-actions layout="row" layout-align="end center">
+					<div data-ng-show="vm.enableEnterEdital(edital)">
+						<span class="md-subhead">Suas propostas</span>
+						<md-button class="md-fab md-mini md-primary md-hue-2" aria-label="Imprimir Comprovante"
+							data-ui-sref="admin.propostas({id: edital.id})" style="margin-right: 5px;"
+							title="Suas propostas do edital">
+							<md-icon md-font-library="material-icons">folder</md-icon>
+						</md-button>
+					</div>
+					<span data-ng-show="vm.enableEnterEdital(edital) == false" class="md-subhead alert-info">Edital fechado</span>
+				</md-card-actions>
+			</md-card>
+		</div>
+	</div>
+</div>

@@ -185,4 +185,4 @@ gulp.task('build:prod', ['clean', 'usemin:prod', 'usemin:fonts', 'imagemin', 'ht
 
 gulp.task('default', ['build']);
 
-require('es6-promise').polyfill();
+//require('es6-promise').polyfill();
