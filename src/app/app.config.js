@@ -190,7 +190,7 @@
         admin: true,
         views: {
           'content@admin': {
-            templateUrl: '/edital/edital_dashboard.html'
+            templateUrl: 'edital/edital_dashboard.html'
           }
         },
         data: {
@@ -204,7 +204,7 @@
         admin: true,
         views: {
           'content@admin': {
-            templateUrl: '/edital/edital_new.html'
+            templateUrl: 'edital/edital_new.html'
           }
         },
         data: {
@@ -342,7 +342,7 @@
         admin: false,
         views: {
           'content@admin': {
-            templateUrl: '/edital/editais.html'
+            templateUrl: 'edital/editais.html'
           }
         },
         data: {
