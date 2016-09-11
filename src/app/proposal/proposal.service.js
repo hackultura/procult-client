@@ -90,7 +90,8 @@
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
 					ente: proposal.ente,
 					title: proposal.title,
-					status: 'approved'
+					status: 'approved',
+					notice: proposal.notice
 			});
 		}
 
@@ -98,7 +99,8 @@
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
 					ente: proposal.ente,
 					title: proposal.title,
-					status: 'reproved'
+					status: 'reproved',
+					notice: proposal.notice
 			});
 		}
 
@@ -118,7 +120,8 @@
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
-					status: proposal.status || 'draft'
+					status: proposal.status || 'draft',
+					notice: proposal.notice
 			});
 		}
 
@@ -126,7 +129,8 @@
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposal.number + '/', {
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
-					status: 'sended'
+					status: 'sended',
+					notice: proposal.notice
 			});
 		}
 
@@ -138,14 +142,16 @@
 			return $http.put(API_URI_PREFIX + '/propostas/' + proposalSelected.number + '/', {
 				ente: UserService.getAuthenticatedAccount().ente.id,
 				title: proposalSelected.title,
-				status: 'canceled'
+				status: 'canceled',
+				notice: proposal.notice
 			});
 		}
 
 		function uploadDocument(proposal, file) {
 			return Upload.upload({
 				url: API_URI_PREFIX + '/propostas/' + proposal.number + '/upload/',
-				data: {file: file}
+				data: {file: file},
+				notice: proposal.notice
 			});
 		}
 
