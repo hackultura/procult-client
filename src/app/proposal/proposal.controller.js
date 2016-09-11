@@ -202,7 +202,6 @@
 		function createProposal() {
 			showDialog();
 			vm.proposal.notice = vm.edital_id
-			console.log(vm.proposal);
 			ProposalService.createProposal(vm.proposal).then(function(response) {
 				if(response.status === 201) {
 
