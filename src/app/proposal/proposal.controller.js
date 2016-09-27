@@ -59,7 +59,7 @@
 		'$state',
 		'ProposalService'
 	];
-	ProposalDashboardController.$inject = ['ProposalService', 'AlertService', '$stateParams'];
+	ProposalDashboardController.$inject = ['ProposalService', 'AlertService', '$stateParams', '$mdDialog'];
 	ProposalAnalysisController.$inject = ['ProposalService', 'AlertService'];
 	ProposalAnalysisDetailsController.$inject = [
     '$state',
@@ -477,20 +477,56 @@
 	}
 
 	/* @ngInject */
-	function ProposalDashboardController(ProposalService, AlertService, $stateParams) {
+	function ProposalDashboardController(ProposalService, AlertService, $stateParams, $mdDialog) {
 		var vm = this;
 
 		// Functions
 		vm.init = init;
+		vm.notice_id = 0;
 
 		vm.dashboard = [];
 		vm.errors = [];
 
+		vm.exportProposals = exportProposals;
+		vm.downloadFiles = downloadFiles;
+
 		function init() {
+			vm.notice_id = $stateParams.id;
 			ProposalService.dashboardNotice($stateParams.id).then(function(response) {
 				vm.dashboard = response.data;
 			}, function(error) {
 				vm.errors = AlertService.message(error);
+			});
+		}
+
+		function exportProposals() {
+	     	ProposalService.exportProposalsNotice(vm.notice_id);
+	    }
+
+	    function downloadFiles() {
+	     	showDialog();
+	      	ProposalService.downloadFilesNotice(vm.notice_id).then(function(response) {
+	      		if(response.data.url == null) {
+	      			$mdDialog.hide();
+	      			vm.errors.push("Sem arquivos ou propostas em 'Propostas Enviadas'");
+	      			return;
+	      		}
+	        	window.location.assign(response.data.url);
+	        	$mdDialog.hide();
+			}, function(error) {
+				vm.errors = AlertService.message(error);
+			});
+	    }
+
+		function showDialog(ev) {
+			$mdDialog.show({
+				controller: ProposalAnalysisDetailsController,
+				controllerAs: 'vm',
+				templateUrl: 'proposal/downloading_files_proposal.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:false,
+				escapeToClose: false
 			});
 		}
 

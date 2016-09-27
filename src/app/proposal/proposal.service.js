@@ -20,7 +20,8 @@
 		return {
 			query: query,
 			queryPaginate: queryPaginate,
-      exportProposals: exportProposals,
+      		exportProposals: exportProposals,
+      		exportProposalsNotice: exportProposalsNotice,
 			myProposals: myProposals,
 			dashboard: dashboard,
 			dashboardNotice: dashboardNotice,
@@ -41,7 +42,8 @@
 			disableProposal: disableProposal,
 			enableProposal: enableProposal,
 			isCanceledProposal: isCanceledProposal,
-      downloadFiles: downloadFiles
+      		downloadFiles: downloadFiles,
+      		downloadFilesNotice: downloadFilesNotice
 		};
 
 		function query() {
@@ -52,9 +54,13 @@
 			return $http.get(url);
 		}
 
-    function exportProposals() {
-      $window.location.assign(API_URI_PREFIX + '/propostas/export/csv/');
-    }
+	    function exportProposals() {
+	      $window.location.assign(API_URI_PREFIX + '/propostas/export/csv/');
+	    }
+
+    	function exportProposalsNotice(id) {
+	      $window.location.assign(API_URI_PREFIX + '/propostas/export/csv/' + id);
+	    }
 
 		function myProposals(user_id, notice_id) {
 			return $http.get(API_URI_PREFIX + '/propostas/user/' + user_id + '/' + notice_id + '/');
@@ -175,8 +181,12 @@
 			return PROPOSAL_STATUS.canceled === proposal.status;
 		}
 
-    function downloadFiles(proposal) {
+    	function downloadFiles(proposal) {
 			return $http.get(API_URI_PREFIX + '/propostas/' + proposal.number + '/zip/');
-    }
+    	}
+
+    	function downloadFilesNotice(id) {
+			return $http.get(API_URI_PREFIX + '/propostas/zip/' + id);
+    	}
 	}
 }());

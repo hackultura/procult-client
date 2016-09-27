@@ -9,6 +9,14 @@
 					title="Voltar" data-ui-sref="admin.editais.painel">
 					<md-icon md-font-library="material-icons">arrow_back</md-icon>
 				</md-button>
+				<md-button class="md-raised md-fab md-primary button_cover" title="Exportar Propostas" title="Exportar Propostas"
+				aria-label="Exportar Propostas" data-ng-click="vm.exportProposals()">
+					<md-icon md-font-library="material-icons">cloud_download</md-icon>
+				</md-button>
+				<md-button class="md-raised md-fab md-primary button_cover" title="Baixar arquivos" title="Baixar arquivos"
+				aria-label="Baixar Arquivos" data-ng-click="vm.downloadFiles()">
+					<md-icon md-font-library="material-icons">cloud_circle</md-icon>
+				</md-button>
 			</div>
 
 			<div layout-align="end" hide-gt-sm hide-sm>
