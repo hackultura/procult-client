@@ -37,6 +37,7 @@
 				<div class="proposal_info">
 					<p><strong>Nome do Projeto: </strong>{{vm.proposal.title}}</p>
 					<p><strong>Número do Projeto: </strong>{{vm.proposal.id}}</p>
+					<p><strong>Linha do Projeto: </strong>{{vm.proposal.tag_name}}</p>
 					<p><strong>Autor: </strong>{{vm.proposal.ente_info.author}}</p>
 					<p data-ng-show="vm.proposal.ente_info.cpf"><strong>CPF: </strong>{{vm.proposal.ente_info.cpf | brCpf}}</p>
 					<p data-ng-show="vm.proposal.ente_info.cnpj"><strong>CNPJ: </strong>{{vm.proposal.ente_info.cnpj | brCnpj}}</p>

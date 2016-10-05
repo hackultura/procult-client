@@ -160,6 +160,7 @@
 		var vm = this;
 
 		vm.edital_id = $stateParams.id
+		vm.tags = [];
 		vm.proposal = {};
 		vm.errors = [];
 		vm.errorFiles = [];
@@ -175,6 +176,11 @@
 
 		function init() {
 			vm.proposal.attachments = [];
+			ProposalService.getTagNameId($stateParams.id).then(function(response){
+				vm.tags = response.data;
+			}, function(error){
+				vm.errors = AlertService.message(error);
+			});
 		}
 
 		function uploadFiles(files, errorFiles) {
@@ -279,6 +285,7 @@
 		function init() {
 			ProposalService.getProposal($stateParams.number).then(function(response) {
 				vm.proposal = response.data;
+				console.log(vm.proposal);
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
@@ -291,6 +298,7 @@
 		var vm = this;
 
 		vm.proposal = {};
+		vm.tags = [];
 		vm.proposal.attachments = [];
 		vm.proposal.new_attachments = [];
 		vm.errors = [];
@@ -305,14 +313,31 @@
 		vm.sendProposal = sendProposal;
 		vm.deleteDocument = deleteDocument;
 		vm.removeDocumentToUpload = removeDocumentToUpload;
+		vm.getSelectedTag = getSelectedTag;
 
 		function init() {
 			ProposalService.getProposal($stateParams.number).then(function(response) {
 				vm.proposal = response.data;
 				vm.proposal.new_attachments = [];
+				ProposalService.getTagNameId(vm.proposal.notice).then(function(response){
+					vm.tags = response.data;
+					vm.proposal.tag = vm.getSelectedTag(vm.proposal.tag);
+				}, function(error){
+					vm.errors = AlertService.message(error);
+				});
 			}, function(error) {
 				vm.errors = AlertService.message(error);
 			});
+		}
+
+		// angular select uses object reference
+		function getSelectedTag(tag) {
+			for(var i = 0; i < vm.tags.length; i++) {
+				if(vm.tags[i].id == tag){
+					return vm.tags[i];
+				}
+			}
+			return tag;
 		}
 
 		function uploadFiles(files, errorFiles) {

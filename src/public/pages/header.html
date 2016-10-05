@@ -25,6 +25,10 @@
 			<md-icon>accessibility</md-icon>
 			Usuários
 		</md-button>
+		<md-button aria-label="Painel Principal" data-ui-sref="admin.tags" data-ng-show="vm.user.is_admin">
+			<md-icon>folder</md-icon>
+			Tags
+		</md-button>
 		<md-menu md-position-mode="target-right target">
 			<md-button aria-label="Meu usuario" ng-click="$mdOpenMenu($event)">
 				<md-icon data-ng-show="vm.user.ente.cpf">face</md-icon>

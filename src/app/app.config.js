@@ -350,6 +350,60 @@
         }
       })
 
+      $stateProvider.state('admin.tags', {
+        parent: 'admin',
+        url: '/tags',
+        authenticate: true,
+        admin: true,
+        views: {
+          'content@admin': {
+            templateUrl: 'edital/tags.html'
+          }
+        },
+        data: {
+          title: 'Tags'
+        }
+      })
+
+      $stateProvider.state('admin.tags.novo', {
+        parent: 'admin',
+        url: '/tags/novo',
+        authenticate: true,
+        admin: true,
+        views: {
+          'content@admin': {
+            templateUrl: 'edital/tags_new.html'
+          }
+        },
+        data: {
+          title: 'Tags'
+        }
+      })
+
+      .state('admin.tags.editar', {
+        parent: 'admin',
+        authenticate: true,
+        admin: true,
+        url: '/tags/:id/atualizar',
+        views: {
+          'content@admin': {
+            templateUrl: 'edital/tags_update.html'
+          }
+        }
+      })
+
+      .state('admin.tags.edital', {
+        parent: 'admin',
+        authenticate: true,
+        admin: true,
+        url: '/tags/edital/:id/atualizar',
+        views: {
+          'content@admin': {
+            templateUrl: 'edital/tags_edital.html'
+          }
+        }
+      })
+
       .state('simple.register', {
         parent: 'simple',
         url: '/registro',

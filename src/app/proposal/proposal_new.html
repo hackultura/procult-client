@@ -7,14 +7,14 @@
 			</div>
 			<div layout-align="end" hide-xs>
 				<md-button class="md-raised md-fab md-primary button_cover" aria-label="Voltar"
-					title="Voltar" data-ui-sref="admin.propostas">
+					title="Voltar" data-ui-sref="admin.propostas({id: vm.edital_id})">
 					<md-icon md-font-library="material-icons">arrow_back</md-icon>
 				</md-button>
 			</div>
 
 			<div layout-align="end" hide-gt-sm hide-sm>
 				<md-button class="md-raised md-fab md-mini md-primary button_cover" aria-label="Voltar"
-					title="Voltar" data-ui-sref="admin.propostas">
+					title="Voltar" data-ui-sref="admin.propostas({id: vm.edital_id})">
 					<md-icon md-font-library="material-icons md-24">arrow_back</md-icon>
 				</md-button>
 			</div>
@@ -31,6 +31,11 @@
 						<div ng-message="md-maxlength" class="my-message">O nome do projeto precisa ter no máximo 60 caracteres</div>
 					</div>
 				</md-input-container>
+				<label>Linha</label>
+				<select ng-model="vm.proposal.tag" name="tag" ng-options="tag.name for tag in vm.tags" required></select>
+				<div ng-messages="proposalForm.tag.$error" role="alert">
+					<div ng-message="required" class="alert-danger">A linha da proposta é obrigatória</div>
+				</div>
 				<md-content layout-align="center" data-ng-show="proposalForm.title.$valid">
 					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop="vm.uploadFiles($files, $invalidFiles)" ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
 						ngf-min-size="10B" ngf-max-size="25MB" ngf-max-total-size="100MB"
@@ -70,14 +75,14 @@
 				</md-content>
 				<div layout="row" layout-align="center">
 					<md-button class="md-raised md-accent" aria-label="Salvar Projeto" type="submit"
-						title="Salvar Projeto" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
+						title="Salvar Projeto" data-ng-disabled="proposalForm.title.$invalid || proposalForm.tag.$invalid || !vm.isFiles()">
 						<md-icon>save</md-icon>
 						<span hide-xs>Salvar Projeto</span>
 						<span hide-gt-sm hide-sm>Salvar</span>
 					</md-button>
 
 					<md-button class="md-raised md-warn" aria-label="Enviar Projeto" title="Enviar Projeto"
-						data-ng-click="vm.sendProposal()" data-ng-disabled="proposalForm.title.$invalid || !vm.isFiles()">
+						data-ng-click="vm.sendProposal()" data-ng-disabled="proposalForm.title.$invalid || proposalForm.tag.$invalid || !vm.isFiles()">
 						<md-icon>email</md-icon>
 						<span hide-xs>Enviar Projeto</span>
 						<span hide-gt-sm hide-sm>Enviar</span>

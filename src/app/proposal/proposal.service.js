@@ -43,7 +43,8 @@
 			enableProposal: enableProposal,
 			isCanceledProposal: isCanceledProposal,
       		downloadFiles: downloadFiles,
-      		downloadFilesNotice: downloadFilesNotice
+      		downloadFilesNotice: downloadFilesNotice,
+      		getTagNameId: getTagNameId
 		};
 
 		function query() {
@@ -79,7 +80,8 @@
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					notice: proposal.notice,
-					status: 'draft'
+					status: 'draft',
+					tag: proposal.tag.id
 			});
 		}
 
@@ -88,7 +90,8 @@
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					notice: proposal.notice,
-					status: 'sended'
+					status: 'sended',
+					tag: proposal.tag.id
 			});
 		}
 
@@ -127,7 +130,8 @@
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					status: proposal.status || 'draft',
-					notice: proposal.notice
+					notice: proposal.notice,
+					tag: proposal.tag.id
 			});
 		}
 
@@ -136,7 +140,8 @@
 					ente: UserService.getAuthenticatedAccount().ente.id,
 					title: proposal.title,
 					status: 'sended',
-					notice: proposal.notice
+					notice: proposal.notice,
+					tag: proposal.tag.id
 			});
 		}
 
@@ -188,5 +193,9 @@
     	function downloadFilesNotice(id) {
 			return $http.get(API_URI_PREFIX + '/propostas/zip/' + id);
     	}
+
+    	function getTagNameId(id) {
+			return $http.get(API_URI_PREFIX + '/tag_name_id/' + id + '/');
+		}
 	}
 }());
