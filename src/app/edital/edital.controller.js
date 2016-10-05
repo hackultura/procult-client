@@ -265,9 +265,11 @@
 		}
 
 		function isTag(id) {
-			if(vm.edital == null || vm.edital.tags_available == null) return;
-			for(var tag_id of vm.edital.tags_available) {
-				if(tag_id == id) return true;
+			if(vm.edital == null || vm.edital.tags_available == null) {
+				return;
+			}
+			for(var i = 0; i < vm.edital.tags_available.length; i++) {
+				if(vm.edital.tags_available[i] == id) return true;
 			}
 			return false;
 		}
