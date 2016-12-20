@@ -22,6 +22,7 @@
 				<h2 class="md-headline"><strong>Nome do Projeto:</strong> {{vm.proposal.title}}</h2>
 				<h3 class="md-subhead">
 				<p> <strong>Número: </strong> {{vm.proposal.id}} </p>
+				<p><strong>Linha do Projeto: </strong>{{vm.proposal.tag_name}}</p>
 				<p> <strong>Data de Envio: </strong> {{vm.proposal.created_at | date:'dd/MM/yyyy'}} </p>
 				<p> <strong>Status: </strong> {{vm.proposal.status_display}} </p>
 				<p> <strong>Autor: </strong> {{vm.proposal.ente_info.author}} </p>

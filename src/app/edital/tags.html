@@ -1,0 +1,55 @@
+<div data-ng-controller="TagsController as vm" data-ng-init="vm.init()">
+	<div layout="row" layout-padding  class="cover client_cover">
+		<div layout-align="center" layout-padding flex>
+			<h1 hide-xs>Linhas</h1>
+			<h3 hide-gt-sm hide-sm>Linhas</h3>
+		</div>
+
+		<div layout-align="end center" hide-xs>
+			<md-button class="md-raised md-fab md-primary button_cover" title="Criar linhas" title="Criar linhas"
+				aria-label="Nova linha" data-ui-sref="admin.tags.novo">
+				<md-icon md-font-library="material-icons">add</md-icon>
+			</md-button>
+		</div>
+	</div>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>
+	<div class='md-padding' id="client-list" layout="column" layout-align="center">
+		<div layout="row" flex="80" layout-xs="column">
+			<md-input-container class="md-icon-float md-block" flex-gt-sm>
+				<label>Nome da Linha</label>
+				<md-icon>folder</md-icon>
+				<input ng-model="vm.name" type="text">
+			</md-input-container>
+		</div>
+	<div class='md-padding' id="client-list" layout="column" layout-align="center">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td>Nome</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="tag in vm.tags.results | filter: {name: vm.name}">
+					<td>
+						<a data-ui-sref="admin.tags.editar({id: tag.id})">{{tag.name}}</a></td>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div layout="row" layout-align="center">
+			<md-button class="md-raised md-accent" aria-label="Página Anterior" type="submit"
+				title="Página Anterior" data-ng-disabled="vm.tags.next || !vm.tags.previous" data-ng-click="vm.previousPage()">
+				<md-icon>fast_rewind</md-icon>
+				<span hide-xs>Anterior</span>
+				<span hide-gt-sm hide-sm>Anterior</span>
+			</md-button>
+
+			<md-button class="md-raised md-accent" aria-label="Próxima Página" type="submit"
+				title="Próxima Página" data-ng-disabled="!vm.tags.next || vm.tag.previous" data-ng-click="vm.nextPage()">
+				<md-icon>fast_forward</md-icon>
+				<span hide-xs>Próximo</span>
+				<span hide-gt-sm hide-sm>Próximo</span>
+			</md-button>
+		</div>
+	</div>
+</div>

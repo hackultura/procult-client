@@ -1,0 +1,45 @@
+<div data-ng-controller="TagsEditalController as vm" data-ng-init="vm.init()">
+	<div layout="row" layout-padding  class="cover client_cover">
+		<div layout-align="center" layout-padding flex>
+			<h1 hide-xs>Linhas do Edital: {{vm.edital.title}} </h1>
+			<h3 hide-gt-sm hide-sm>Linhas</h3>
+		</div>
+
+		<div layout-align="end center" hide-xs>
+			<md-button class="md-raised md-fab md-primary button_cover" title="Criar linhas" title="Voltar"
+				aria-label="Voltar" data-ui-sref="admin.editais.painel">
+				<md-icon md-font-library="material-icons">arrow_back</md-icon>
+			</md-button>
+			<md-button class="md-raised md-fab md-primary button_cover" title="Criar linhas" title="Criar linhas"
+				aria-label="Nova linha" data-ui-sref="admin.tags.novo">
+				<md-icon md-font-library="material-icons">add</md-icon>
+			</md-button>
+		</div>
+	</div>
+	<p ng-repeat="(name, errs) in vm.errors" class="alert alert-danger"><strong>Erro! </strong>: {{ errs }}</p>	
+	<form name="tagEditalForm" method="post" layout="row" data-ng-submit="vm.saveTags()" layout-padding layout-align="center">
+	<div class='md-padding' id="client-list" layout="column" layout-align="center">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<td>Nome da Linha</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="(id, tag) in vm.allTags.results">
+						<td>
+							<span>{{tag.name}}</span>
+		                	<input ng-model="vm.tags[id]" ng-checked="vm.isTag(tag.id)" name="tag.id" type="checkbox" ng-true-value="{{tag.id}}" ng-false-value="false" autofocus>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<md-button class="md-raised md-accent" aria-label="Salvar Edital" type="submit"
+				title="Salvar Linhas">
+				<md-icon>save</md-icon>
+				<span hide-xs>Salvar Linhas</span>
+				<span hide-gt-sm hide-sm>Salvar</span>
+			</md-button>	
+		</div>	
+	</form>	
+</div>

@@ -31,6 +31,11 @@
 						<div ng-message="md-maxlength" class="my-message">O nome do projeto precisa ter no máximo 60 caracteres</div>
 					</div>
 				</md-input-container>
+				<label>Linha</label>
+				<select ng-model="vm.proposal.tag" name="tag" ng-options="tag.name for tag in vm.tags" required></select>
+				<div ng-messages="proposalForm.tag.$error" role="alert">
+					<div ng-message="required" class="alert-danger">A linha da proposta é obrigatória</div>
+				</div>
 				<md-content layout-align="center" data-ng-show="proposalForm.title.$valid">
 					<div ngf-select="vm.uploadFiles($files, $invalidFiles)" ngf-drop="vm.uploadFiles($files, $invalidFiles)"
 						ngf-accept="vm.acceptFiles" ngf-pattern="vm.acceptFiles"
