@@ -12,9 +12,9 @@
     .controller('LoginController', LoginController);
 
   UserController.$inject = ['$mdDialog', 'UserService', 'AlertService'];
-  UserProfileController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
-  UserRegisterController.$inject = ['UserService', 'AlertService', '$state'];
-  UserUpdateController.$inject = ['$state', '$stateParams', '$filter', 'UserService', 'AlertService'];
+  UserProfileController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService', 'UtilsService'];
+  UserRegisterController.$inject = ['UserService', 'AlertService', '$state', 'UtilsService'];
+  UserUpdateController.$inject = ['$state', '$stateParams', '$filter', 'UserService', 'AlertService', 'UtilsService'];
   UserDeleteController.$inject = ['$state', '$mdDialog', 'UserService', 'AlertService'];
   UserChangePasswordController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
   LoginController.$inject = ['$state', 'UserService', 'ProposalService'];
@@ -76,11 +76,13 @@
   }
 
   /* @ngInject */
-  function UserProfileController($state, $stateParams, UserService, AlertService) {
+  function UserProfileController($state, $stateParams, UserService, AlertService, UtilsService) {
     var vm = this;
 
     vm.user = {};
     vm.errors = [];
+
+    vm.admin_regions = UtilsService.admin_regions();
 
     vm.init = init;
     vm.saveProfile = saveProfile;
@@ -89,6 +91,8 @@
     function init() {
       UserService.getUser($stateParams.id).then(function(response) {
         vm.user = response.data;
+        if(vm.user.admin_region > 0)
+          vm.user.admin_region_s = vm.admin_regions[vm.user.admin_region-1]        
       }, function(error) {
         vm.errors = AlertService.message(error);
       });
@@ -103,12 +107,13 @@
     }
 
     function updateProfile() {
+      vm.user.admin_region = vm.admin_regions.indexOf(vm.user.admin_region_s)+1;
       UserService.updateUser($stateParams.id, vm.user).then(function() {
         UserService.setAuthenticatedAccount(vm.user);
         if(vm.user.is_admin) {
-          $state.go('admin.propostas.painel');
+          $state.go('admin.editais.painel');
         } else {
-          $state.go('admin.propostas');
+          $state.go('admin.editais');
         }
       }, function(error) {
         vm.errors = AlertService.message(error);
@@ -117,7 +122,7 @@
   }
 
   /* @ngInject */
-  function UserRegisterController(UserService, AlertService, $state) {
+  function UserRegisterController(UserService, AlertService, $state, UtilsService) {
     var vm = this;
 
     // Variables
@@ -125,6 +130,8 @@
     vm.user_admin = false;
     vm.user = {};
     vm.errors = [];
+
+    vm.admin_regions = UtilsService.admin_regions();
 
     //Functions
     vm.init = init;
@@ -143,6 +150,8 @@
     }
 
     function createUser() {
+      // The regions index start at 1 on server-side
+      vm.user.admin_region = vm.admin_regions.indexOf(vm.user.admin_region_s)+1;
       UserService.createUser(vm.user).then(function(){
         $state.transitionTo($state.previous.name, $state.previous.params);
       }, function(error) {
@@ -151,6 +160,7 @@
     }
 
     function createAdmin() {
+      vm.user.admin_region = vm.admin_regions.indexOf(vm.user.admin_region_s)+1;
       UserService.createAdmin(vm.user).then(function() {
         $state.transitionTo($state.previous.name, $state.previous.params);
       }, function(erro){
@@ -160,11 +170,15 @@
   }
 
   /* @ngInject */
-  function UserUpdateController($state, $stateParams, $filter, UserService, AlertService) {
+  function UserUpdateController($state, $stateParams, $filter, UserService, AlertService, UtilsService) {
     var vm = this;
 
     vm.init = init;
     vm.updateUser = updateUser;
+
+    vm.admin_regions = UtilsService.admin_regions();
+
+    vm.is_juri = false;
 
     vm.user = {};
     vm.errors = [];
@@ -173,12 +187,25 @@
       UserService.getUser($stateParams.id).then(function(response) {
         vm.user = response.data;
         vm.user = filterUserData(vm.user);
+        if(vm.user.admin_region > 0)
+          vm.user.admin_region_s = vm.admin_regions[vm.user.admin_region-1];
+        if(vm.user.ente.cnpj)
+          vm.is_juri = true;
       }, function(error) {
         vm.errors = AlertService.message(error);
       });
     }
 
     function updateUser() {
+      console.log(vm.user.ente.cnpj);
+      // Clean cpf string, this can give wrong value if not altered
+      if(vm.user.ente.cpf)
+        vm.user.ente.cpf = vm.user.ente.cpf.split('.').join('').split('-').join('');
+
+      if(vm.user.ente.cnpj)
+        vm.user.ente.cnpj = vm.user.ente.cnpj.split('.').join('').split('-').join('').split('/').join('');;
+      // The regions index start at 1 on server-side
+      vm.user.admin_region = vm.admin_regions.indexOf(vm.user.admin_region_s)+1;
       UserService.updateUser($stateParams.id, vm.user).then(function() {
         $state.go('admin.usuarios');
       }, function(error) {

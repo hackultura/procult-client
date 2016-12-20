@@ -23,5 +23,14 @@
 			'.aiff', '.voc', '.midi', '.mpg', '.mov', '.webm',
 			'.dv', '.svg', '.cdr',
 			'.zip', '.7z', '.rar',
+		])
+		.constant('ADMIN_REGION', [
+        "Brasília", "Gama", "Taguatinga", "Brazlândia",
+        "Sobradinho", "Planaltina", "Paranoá", "Núcleo Bandeirante",
+        "Ceilândia", "Guará", "Cruzeiro", "Samambaia", "Santa Maria",
+        "São Sebastião", "Recanto das Emas", "Lago Sul", "Riacho Fundo",
+        "Lago Norte", "Candangolândia", "Águas Claras", "Riacho Fundo II",
+        "Sudoeste/Octogonal", "Varjão", "Park Way", "SCIA", "Sobradinho II",
+        "Jardim Botânico", "Itapoã", "SIA", "Vicente Pires", "Fercal",
 		]);
 }());
