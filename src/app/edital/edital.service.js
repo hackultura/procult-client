@@ -46,6 +46,7 @@
 					title: edital.title,
 					description: edital.description,
 					is_available: edital.is_available,
+					tags_available: edital.tags_available,
 			});
 		}
 
