@@ -12,9 +12,9 @@
     .controller('LoginController', LoginController);
 
   UserController.$inject = ['$mdDialog', 'UserService', 'AlertService'];
-  UserProfileController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService', 'UtilsService'];
-  UserRegisterController.$inject = ['UserService', 'AlertService', '$state', 'UtilsService'];
-  UserUpdateController.$inject = ['$state', '$stateParams', '$filter', 'UserService', 'AlertService', 'UtilsService'];
+  UserProfileController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService', 'UserUtilsService'];
+  UserRegisterController.$inject = ['UserService', 'AlertService', '$state', 'UserUtilsService'];
+  UserUpdateController.$inject = ['$state', '$stateParams', '$filter', 'UserService', 'AlertService', 'UserUtilsService'];
   UserDeleteController.$inject = ['$state', '$mdDialog', 'UserService', 'AlertService'];
   UserChangePasswordController.$inject = ['$state', '$stateParams', 'UserService', 'AlertService'];
   LoginController.$inject = ['$state', 'UserService', 'ProposalService'];
@@ -76,13 +76,13 @@
   }
 
   /* @ngInject */
-  function UserProfileController($state, $stateParams, UserService, AlertService, UtilsService) {
+  function UserProfileController($state, $stateParams, UserService, AlertService, UserUtilsService) {
     var vm = this;
 
     vm.user = {};
     vm.errors = [];
 
-    vm.admin_regions = UtilsService.admin_regions();
+    vm.admin_regions = UserUtilsService.admin_regions();
 
     vm.init = init;
     vm.saveProfile = saveProfile;
@@ -122,7 +122,7 @@
   }
 
   /* @ngInject */
-  function UserRegisterController(UserService, AlertService, $state, UtilsService) {
+  function UserRegisterController(UserService, AlertService, $state, UserUtilsService) {
     var vm = this;
 
     // Variables
@@ -131,8 +131,8 @@
     vm.user = {};
     vm.errors = [];
 
-    vm.admin_regions = UtilsService.admin_regions();
-
+    vm.admin_regions = UserUtilsService.admin_regions();
+    
     //Functions
     vm.init = init;
     vm.setProfile = setProfile;
@@ -170,13 +170,13 @@
   }
 
   /* @ngInject */
-  function UserUpdateController($state, $stateParams, $filter, UserService, AlertService, UtilsService) {
+  function UserUpdateController($state, $stateParams, $filter, UserService, AlertService, UserUtilsService) {
     var vm = this;
 
     vm.init = init;
     vm.updateUser = updateUser;
 
-    vm.admin_regions = UtilsService.admin_regions();
+    vm.admin_regions = UserUtilsService.admin_regions();
 
     vm.is_juri = false;
 

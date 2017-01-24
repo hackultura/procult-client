@@ -164,7 +164,7 @@
 		vm.proposal = {};
 		vm.errors = [];
 		vm.errorFiles = [];
-		vm.acceptFiles = UtilsService.accept_files;
+		vm.acceptFiles = UtilsService.accept_files();
 
 		// Functions
 		vm.init = init;
@@ -303,7 +303,7 @@
 		vm.proposal.new_attachments = [];
 		vm.errors = [];
 		vm.errorFiles = [];
-		vm.acceptFiles = UtilsService.accept_files;
+		vm.acceptFiles = UtilsService.accept_files();
 
 		// Functions
 		vm.init = init;

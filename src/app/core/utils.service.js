@@ -3,10 +3,11 @@
 
 	angular
 		.module('procultApp')
-		.factory('UtilsService', UtilsService);
+		.factory('UtilsService', UtilsService)
+		.factory('UserUtilsService', UserUtilsService);
 
 	UtilsService.$inject = ['ACCEPTED_FORMAT_UPLOADS'];
-	UtilsService.$inject = ['ADMIN_REGION'];
+	UserUtilsService.$inject = ['ADMIN_REGION'];
 
 	function UtilsService(ACCEPTED_FORMAT_UPLOADS) {
 		return {
@@ -18,7 +19,7 @@
 		}
 	}
 
-	function UtilsService(ADMIN_REGION) {
+	function UserUtilsService(ADMIN_REGION) {
 		return {
 			admin_regions: admin_regions,
 		};
